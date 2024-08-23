@@ -1,0 +1,56 @@
+category,subcategory,question,required,answer-1,score-1,answer-2,score-2
+10,10,Has your organization established a detailed inventory of enterprise assets?,1,Yes,1,No,0
+10,10,Does your organization implement and manage firewalls on servers to control incoming and outgoing traffic?,1,Yes,1,No,0
+10,10,Are firewalls implemented and managed on end-user devices to protect against unauthorized access?,1,Yes,1,No,0
+10,10,Does your organization deploy and maintain anti-malware software on all systems to protect against malicious software?,1,Yes,1,No,0
+10,10,Are automatic updates configured for anti-malware software signatures to ensure protection against the latest threats?,1,Yes,1,No,0
+10,10,Has your organization disabled autorun and autoplay features for removable media to prevent the automatic execution of malicious code?,1,Yes,1,No,0
+10,10,Does your organization have processes in place to identify and address unauthorized assets within the network?,1,Yes,1,No,0
+10,10,Does your organization encrypt data stored on end-user devices to protect sensitive information from unauthorized access or exposure?,1,Yes,1,No,0
+11,14,Does your organization maintain an up-to-date inventory of software assets?,1,Yes,1,No,0
+11,14,Does your organization ensure that all authorized software is currently supported by vendors,1,Yes,1,No,0
+11,14,Has your organization established and maintained a process to ensure secure configurations of systems and applications?,1,Yes,1,No,0
+11,14,Does your organization have a process in place to regularly identify and mitigate vulnerabilities in systems and software?,1,Yes,1,No,0
+11,14,Is automated patch management implemented for operating systems to ensure timely installation of security updates?,1,Yes,1,No,0
+11,14,Is automated patch management implemented for applications to ensure timely installation of security updates?,1,Yes,1,No,0
+11,14,Does your organization ensure that only fully supported browsers and email clients are used to minimize security risks?,1,Yes,1,No,0
+11,14,Are there procedures in place to identify and mitigate the use of unauthorized software within your organization?,1,Yes,1,No,0
+13,19,Has your organization established and maintained a process to ensure secure configurations of network infrastructure components?,1,Yes,1,No,0
+13,19,Does your organization securely manage enterprise assets and software to prevent unauthorized access?,1,Yes,1,No,0
+13,19,Has your organization established and maintained a process for managing audit logs to track system activities?,1,Yes,1,No,0
+13,19,Does your organization ensure adequate storage capacity for audit logs to retain them for the required duration?,1,Yes,1,No,0
+13,19,Does your organization use DNS filtering services to block access to known malicious websites?,1,Yes,1,No,0
+13,19,Does your organization ensure that network infrastructure components are regularly updated to address security vulnerabilities?,1,Yes,1,No,0
+13,19,Does your organization collect audit logs to monitor and track system activities?,1,Yes,1,No,0
+15,23,Has your organization established a structured data management process?,1,Yes,1,No,0
+15,23,Does your organization maintain an inventory of data assets?,1,Yes,1,No,0
+15,23,Has your organization established and maintained an inventory of service providers?,1,Yes,1,No,0
+15,23,Does your organization configure data access control lists to control access to sensitive data?,1,Yes,1,No,0
+15,23,Does your organization enforce data retention policies to retain data for the required duration?,1,Yes,1,No,0
+15,23,Does your organization securely dispose of data using approved methods to prevent unauthorized access?,1,Yes,1,No,0
+15,23,Is data stored on end-user devices encrypted to protect against unauthorized access?,1,Yes,1,No,0
+15,23,Does your organization implement measures to protect recovery data from unauthorized access or modification?,1,Yes,1,No,0
+15,23,Has your organization established a data recovery process to restore data in the event of a system failure or data loss?,1,Yes,1,No,0
+15,23,Does your organization perform automated backups of critical data to ensure its availability in case of data loss or corruption?,1,Yes,1,No,0
+17,28,Does your organization maintain an inventory of user accounts?,1,Yes,1,No,0
+17,28,Is automatic session locking configured on enterprise assets to prevent unauthorized access?,1,Yes,1,No,0
+17,28,Does your organization enforce the use of unique passwords for user accounts?,1,Yes,1,No,0
+17,28,Are administrator privileges restricted to dedicated administrator accounts within your organization?,1,Yes,1,No,0
+17,28,Has your organization established a formal process for granting access to resources?,1,Yes,1,No,0
+17,28,Does your organization have a defined process for revoking access to resources when needed?,1,Yes,1,No,0
+17,28,Is multi-factor authentication required for externally-exposed applications?,1,Yes,1,No,0
+17,28,Does your organization mandate multi-factor authentication for remote network access?,1,Yes,1,No,0
+17,28,Is multi-factor authentication enforced for administrative access to systems and applications?,1,Yes,1,No,0
+17,28,Does your organization manage default accounts on enterprise assets and software to prevent unauthorized access?,1,Yes,1,No,0
+17,28,Has your organization established and maintained a security awareness program to educate employees about security risks and best practices?,1,Yes,1,No,0
+17,28,Does your organization provide training to employees to recognize and respond to social engineering attacks?,1,Yes,1,No,0
+17,28,Are employees trained on authentication best practices to safeguard against unauthorized access?,1,Yes,1,No,0
+17,28,Are employees trained on data handling best practices to ensure the secure handling of sensitive information?,1,Yes,1,No,0
+17,28,Does your organization provide training to employees on the causes of unintentional data exposure and how to prevent it?,1,Yes,1,No,0
+17,28,Are employees trained to recognize and promptly report security incidents to appropriate personnel?,1,Yes,1,No,0
+17,28,Are employees trained on how to identify and report if their enterprise assets are missing security updates?,1,Yes,1,No,0
+17,28,Does your organization educate employees on the risks associated with connecting to and transmitting enterprise data over insecure networks?,1,Yes,1,No,0
+17,28,Is there a process to regularly identify and disable dormant user accounts within your organization's systems?,1,Yes,1,No,0
+17,28,Has your organization designated specific personnel responsible for managing incident handling and response?,1,Yes,1,No,0
+17,28,Does your organization maintain updated contact information for reporting security incidents to the appropriate authorities?,1,Yes,1,No,0
+17,28,Has your organization established a formal process for reporting security incidents across the enterprise?,1,Yes,1,No,0

@@ -1,0 +1,41 @@
+category,subcategory,question,required,answer-1,score-1,answer-2,score-2,answer-3,score-3
+30,45,"Inputs into the change management process are defined (may include a business case, charter, scope, or plan).",1,Inadequate,1,Adequate,2,Exceptional,3
+30,45,Organizational benefits are fully defined (what the organization gains).,1,Inadequate,1,Adequate,2,Exceptional,3
+30,45,Project objectives are fully defined (what the project achieves).,1,Inadequate,1,Adequate,2,Exceptional,3
+30,45,Adoption and usage objectives are fully defined.,1,Inadequate,1,Adequate,2,Exceptional,3
+30,45,Units of measure for benefits and objectives are established.,1,Inadequate,1,Adequate,2,Exceptional,3
+30,45,Benefits and objectives are prioritized.,1,Inadequate,1,Adequate,2,Exceptional,3
+30,45,Benefit and objective ownership is designated.,1,Inadequate,1,Adequate,2,Exceptional,3
+30,45,People dependency of benefits and objectives is evaluated.,1,Inadequate,1,Adequate,2,Exceptional,3
+30,45,The definition of success is clear and ready to be communicated.,1,Inadequate,1,Adequate,2,Exceptional,3
+30,45,The sponsorship coalition is aligned to a common definition of success.,1,Inadequate,1,Adequate,2,Exceptional,3
+32,47,"The change has a primary sponsor with the necessary authority over the people, processes and systems to authorize and fund the change.",1,Inadequate,1,Adequate,2,Exceptional,3
+32,47,"The primary sponsor can clearly explain the nature of the change, the reason for the change, and the benefits for the organization.",1,Inadequate,1,Adequate,2,Exceptional,3
+32,47,The organization has a clearly defined vision and strategy.,1,Inadequate,1,Adequate,2,Exceptional,3
+32,47,The change is aligned with the strategy and vision for the organization.,1,Inadequate,1,Adequate,2,Exceptional,3
+32,47,Priorities are set and communicated regarding the change and other competing priorities.,1,Inadequate,1,Adequate,2,Exceptional,3
+32,47,"The primary sponsor is resolving issues and making decisions related to the project schedule, scope and resources.",1,Inadequate,1,Adequate,2,Exceptional,3
+32,47,The primary sponsor is actively and visibly participating throughout the lifecycle of the change.,1,Inadequate,1,Adequate,2,Exceptional,3
+32,47,The primary sponsor is encouraging senior leaders to participate in and support the change by building a sponsor coalition.,1,Inadequate,1,Adequate,2,Exceptional,3
+32,47,The primary sponsor is building awareness of the need for the change directly with employees.,1,Inadequate,1,Adequate,2,Exceptional,3
+32,47,The primary sponsor is visibly reinforcing the change by celebrating successes and addressing resistance.,1,Inadequate,1,Adequate,2,Exceptional,3
+33,48,The nature of the change is clearly defined including who is impacted and how.,1,Inadequate,1,Adequate,2,Exceptional,3
+33,48,The project has specific objectives.,1,Inadequate,1,Adequate,2,Exceptional,3
+33,48,The project has a clearly defined scope.,1,Inadequate,1,Adequate,2,Exceptional,3
+33,48,The project has a project manager assigned to manage the project lifecycle.,1,Inadequate,1,Adequate,2,Exceptional,3
+33,48,Project milestones are identified and a project schedule is complete.,1,Inadequate,1,Adequate,2,Exceptional,3
+33,48,A work breakdown structure with deliverables is complete.,1,Inadequate,1,Adequate,2,Exceptional,3
+33,48,Resources for the project are identified and acquired.,1,Inadequate,1,Adequate,2,Exceptional,3
+33,48,Periodic meetings are scheduled with the project team and key stakeholders to track progress and resolve issues.,1,Inadequate,1,Adequate,2,Exceptional,3
+33,48,The project manager understands the value of change management in ensuring the change will be adopted and used.,1,Inadequate,1,Adequate,2,Exceptional,3
+33,48,The Change Management Plan is integrated with the Project Management Plan.,1,Inadequate,1,Adequate,2,Exceptional,3
+7,6,The change is applying a structured change management approach to deliver the benefits to the organization.,1,Inadequate,1,Adequate,2,Exceptional,3
+7,6,An assessment of the change and its impact on individuals and the organization is complete.,1,Inadequate,1,Adequate,2,Exceptional,3
+7,6,An assessment of the change risk is complete.,1,Inadequate,1,Adequate,2,Exceptional,3
+7,6,The change has specific adoption and usage objectives.,1,Inadequate,1,Adequate,2,Exceptional,3
+7,6,An assessment of the strength of the sponsor coalition is complete.,1,Inadequate,1,Adequate,2,Exceptional,3
+7,6,A customized and scaled change management strategy with the necessary sponsorship commitment is complete.,1,Inadequate,1,Adequate,2,Exceptional,3
+7,6,"The resources required to execute the change strategy and plans are identified, acquired and prepared.",1,Inadequate,1,Adequate,2,Exceptional,3
+7,6,Change management plans that will mitigate resistance and achieve adoption and usage are complete and are being implemented.,1,Inadequate,1,Adequate,2,Exceptional,3
+7,6,The effectiveness of change management is being monitored and adaptive actions are being taken if required to achieve adoption and usage.,1,Inadequate,1,Adequate,2,Exceptional,3
+7,6,The organization is prepared to own and sustain the change.,1,Inadequate,1,Adequate,2,Exceptional,3

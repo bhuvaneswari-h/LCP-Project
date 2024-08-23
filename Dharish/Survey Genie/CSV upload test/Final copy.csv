@@ -1,0 +1,11 @@
+category,subcategory,question,required,answer-1,score-1,answer-2,score-2,answer-3,score-3,answer-4,score-4,answer-5,score-5
+88,128,What is your highest level of education?,1,High school,1,Associate's degree,2,Bachelor's degree,3,Master's degree,4,PhD,5
+88,128,Are you currently a student?,1,Yes,1,No,2,,,,,,
+88,129,How satisfied are you with your education?,1,Very satisfied,1,Satisfied,2,Neutral,3,Dissatisfied,4,Very dissatisfied,5
+88,129,What is your preferred learning style?,1,Visual,1,Auditory,2,Kinesthetic,3,Reading/writing,4,Other,5
+88,130,How important is lifelong learning to you?,1,Very important,1,Somewhat important,2,Not very important,3,Not important at all,4,,
+89,131,How often do you use technology for learning?,1,Daily,1,Weekly,2,Monthly,3,Rarely,4,Never,5
+89,131,What technology tools do you use for learning?,1,Online courses,1,Mobile apps,2,Ebooks,3,Social media,4,Other,5
+89,131,How helpful is technology for learning?,1,Very helpful,1,Somewhat helpful,2,Not very helpful,3,Not helpful at all,4,,
+89,132,Do you prefer online or in-person learning?,1,Online,1,In-person,2,Both,3,,,,
+89,132,,1,Very important,1,Somewhat important,2,Not very important,3,Not important at all,4,,

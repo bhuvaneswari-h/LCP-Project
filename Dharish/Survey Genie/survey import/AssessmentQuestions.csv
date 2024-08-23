@@ -1,0 +1,325 @@
+id,subjectId,topicId,question,assessmentId,AnswersCount
+1,1,1,Define data governance for the organization,1,6
+2,1,1,Perform Readiness Assessment,1,6
+3,1,1,Perform Discovery and Business Alignment,1,6
+4,1,1,Develop Organizational Touch Points,1,6
+5,1,1,Develop Data Governance Strategy,1,6
+6,1,1,Define the DG Operating Framework,1,6
+7,1,1,"Develop Goals, Principles, and Policies",1,6
+8,1,1,Underwrite Data Management Projects,1,6
+9,1,1,Engage Change Management,1,6
+10,1,1,Engage in Issue Management,1,6
+11,1,1,Assess Regulatory Compliance Requirements,1,6
+12,1,1,Implement Data Governance,1,6
+13,1,1,Sponsor Data Standards and Procedures,1,6
+14,1,1,Develop a Business Glossary,1,6
+15,1,1,Coordinate with Architecture Groups,1,6
+16,1,1,Sponsor Data Asset Valuation,1,6
+17,1,1,Embed Data Governance,1,6
+18,2,2,Establish Data Architecture Practice,1,6
+19,2,2,Evaluate Existing Data Architecture Specifications,1,6
+20,2,2,Develop a Roadmap,1,6
+21,2,2,Manage Enterprise Requirements within Projects,1,6
+22,2,2,Integrate with Enterprise Architecture,1,6
+23,3,3,Plan for Data Modeling,1,6
+24,3,3,Build the Data Model,1,6
+25,3,3,Review the Data Models,1,6
+26,3,3,Maintain the Data Models,1,6
+27,4,4,Manage Database Technology,1,6
+28,4,4,Manage Databases,1,6
+29,5,5,Identify Data Security Requirements,1,6
+30,5,5,Define Data Security Policy,1,6
+31,5,5,Define Data Security Standards,1,6
+32,6,6,Plan and Analyze Data Integration,1,6
+33,6,6,Design Data Integration Solutions,1,6
+34,6,6,Develop Data Integration Solutions,1,6
+35,6,6,Implement and Monitor Data Integration,1,6
+36,7,7,Plan for Lifecycle Management,1,6
+37,7,7,Manage the Lifecycle,1,6
+38,7,7,Publish and Deliver Content,1,6
+39,8,8,MDM Activities,1,6
+40,8,8,Reference Data Activities,1,6
+41,9,9,Understand Requirements,1,6
+42,9,9,Define and Maintain the DW/BI Architecture,1,6
+43,9,9,Develop the Data Warehouse and Data Marts,1,6
+44,9,9,Populate the Data Warehouse,1,6
+45,9,9,Implement the Business Intelligence Portfolio,1,6
+46,9,9,Maintain Data Products,1,6
+47,10,10,Define Metadata Strategy,1,6
+48,10,10,Understand Metadata Requirements,1,6
+49,10,10,Define Metadata Architecture,1,6
+50,10,10,Create and Maintain Metadata,1,6
+51,10,10,"Query, Report, and Analyze Metadata",1,6
+52,11,11,Define High Quality Data,1,6
+53,11,11,Define a Data Quality Strategy,1,6
+54,11,11,Identify Critical Data and Business Rules,1,6
+55,11,11,Perform an Initial Data Quality Assessment,1,6
+56,11,11,Identify and Prioritize Potential Improvements,1,6
+57,11,11,Define Goals for Data Quality Improvement,1,6
+58,11,11,Develop and Deploy Data Quality Operations,1,6
+59,13,12,"Leadership (Thinking of senior leadership in your company, which of the following statements best describes their behaviour when it comes to digital transformation in the company?)",2,6
+60,13,12,Risk appetite,2,6
+61,13,12,Eco-system,2,6
+62,13,12,Collaboration,2,6
+63,13,12,Agility,2,6
+64,13,28,Technology as a multiplier,2,6
+65,13,28,Data and APIs,2,6
+66,13,28,AI/ML/automation,2,6
+67,13,28,Connectivity and IOT,2,6
+68,13,28,Security,2,6
+69,13,29,Culture,2,6
+70,13,29,Work-force planning,2,6
+71,13,29,Capability development,2,6
+72,13,29,Collaboration,2,6
+73,13,29,Work composition,2,6
+74,14,30,Insight and testing,2,6
+75,14,30,Segmentation and Personalisation,2,6
+76,14,30,Metrics and ownership,2,6
+77,14,30,Customer journeys,2,6
+78,14,30,Lifetime value,2,6
+79,14,31,"Product reliability, pricing, and convenience",2,6
+80,14,31,Cost reduction and process optimisation,2,6
+81,14,31,Information excellence,2,6
+82,14,31,Automation and augmentation,2,6
+83,14,31,Asset management,2,6
+84,14,32,Differentiation,2,6
+85,14,32,Ideation,2,6
+86,14,32,Development,2,6
+87,14,32,Testing,2,6
+88,14,32,Customer education,2,6
+89,11,11,"In your organization, do employees trust the quality of data to make decisions?",3,6
+90,11,11,"In your organization, are there quality metrics defined for your data and are they approved by a Data Governance Board?\n",3,6
+91,11,11,"In your organization, are data quality issues documented?\n",3,6
+92,11,11,"In your organization, is there a clear agreement between technical and business domains on managing data quality issues?",3,6
+93,11,11,"In your organization, is there a process for managing data quality issues?",3,6
+94,11,11,"In your organization, how often are data quality metrics used by the technical domains?\n",3,6
+95,11,11,"In your organization, how often are data quality metrics used by the business domains?\n",3,6
+96,11,11,"In your organization, is there a process to take corrective action and/or improve data quality metrics based on feedback from the business or the Data Governance Board?",3,6
+97,11,11,"How does your organization ensure the accuracy, completeness, and reliability of its data?",3,6
+98,11,11,How confident are you that your answers for this section are correct and offer a fair and balanced view?,3,6
+99,2,2,"In your organisation, do you have a defined and documented data architecture?",3,6
+100,2,2,"In your organization, is the architecture of the structured and semi-structured data systems based on established standards?",3,6
+101,2,2,"In your organization, is the architecture of the unstructured data systems based on established standards?",3,6
+102,2,2,"In your organization, is there a process established to strengthen compliance with architectural standards in data governance?",3,6
+103,2,2,Have your organizational needs to optimize the architecture of the structured and semi-structured data systems been identified and defined?,3,6
+104,2,2,Have your organizational needs to optimize the architecture of the unstructured data systems been identified and defined?,3,6
+105,2,2,How sophisticated and effective is your organization's data architecture in supporting business objectives and data-driven decision making?,3,6
+106,2,2,"In your organization, do specific data domains (e.g., customers, providers, and products) have their own system of record (i.e., a single system for backing up and retrieving information to ensure data integrity and traceability of changes)?",3,6
+107,2,2,How confident are you that your answers for this section are correct and offer a fair and balanced view?,3,6
+108,5,5,"In your organization, is there a data governance security and privacy policy for the data in structured and semi-structured formats?",3,6
+109,5,5,"In your organization, is there any governance, security and privacy policy for  unstructured data (e.g. not in a relational database)?",3,6
+110,5,5,"In your organization, is there an IT Security Director/Specialist and are they involved in a Data Governance Board?\n",3,6
+111,5,5,Is your organization subject to confidentiality regulations?\n,3,6
+112,5,5,Does your organization fail confidentiality audits?\n,3,6
+113,5,5,"In your organization, is sensitive data encrypted?\n",3,6
+114,5,5,"In your organization, is unencrypted sensitive data used to develop or test systems?\n",3,6
+115,5,5,"In your organization, do administrators, subcontractors or third parties have access to unencrypted sensitive data?\n",3,6
+116,5,5,"In your organization, are systems used to monitor access to sensitive data by users with privileges (such as database administrators)?\n",3,6
+117,5,5,How confident are you that your answers for this section are correct and offer a fair and balanced view?,3,6
+118,1,1,"In your organization, is there a data governance framework that you are aware of?",3,6
+119,1,1,"In your organization, are stakeholders from different business and IT domains involved in a data governance board?\n",3,6
+120,1,1,"In your organization, are stakeholders engaged on the benefits of data governance?\n",3,6
+121,1,1,Are the activities of the organization impacted by a data governance board?\n,3,6
+122,1,1,"In your organization, is a data governance steward involved in organizational activities?\n",3,6
+123,1,1,Does your data governance framework provide any key organizational benefits?\n,3,6
+124,1,1,"In your organization, are business cases used to justify specific data governance initiatives?\n",3,6
+125,1,1,"In your organization, are metrics used to monitor the performance of the data governance framework?",3,6
+126,1,1,"In your organization, how do you rate the quality of the metrics used to monitor the performance of the data governance framework?",3,6
+127,1,1,"In your organization, is the data governance board involved in defining the data policies of the organization?\n",3,6
+128,1,1,"In your organization, are data governance policies documented?\n",3,6
+129,1,1,"In your organization, are data governance policies reviewed by the governance committee?\n",3,6
+130,1,1,How confident are you that your answers for this section are correct and offer a fair and balanced view?,3,6
+131,7,7,Does your company use a document and content managed system such as SharePoint or Livelink?\n,3,6
+132,7,7,"In your organization, is there a policy on archiving electronic information from all data sources?",3,6
+133,7,7,"In your organization, is there a policy on the types of documents that can be scanned?",3,6
+134,7,7,"In your organization, to what extent are the content management systems automated? (e.g. versioning, archiving, removal of documents)",3,6
+135,7,7,How confident are you that your answers for this section are correct and offer a fair and balanced view?,3,6
+136,8,8,Does your organisation have reference data?\n,3,6
+137,8,8,Does your organisation have master data\n,3,6
+138,8,8,"How effectively does your organization protect and secure its data against unauthorized access, breaches, and other security threats?",3,6
+139,8,8,How confident are you that your answers for this section are correct and offer a fair and balanced view?,3,6
+140,6,6,How effectively does your organization integrate and manage data across disparate systems to ensure interoperability and real-time data availability?,3,6
+141,6,6,"How effectively does your organization manage its documents and content across various platforms and systems to ensure accessibility, security, and compliance?",3,6
+142,6,6,How does your organization manage and utilize reference and master data to ensure consistency and accuracy across business operations?,3,6
+143,6,6,How confident are you that your answers for this section are correct and offer a fair and balanced view?,3,6
+144,10,10,"In your organization, is there a data dictionary for key organizational terms?\n",3,6
+145,10,10,"In your organization, do business domains agree on the terms and definitions included in the data dictionary?\n",3,6
+146,10,10,"In your organization, do business domains agree on a common definition of the term “Metadata”?\n",3,6
+147,10,10,"In your organization, is a data warehouse or content management system is used to store technical metadata?\n",3,6
+148,10,10,"Have your organizational needs to support technical, business, and operational metadata been identified and defined?\n",3,6
+149,10,10,Does your organization have a formal data classification policy in place?,3,6
+150,10,10,Are all employees aware of and trained on the data classification policy?,3,6
+151,10,10,Is there a clear set of criteria used for classifying data in your organization?,3,6
+152,10,10,How frequently is data categorically reviewed and updated to reflect current classification needs?,3,6
+153,10,10,Are security measures and access controls implemented based on the classification level of the data?,3,6
+154,10,10,How often are classification policies and procedures audited for compliance and effectiveness?,3,6
+155,10,10,"Has your organization experienced any issues due to misclassification of data (e.g. data breaches, compliance fines)?",3,6
+156,10,10,How often do employees receive training on data classification responsibilities?,3,6
+157,10,10,How confident are you that your answers for this section are correct and offer a fair and balanced view?,3,6
+158,3,3,"Do you have documentation and/or an enterprise model of your data, showing how it interacts with different systems?",3,6
+159,3,3,Do you have defined and documented data flow diagrams detailing how data flows through your organisation and who uses it?,3,6
+160,3,3,"In your organization, is there a strategy to reduce the number of non-regulatory changes made to databases?",3,6
+161,3,3,Do you validate your data models against industry standards or best practice?,3,6
+162,3,3,"In your organization, do you use internal controls that certify reports for financial and compliance purposes?\n",3,6
+163,3,3,"In your organization, how do you rate the quality of the internal controls that certify reports for financial and compliance purposes?",3,6
+164,3,3,"In your organization, do you use systems for monitoring database changes made by users?\n",3,6
+165,3,3,"In your organization, do you audit changes made to critical data?\n",3,6
+166,3,3,"In your organization, how do you rate the quality of the critical data changes audit checks?",3,6
+167,3,3,How confident are you that your answers for this section are correct and offer a fair and balanced view?,3,6
+168,9,9,Do staff know how to use data to make decisions or evaluate the performance of themselves and their business units?,3,6
+169,9,9,Do staff know how to access and share data? ,3,6
+170,9,9,Does your organization use data to measure benefits of its initiatives? ,3,6
+171,9,9,Does your organisation have standardised tooling to allow consistent access to business intelligence?,3,6
+172,9,9,Are members of the organization aware of how to treat data as an organizational asset?\n,3,6
+173,9,9,How confident are you that your answers for this section are correct and offer a fair and balanced view?,3,6
+174,4,4,Is senior management fully committed to data and its importance?,3,6
+175,4,4,Are funding and budgeting sufficient to address storage now and in the future?,3,6
+176,4,4,"Is the data storage infrastructure current, and does it address longer-term requirements?",3,6
+177,4,4,Is data stored in secure locations and protected from cyber-threats?,3,6
+178,4,4,Is the data storage program compliant with storage and management standards and regulations?,3,6
+179,4,4,Can the organization quickly increase storage capacity?,3,6
+180,4,4,"Are existing cloud storage services sufficient, and do they provide value for money?",3,6
+181,4,4,Has the organization made environmental considerations for data storage?,3,6
+182,4,4, Is the data storage sufficient for a disaster recovery situation?,3,6
+183,4,4,Do you use AI as part of your data operations management?,3,6
+184,4,4,How confident are you that your answers for this section are correct and offer a fair and balanced view?,3,6
+185,16,42,Explain the four fundamental principles of object-oriented programming. How do these principles contribute to the robustness of a software system?\n,4,4
+186,16,42,"Consider a software system for a library management system. Design a basic class structure involving classes like Book, Library, and Patron. What attributes and methods would each class have?",4,4
+187,3,40,What is the Singleton design pattern and in what scenarios is it most useful? Provide an example of its implementation in Java or Python.,4,4
+188,3,40,Compare and contrast the Factory Method and Abstract Factory design patterns. Give examples of scenarios where each would be the optimal choice.,4,4
+189,28,43,"Inputs into the change management process are defined (may include a business case, charter, scope, or plan).",5,3
+190,28,43,Organizational benefits are fully defined (what the organization gains).,5,3
+191,28,43,Project objectives are fully defined (what the project achieves).,5,3
+192,28,43,Adoption and usage objectives are fully defined.,5,3
+193,28,43,Units of measure for benefits and objectives are established.,5,3
+194,28,43,Benefits and objectives are prioritized.,5,3
+195,28,43,Benefit and objective ownership is designated.,5,3
+196,28,43,People dependency of benefits and objectives is evaluated.,5,3
+197,28,43,The definition of success is clear and ready to be communicated.,5,3
+198,28,43,The sponsorship coalition is aligned to a common definition of success.,5,3
+199,29,44,"The change has a primary sponsor with the necessary authority over the people, processes and systems to authorize and fund the change.",5,3
+200,29,44,"The primary sponsor can clearly explain the nature of the change, the reason for the change, and the benefits for the organization.",5,3
+201,29,44,The organization has a clearly defined vision and strategy.,5,3
+202,29,44,The change is aligned with the strategy and vision for the organization.,5,3
+203,29,44,Priorities are set and communicated regarding the change and other competing priorities.,5,3
+204,29,44,"The primary sponsor is resolving issues and making decisions related to the project schedule, scope and resources.",5,3
+205,29,44,The primary sponsor is actively and visibly participating throughout the lifecycle of the change.,5,3
+206,29,44,The primary sponsor is encouraging senior leaders to participate in and support the change by building a sponsor coalition.,5,3
+207,29,44,The primary sponsor is building awareness of the need for the change directly with employees.,5,3
+208,29,44,The primary sponsor is visibly reinforcing the change by celebrating successes and addressing resistance.,5,3
+209,30,45,The nature of the change is clearly defined including who is impacted and how.,5,3
+210,30,45,The project has specific objectives.,5,3
+211,30,45,The project has a clearly defined scope.,5,3
+212,30,45,The project has a project manager assigned to manage the project lifecycle.,5,3
+213,30,45,Project milestones are identified and a project schedule is complete.,5,3
+214,30,45,A work breakdown structure with deliverables is complete.,5,3
+215,30,45,Resources for the project are identified and acquired.,5,3
+216,30,45,Periodic meetings are scheduled with the project team and key stakeholders to track progress and resolve issues.,5,3
+217,30,45,The project manager understands the value of change management in ensuring the change will be adopted and used.,5,3
+218,30,45,The Change Management Plan is integrated with the Project Management Plan.,5,3
+219,31,46,The change is applying a structured change management approach to deliver the benefits to the organization.,5,3
+220,31,46,An assessment of the change and its impact on individuals and the organization is complete.,5,3
+221,31,46,An assessment of the change risk is complete.,5,3
+222,31,46,The change has specific adoption and usage objectives.,5,3
+223,31,46,An assessment of the strength of the sponsor coalition is complete.,5,3
+224,31,46,A customized and scaled change management strategy with the necessary sponsorship commitment is complete.,5,3
+225,31,46,"The resources required to execute the change strategy and plans are identified, acquired and prepared.",5,3
+226,31,46,Change management plans that will mitigate resistance and achieve adoption and usage are complete and are being implemented.,5,3
+227,31,46,The effectiveness of change management is being monitored and adaptive actions are being taken if required to achieve adoption and usage.,5,3
+228,31,46,The organization is prepared to own and sustain the change.,5,3
+229,32,47,Has your organization established a detailed inventory of enterprise assets?,6,2
+230,32,47,Does your organization implement and manage firewalls on servers to control incoming and outgoing traffic?,6,2
+231,32,47,Are firewalls implemented and managed on end-user devices to protect against unauthorized access?,6,2
+232,32,47,Does your organization deploy and maintain anti-malware software on all systems to protect against malicious software?,6,2
+233,32,47,Are automatic updates configured for anti-malware software signatures to ensure protection against the latest threats?,6,2
+234,32,47,Has your organization disabled autorun and autoplay features for removable media to prevent the automatic execution of malicious code?,6,2
+235,32,47,Does your organization have processes in place to identify and address unauthorized assets within the network?,6,2
+236,32,47,Does your organization encrypt data stored on end-user devices to protect sensitive information from unauthorized access or exposure?,6,2
+237,33,48,Does your organization maintain an up-to-date inventory of software assets?,6,2
+238,33,48,Does your organization ensure that all authorized software is currently supported by vendors,6,2
+239,33,48,Has your organization established and maintained a process to ensure secure configurations of systems and applications?,6,2
+240,33,48,Does your organization have a process in place to regularly identify and mitigate vulnerabilities in systems and software?,6,2
+241,33,48,Is automated patch management implemented for operating systems to ensure timely installation of security updates?,6,2
+242,33,48,Is automated patch management implemented for applications to ensure timely installation of security updates?,6,2
+243,33,48,Does your organization ensure that only fully supported browsers and email clients are used to minimize security risks?,6,2
+244,33,48,Are there procedures in place to identify and mitigate the use of unauthorized software within your organization?,6,2
+245,34,49,Has your organization established and maintained a process to ensure secure configurations of network infrastructure components?,6,2
+246,34,49,Does your organization securely manage enterprise assets and software to prevent unauthorized access?,6,2
+247,34,49,Has your organization established and maintained a process for managing audit logs to track system activities?,6,2
+248,34,49,Does your organization ensure adequate storage capacity for audit logs to retain them for the required duration?,6,2
+249,34,49,Does your organization use DNS filtering services to block access to known malicious websites?,6,2
+250,34,49,Does your organization ensure that network infrastructure components are regularly updated to address security vulnerabilities?,6,2
+251,34,49,Does your organization collect audit logs to monitor and track system activities?,6,2
+252,35,50,Has your organization established a structured data management process?,6,2
+253,35,50,Does your organization maintain an inventory of data assets?,6,2
+254,35,50,Has your organization established and maintained an inventory of service providers?,6,2
+255,35,50,Does your organization configure data access control lists to control access to sensitive data?,6,2
+256,35,50,Does your organization enforce data retention policies to retain data for the required duration?,6,2
+257,35,50,Does your organization securely dispose of data using approved methods to prevent unauthorized access?,6,2
+258,35,50,Is data stored on end-user devices encrypted to protect against unauthorized access?,6,2
+259,35,50,Does your organization implement measures to protect recovery data from unauthorized access or modification?,6,2
+260,35,50,Has your organization established a data recovery process to restore data in the event of a system failure or data loss?,6,2
+261,35,50,Does your organization perform automated backups of critical data to ensure its availability in case of data loss or corruption?,6,2
+262,36,51,Does your organization maintain an inventory of user accounts?,6,2
+263,36,51,Is automatic session locking configured on enterprise assets to prevent unauthorized access?,6,2
+264,36,51,Does your organization enforce the use of unique passwords for user accounts?,6,2
+265,36,51,Are administrator privileges restricted to dedicated administrator accounts within your organization?,6,2
+266,36,51,Has your organization established a formal process for granting access to resources?,6,2
+267,36,51,Does your organization have a defined process for revoking access to resources when needed?,6,2
+268,36,51,Is multi-factor authentication required for externally-exposed applications?,6,2
+269,36,51,Does your organization mandate multi-factor authentication for remote network access?,6,2
+270,36,51,Is multi-factor authentication enforced for administrative access to systems and applications?,6,2
+271,36,51,Does your organization manage default accounts on enterprise assets and software to prevent unauthorized access?,6,2
+272,36,51,Has your organization established and maintained a security awareness program to educate employees about security risks and best practices?,6,2
+273,36,51,Does your organization provide training to employees to recognize and respond to social engineering attacks?,6,2
+274,36,51,Are employees trained on authentication best practices to safeguard against unauthorized access?,6,2
+275,36,51,Are employees trained on data handling best practices to ensure the secure handling of sensitive information?,6,2
+276,36,51,Does your organization provide training to employees on the causes of unintentional data exposure and how to prevent it?,6,2
+277,36,51,Are employees trained to recognize and promptly report security incidents to appropriate personnel?,6,2
+278,36,51,Are employees trained on how to identify and report if their enterprise assets are missing security updates?,6,2
+279,36,51,Does your organization educate employees on the risks associated with connecting to and transmitting enterprise data over insecure networks?,6,2
+280,36,51,Is there a process to regularly identify and disable dormant user accounts within your organization's systems?,6,2
+281,36,51,Has your organization designated specific personnel responsible for managing incident handling and response?,6,2
+282,36,51,Does your organization maintain updated contact information for reporting security incidents to the appropriate authorities?,6,2
+283,36,51,Has your organization established a formal process for reporting security incidents across the enterprise?,6,2
+284,37,53,Strategic Alignment,7,5
+285,37,53,Portfolio Planning,7,5
+286,37,53,Dependency Management,7,5
+287,38,54,RAID Management,7,5
+288,39,55,Finance Management,7,5
+289,40,56,Benefit Management,7,5
+290,41,57,Resource Management,7,5
+291,42,58,Portfolio Reporting,7,5
+292,42,58,Portfolio Governance,7,5
+293,42,58,Change Control,7,5
+294,43,59,Stakeholder Management,7,5
+295,43,59,Change Management,7,5
+296,44,60,Portfolio Framework,7,5
+297,44,60,Information Management,7,5
+298,44,60,Quality assurance and internal audit,7,5
+299,45,61,Training & Development,7,5
+300,46,62,An internal organisation and governance system is in place to deliver an optimal customer experience,8,4
+301,46,63,The organisation delivers a good experience with its products & services,8,4
+302,46,64,The organisation makes effective use of data to generate customer insights,8,4
+303,46,65,The delivered experience aligns with the brand promise,8,4
+304,47,66,A clear and complete digital strategy is developed and adopted by the organisation,8,4
+305,47,67,A consistent brand message is developed and maintained across all channels,8,4
+306,47,68,The organisation is able to leverage ecosystems to create business value,8,4
+307,47,69,Financial sponsorship is in place to support the digital strategy,8,4
+308,47,70,Market information is gathered to inform the strategy,8,4
+309,47,71,The organisation maintains a balanced portfolio of digital products and services,8,4
+310,48,72,Organisational values are established which drive the employee experience,8,4
+311,48,73,"The organisation has the competencies, knowledge and tools to create and develop an effective workforce",8,4
+312,48,74,"The organisation's working environment, tools and accepted practices support productivity and innovation",8,4
+313,49,75,The organisation has effective operations governance in place,8,4
+314,49,76,The organisation is able to efficiently and effectively design and develop innovative services which deliver business value,8,4
+315,49,77,"The organisation is able to rapidly, flexibly and effectively deliver, deploy and retire services",8,4
+316,49,78,"The organisation is able to effectively and efficiently run services in production, ensuring high availability, quality and responsiveness to demand changes",8,4
+317,35,1,The organisation has an effective data governance system in place,8,4
+318,50,80,"The organisation has effective systems and processes in place to collect, transfer, store and process data",8,4
+319,50,81,The organisation is able to realize business value from its data assets,8,4
+320,51,82,"The organisation governs well the utilization of technology in the research, development, and production of its goods and services",8,4
+321,51,83,There is a technology and application architecture in place which describes the behavior of applications and their integration with the underlying technology platform and services,8,4
+322,51,84,"The organisation plans for and proactively address threats, vulnerabilities and security compliance requirements",8,4
+323,51,85,Technology platforms and tools are in place to effectively develop and manage applications and processes,8,4
+324,51,86,The organisation has the necessary connectivity and compute capabilities in place to support digital business operations,8,4

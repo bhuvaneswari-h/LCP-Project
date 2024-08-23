@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+  <result>
+    <index_name>8b68ae56-84cf-4728-a0a6-1be11028dea7</index_name>
+    <title>List of MSME Registered Units under UDYAM</title>
+    <desc>List of MSME Registered Units under UDYAM</desc>
+    <org_type>Central</org_type>
+    <org>
+      <item>Ministry of Micro, Small and Medium Enterprises</item>
+    </org>
+    <sector>
+      <item>Industries</item>
+      <item>Medium</item>
+      <item>Micro</item>
+      <item>Small Scale</item>
+    </sector>
+    <source>data.gov.in</source>
+    <catalog_uuid>0536e86e-3751-4054-84e5-e257d4c94477</catalog_uuid>
+    <visualizable>1</visualizable>
+    <active>1</active>
+    <created>1717068010</created>
+    <updated>1724312497</updated>
+    <created_date>2024-05-30T11:20:10Z</created_date>
+    <updated_date>2024-08-22T07:41:37Z</updated_date>
+    <external_ws>0</external_ws>
+    <external_ws_url/>
+    <target_bucket>
+      <index>udyam_msme_totcount</index>
+      <type>0536e86e-3751-4054-84e5-e257d4c94477</type>
+      <field>8b68ae56-84cf-4728-a0a6-1be11028dea7</field>
+    </target_bucket>
+    <field>
+      <item>
+        <name>LG_ST_Code</name>
+        <id>LG_ST_Code</id>
+        <type>keyword</type>
+      </item>
+      <item>
+        <name>State</name>
+        <id>State</id>
+        <type>keyword</type>
+      </item>
+      <item>
+        <name>LG_DT_Code</name>
+        <id>LG_DT_Code</id>
+        <type>keyword</type>
+      </item>
+      <item>
+        <name>District</name>
+        <id>District</id>
+        <type>keyword</type>
+      </item>
+      <item>
+        <name>Pincode</name>
+        <id>Pincode</id>
+        <type>keyword</type>
+      </item>
+      <item>
+        <name>RegistrationDate</name>
+        <id>RegistrationDate</id>
+        <type>keyword</type>
+      </item>
+      <item>
+        <name>EnterpriseName</name>
+        <id>EnterpriseName</id>
+        <type>keyword</type>
+      </item>
+      <item>
+        <name>CommunicationAddress</name>
+        <id>CommunicationAddress</id>
+        <type>keyword</type>
+      </item>
+      <item>
+        <name>Activities</name>
+        <id>Activities</id>
+        <type>keyword</type>
+      </item>
+    </field>
+    <field_exposed>
+      <item>
+        <name>State</name>
+        <id>State.keyword</id>
+        <type>keyword</type>
+        <mandatory>1</mandatory>
+      </item>
+      <item>
+        <name>District</name>
+        <id>District.keyword</id>
+        <type>keyword</type>
+        <mandatory>1</mandatory>
+      </item>
+    </field_exposed>
+    <field_dependent>
+      <State>
+        <parent>State</parent>
+        <child>District</child>
+      </State>
+      <State.keyword>
+        <parent>State.keyword</parent>
+        <child>District.keyword</child>
+      </State.keyword>
+    </field_dependent>
+    <aggregation/>
+    <message>Resource lists</message>
+    <version>2.2.0</version>
+    <status>ok</status>
+    <total>28437699</total>
+    <count>10</count>
+    <limit>10</limit>
+    <offset>0</offset>
+    <records>
+      <item>
+        <LG_ST_Code>1</LG_ST_Code>
+        <State>JAMMU AND KASHMIR</State>
+        <LG_DT_Code>621</LG_DT_Code>
+        <District>RAMBAN</District>
+        <Pincode>182145</Pincode>
+        <RegistrationDate>08/04/2024</RegistrationDate>
+        <EnterpriseName>NISAR AHMED BOHROO</EnterpriseName>
+        <CommunicationAddress>0, KHARI, 0, 0, KHARI, KHARI</CommunicationAddress>
+        <Activities>[{"NIC5DigitId":"96098","Description":"General household maintenance activities like grooming of the floor, dusting, cleaning of utensils etc."}]</Activities>
+      </item>
+      <item>
+        <LG_ST_Code>36</LG_ST_Code>
+        <State>TELANGANA</State>
+        <LG_DT_Code>518</LG_DT_Code>
+        <District>RANGA REDDI</District>
+        <Pincode>501359</Pincode>
+        <RegistrationDate>08/04/2024</RegistrationDate>
+        <EnterpriseName>shiva enterprisess</EnterpriseName>
+        <CommunicationAddress>5-38/2, manyaguda, hanuman colony, 5-38/2, a, kandukoor</CommunicationAddress>
+        <Activities>[{"NIC5DigitId":"96098","Description":"General household maintenance activities like grooming of the floor, dusting, cleaning of utensils etc."}]</Activities>
+      </item>
+      <item>
+        <LG_ST_Code>27</LG_ST_Code>
+        <State>MAHARASHTRA</State>
+        <LG_DT_Code>473</LG_DT_Code>
+        <District>CHANDRAPUR</District>
+        <Pincode>442401.0</Pincode>
+        <RegistrationDate>26/03/2024</RegistrationDate>
+        <EnterpriseName>SHREE SAVALIYA SETH NASTA POINT</EnterpriseName>
+        <CommunicationAddress>01, NEW POHEKAR HEALTH CLUB, DRC ROAD, 01, CHANDRAPUR, CHANDRAPUR</CommunicationAddress>
+        <Activities>[{"NIC5DigitId":"56102","Description":"Cafeterias, fast-food restaurants and other food preparation in market stalls"}]</Activities>
+      </item>
+      <item>
+        <LG_ST_Code>33</LG_ST_Code>
+        <State>TAMIL NADU</State>
+        <LG_DT_Code>729</LG_DT_Code>
+        <District>Kallakurichi</District>
+        <Pincode>606208.0</Pincode>
+        <RegistrationDate>26/03/2024</RegistrationDate>
+        <EnterpriseName>SARATHKUMAR</EnterpriseName>
+        <CommunicationAddress>1/74, KUMAR HOUSE, NORTH STREET, 1/74, 1, SANKARAPURAM</CommunicationAddress>
+        <Activities>[{"NIC5DigitId":"01462","Description":"Production of eggs"}]</Activities>
+      </item>
+      <item>
+        <LG_ST_Code>8</LG_ST_Code>
+        <State>RAJASTHAN</State>
+        <LG_DT_Code>109</LG_DT_Code>
+        <District>KOTA</District>
+        <Pincode>324001.0</Pincode>
+        <RegistrationDate>26/03/2024</RegistrationDate>
+        <EnterpriseName>mawar janral &amp; kiranastore</EnterpriseName>
+        <CommunicationAddress>mukti marg, nayapura, mukti marg, mukti marg, nayapura, kota</CommunicationAddress>
+        <Activities>[{"NIC5DigitId":"47110","Description":"Retail sale in non-specialized stores with food, beverages or tobacco predominating"}]</Activities>
+      </item>
+      <item>
+        <LG_ST_Code>19</LG_ST_Code>
+        <State>WEST BENGAL</State>
+        <LG_DT_Code>315</LG_DT_Code>
+        <District>KOLKOTA</District>
+        <Pincode>700039.0</Pincode>
+        <RegistrationDate>26/03/2024</RegistrationDate>
+        <EnterpriseName>SHRI HARI STORES</EnterpriseName>
+        <CommunicationAddress>254, PICNIC GARDEN ROAD, PICNIC GARDEN ROAD, 254, TILJALA, KOLKATA</CommunicationAddress>
+        <Activities>[{"NIC5DigitId":"46909","Description":"Other non-specialised wholesale trade n.e.c."}]</Activities>
+      </item>
+      <item>
+        <LG_ST_Code>27</LG_ST_Code>
+        <State>MAHARASHTRA</State>
+        <LG_DT_Code>483</LG_DT_Code>
+        <District>MUMBAI SUBURBAN</District>
+        <Pincode>400043.0</Pincode>
+        <RegistrationDate>26/03/2024</RegistrationDate>
+        <EnterpriseName>SIDRA BAGS</EnterpriseName>
+        <CommunicationAddress>PLOT NO 29, LINE-J, SHIVAJI NAGAR, PLOT NO 29, ROOM NO 9, MUMBAI</CommunicationAddress>
+        <Activities>[{"NIC5DigitId":"15122","Description":"Manufacture of purse, ladies' handbags, artistic leather presented articles and novelties"},{"NIC5DigitId":"15123","Description":"Manufacture of saddlery and harness"}]</Activities>
+      </item>
+      <item>
+        <LG_ST_Code>24</LG_ST_Code>
+        <State>GUJARAT</State>
+        <LG_DT_Code>438</LG_DT_Code>
+        <District>AHMADABAD</District>
+        <Pincode>380007.0</Pincode>
+        <RegistrationDate>26/03/2024</RegistrationDate>
+        <EnterpriseName>URVI ENTERPRISE</EnterpriseName>
+        <CommunicationAddress>306, Shikhar,, New vikas gruh road, 306, Sumeru shikhar tower, Ahmedabad</CommunicationAddress>
+        <Activities>[{"NIC5DigitId":"46610","Description":"Wholesale of solid, liquid and gaseous fuels and related products"},{"NIC5DigitId":"46634","Description":"Wholesale of paints, varnishes, and lacquers"},{"NIC5DigitId":"47714","Description":"Retail sale of leather goods and travel accessories of leather and leather substitutes"}]</Activities>
+      </item>
+      <item>
+        <LG_ST_Code>21</LG_ST_Code>
+        <State>ODISHA</State>
+        <LG_DT_Code>356</LG_DT_Code>
+        <District>JAJAPUR</District>
+        <Pincode>755019.0</Pincode>
+        <RegistrationDate>26/03/2024</RegistrationDate>
+        <EnterpriseName>Pramod Fiber</EnterpriseName>
+        <CommunicationAddress>Nahaka, Nahaka, Chorda Bypass, Nahaka, Korei, Jajpur Road</CommunicationAddress>
+        <Activities>[{"NIC5DigitId":"45200","Description":"Maintenance and repair of motor vehicles"}]</Activities>
+      </item>
+      <item>
+        <LG_ST_Code>27</LG_ST_Code>
+        <State>MAHARASHTRA</State>
+        <LG_DT_Code>473</LG_DT_Code>
+        <District>CHANDRAPUR</District>
+        <Pincode>442902.0</Pincode>
+        <RegistrationDate>26/03/2024</RegistrationDate>
+        <EnterpriseName>MUKESH RAMESH BONDRE</EnterpriseName>
+        <CommunicationAddress>MUKESH RAMESH BONDRE, HANUMAN NAGAR, NAGPUR ROAD, MUKESH RAMESH BONDRE, BHADRAWATI, CHANDRAPUR</CommunicationAddress>
+        <Activities>[{"NIC5DigitId":"52109","Description":"Storage and warehousing n.e.c.[Includes general merchandise warehouses and warehousing of furniture, automobiles, gas and oil, chemicals, textiles etc. Also included is storage of goods in foreign trade zones]"}]</Activities>
+      </item>
+    </records>
+  </result>

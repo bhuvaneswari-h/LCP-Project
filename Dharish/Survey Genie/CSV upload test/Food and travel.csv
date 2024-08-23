@@ -1,0 +1,11 @@
+category,subcategory,question,required,answer-1,score-1,answer-2,score-2,answer-3,score-3,answer-4,score-4,answer-5,score-5
+81,121,How often do you travel?,1,Less than once a year,1,1-2 times a year,2,3-4 times a year,3,5-6 times a year,4,More than 6 times a year,5
+81,121,What is your preferred mode of transportation for travel?,0,Plane,1,Train,2,Car,3,Bus,4,Other,5
+81,121,What is your favorite travel destination?,0,Beach,1,City,2,Mountains,3,Countryside,4,Other,5
+81,121,How important is budget when planning a trip?,1,Very important,1,Somewhat important,2,Not very important,3,Not important at all,4,,
+81,121,Do you prefer independent travel or package tours?,1,Independent travel,1,Package tours,2,Both,3,,,,
+82,122,What is your favorite cuisine?,0,Italian,1,Chinese,2,Indian,3,Mexican,4,Other,5
+82,122,How often do you eat out?,0,Less than once a week,1,1-2 times a week,2,3-4 times a week,3,5-6 times a week,4,More than 6 times a week,5
+82,122,Do you prefer cooking or takeout?,1,Cooking,1,Takeout,2,Both,3,,,,
+82,122,What is your favorite snack?,1,Chips,1,Cookies,2,Candy,3,Fruits,4,Other,5
+82,122,Are you interested in trying new foods?,0,Yes,1,No,2,Maybe,3,,,,

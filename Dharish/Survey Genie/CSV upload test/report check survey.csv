@@ -1,0 +1,21 @@
+category,subcategory,question,required,answer-1,score-1,answer-2,score-2,answer-3,score-3,answer-4,score-4,answer-5,score-5
+91,133,How satisfied are you with our product/service?,1,Very Satisfied,5,Satisfied,4,Neutral,3,Dissatisfied,2,Very Dissatisfied,1
+91,133,How likely are you to recommend our product/service to others?,1,Very Likely,5,Likely,4,Neutral,3,Unlikely,2,Very Unlikely,1
+91,133,How would you rate the quality of our customer service?,1,Excellent,5,Good,4,Fair,3,Poor,2,Very Poor,1
+91,133,How easy was it to use our product/service?,1,Very Easy,5,Easy,4,Neutral,3,Difficult,2,Very Difficult,1
+91,133,How often do you use our product/service?,1,Daily,5,Weekly,4,Monthly,3,Rarely,2,Never,1
+92,134,How satisfied are you with your current job role?,1,Very Satisfied,5,Satisfied,4,Neutral,3,Dissatisfied,2,Very Dissatisfied,1
+92,134,How well do you think your skills are utilized in your current position?,1,Very Well,5,Well,4,Neutral,3,Poorly,2,Very Poorly,1
+92,134,How do you rate the effectiveness of communication within your team?,1,Excellent,5,Good,4,Fair,3,Poor,2,Very Poor,1
+92,134,How likely are you to recommend our company as a great place to work?,1,Very Likely,5,Likely,4,Neutral,3,Unlikely,2,Very Unlikely,1
+92,134,How satisfied are you with the professional development opportunities provided by the company?,1,Very Satisfied,5,Satisfied,4,Neutral,3,Dissatisfied,2,Very Dissatisfied,1
+93,135,How aware are you of our brand?,1,Very Aware,5,Aware,4,Neutral,3,Unaware,2,Very Unaware,1
+93,135,How likely are you to purchase products/services from our brand in the future?,1,Very Likely,5,Likely,4,Neutral,3,Unlikely,2,Very Unlikely,1
+93,135,How would you rate the value for money of our products/services?,1,Excellent,5,Good,4,Fair,3,Poor,2,Very Poor,1
+93,135,How do you typically learn about new products/services in our industry?,1,Social Media,5,Online Ads,5,Friends/Family,5,In-Store Promotions,5,Other (please specify),5
+93,135,What factors influence your purchasing decisions the most?,1,Price,5,Quality,5,Brand Reputation,5,Customer Reviews,5,Recommendations,5
+94,136,How satisfied are you with the event overall?,1,Very Satisfied,5,Satisfied,4,Neutral,3,Dissatisfied,2,Very Dissatisfied,1
+94,136,How would you rate the organization and planning of the event?,1,Excellent,5,Good,4,Fair,3,Poor,2,Very Poor,1
+94,136,How relevant and useful did you find the event content?,1,Very Relevant and Useful,5,Relevant and Useful,4,Neutral,3,Irrelevant and Not Useful,2,Very Irrelevant and Not Useful,1
+94,136,How likely are you to attend our future events?,1,Very Likely,5,Likely,4,Neutral,3,Unlikely,2,Very Unlikely,1
+94,136,How would you rate the venue and facilities?,1,Excellent,5,Good,4,Fair,3,Poor,2,Very Poor,1
