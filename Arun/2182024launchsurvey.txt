@@ -1,0 +1,384 @@
+const queryParams = {};
+        async function loadSurvey() {    
+            let data = await J36.Notification.BlApi(
+                "https://alumni.thejourney36.com/bl/api/process-api/survey/details",
+                "U2FsdGVkX1/Wrwl4k6Xde2LqgMUn1ynhm1SqWU0nwwJ4156FvVrY+AemIC+wFBi2pkNqH0bpijRrxYjYahYbzOUAx6F/KPsIG6PMV/RxiUWKuHeZINHDA7+QhdTowEizdgjhgWCVGh/2AD2+DdQmYjaHJu9EJjLYMPXcJAJkb6DlL2BsFV0rETf1yQmShN025I1ED37ilFhD41p5viGWhKfKvvxjLfpbB8ln9bWGBTFVuY92sAZGtDaRNRfPVA1r",
+                { "surveyId": queryParams['surveyId'], "userId": queryParams['userId'] }
+            );
+            if (data.status == 404 || data.status == 401) {
+                window.postMessage({
+                    messageType: "SHOW_ALERT_NOTIFICATION",
+                    payload: {
+                        alertType: "error",
+                        message: 'Something Went Wrong!',
+                    },
+                }, "*");
+            } else {
+                assignData(data.surveyData[0]);
+
+                    const name = data.consultantDetails[0].Consultant_Name
+                    const role = data.consultantDetails[0].Bio
+                    const email = data.consultantDetails[0].Contact_Link
+                    const defalutAvatar = "https://journey36-alumni.s3.eu-west-2.amazonaws.com/attachmentfiles/98757633163093180.jpg"
+                    const avatarSrc = data.consultantDetails[0].image ? data.consultantDetails[0].image : defalutAvatar
+                  
+                      console.log("Yoki", name, role, email, avatarSrc)
+
+
+        createContactCard(name, role, email, avatarSrc)
+                console.log({queryParams,data});
+            }
+        }
+
+        function removeTime(dat){
+            let temp = dat.split("T");
+            return temp[0];
+        }
+
+        function completeButton() {
+            //  window.getAppWindow().navigateApp("page", "66964f1138709e37ff0ca142");66964f1138709e37ff0ca142
+
+             window.getAppWindow().navigateApp("page", "66964f1138709e37ff0ca142", [{ key: "surveyId", value: queryParams['surveyId'] }, { key:"userId", value: queryParams['userId'] }]);
+            // alert("Survey completed...");
+        }
+
+        function assignData(data) {
+
+            const defaultBannerImage = "https://journey36-alumni.s3.eu-west-2.amazonaws.com/attachmentfiles/135869015038374100.png"
+
+            // const defaultThumbnailImage = "https://journey36-alumni.s3.eu-west-2.amazonaws.com/attachmentfiles/68263893606499550.webp"
+
+            const bannerImage = data.bannerImage ? data.bannerImage : defaultBannerImage
+
+            // const thumbnailImage = data.thumbnailImage ? data.thumbnailImage : defaultThumbnailImage
+
+            let header = "<div><img src='"+ bannerImage +"' style='width:100%;height:250px' alt='Banner Image'/></div>";
+            document.getElementById("header").innerHTML = header;
+             
+               let desp = "<p>"+data.description+"</p>";
+            document.getElementById("description").innerHTML = desp;
+
+            if(data.survey_status){
+                let butCont = document.getElementById("button_container");
+                switch(data.survey_status){
+                    case 'initiate':
+                        butCont.innerHTML = '<button class="button" onclick="startButton()">Start Assessment</button>';
+                    break;
+                    case 'pending':
+                        butCont.innerHTML = '<button class="button" onclick="startButton()">Start Assessment</button>';
+                    break;
+                    case 'started':
+                        butCont.innerHTML = '<button class="button" onclick="startButton()">Resume Assessment</button>';
+                    break;
+                    case 'completed':
+                        butCont.innerHTML = '<button class="button" onclick="completeButton()">View Report</button>';
+                    break;
+                }
+            }
+        }
+
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+                
+            for (const [key, value] of params.entries()) {
+                queryParams[key] = value;
+            }
+            //console.log(queryParams);
+        }
+
+        function startButton() {
+            //?flowId=66740a35869489726f76a0c8&surveyId=1&userId=3822 
+            //"66740a35869489726f76a0c8"
+            startSurveyStatus()
+            // window.getAppWindow().navigateApp("flow", "66964f1138709e37ff0ca142", [{ key: "surveyId", value: queryParams['surveyId'] }, { key:"userId", value: queryParams['userId'] }]);
+        }
+
+        async function startSurveyStatus() {    
+            let data = await J36.Notification.BlApi(
+                "https://alumni.thejourney36.com/bl/api/process-api/smasurvey/surveystatusupdate",
+                "U2FsdGVkX1+UTMqnSK3BEEThj1y1fUKVFLKaXBdl2O1xuiB6R2dqSI1PX9Rzbe/pYx5Fhk67VumdSdYi6XoEHxu4zLzJ9GchtYkZebLV8OI3BDg+Q2ezupSgjAon+7Pa/ZKZM/dYlKSw/FZfJyLfP6cxm1WAHDPlvGkcOWLW4v/Ilrcl6T0V56/COrIUbnLtbN3zJKIPsfGWCXL/Va26HVLLh5pE/R/1mRuinGW19POjLqPk4QT9yUVnycxwJu488cRXIWrZLD5+jL95xYpzzA==",
+                { "surveyId": queryParams['surveyId'], "userId": queryParams['userId'], "status": "started" }
+            );
+            if (data.status == 404 || data.status == 401) {
+                window.postMessage({
+                    messageType: "SHOW_ALERT_NOTIFICATION",
+                    payload: {
+                        alertType: "error",
+                        message: 'Something Went Wrong!',
+                    },
+                }, "*");
+            } else {
+                //SMA Survey Frontend Flow - New
+
+                /*fetch(window.__PATH__.appUrls.businessIntelligence + "api/process-api/sma-survey/sessionid", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "X-API-Endpoint": "U2FsdGVkX18Q7gMgtabcZwmomwpylN+unV+X5jSphSLOqoZwT1DxdSPK7ACeenwzv9peLiE6GhxA8IMRrL3aSBnMXJpDT0X4Vc01EvBVkgHlSxhs8jOtfmGuMmCnnJDEVyN8AQpcWeTRelsqD1ST5XqiysT02gaOhwkxPMB6/VPvdpaqZvUStmJ/hm82OIgc36jH5emwsgtC/+CnzPa/Vp1p5IRD+3uYXiZPARtTtdyTJ9iMeIZKTS77400qNEPv"
+                    },
+                    body: JSON.stringify({
+                        "surveyId": queryParams['surveyId']
+                    })
+                }).then(async (res) => {
+                    let data = await res.json();
+                    console.log(data);
+                    if(queryParams['isOpen'] == 1) {             
+                        window.getAppWindow().navigateApp("flow", "669689a3869489726f792bf6", [{ key: "surveyId", value: queryParams['surveyId'] }, { key:"userId", value: data.sessionId }]);   
+                    } else {
+                        window.getAppWindow().navigateApp("flow", "669689a3869489726f792bf6", [{ key: "surveyId", value: queryParams['surveyId'] }, { key:"userId", value:      queryParams['userId'] }]);
+                    }
+                }); */
+
+                if(queryParams['isOpen'] == 1) {             
+                    window.getAppWindow().navigateApp("flow", "669689a3869489726f792bf6", [{ key: "surveyId", value: queryParams['surveyId'] }]);   
+                } else {
+                    window.getAppWindow().navigateApp("flow", "669689a3869489726f792bf6", [{ key: "surveyId", value: queryParams['surveyId'] }, { key:"userId", value:      queryParams['userId'] }]);
+                }
+            }
+        }
+
+
+
+
+        function createContactCard(name, role, email, avatarSrc) {
+        // Create the container for the contact card
+        const contactCard = document.createElement('div');
+        contactCard.className = 'contact-card';
+
+        // Add assistance text
+        const assistanceText = document.createElement('p');
+        assistanceText.className = 'assistance-text';
+        assistanceText.textContent = `Need assistance? Don't hesitate to contact us.`;
+        contactCard.appendChild(assistanceText);
+
+        // Create the contact info container
+        const contactInfo = document.createElement('div');
+        contactInfo.className = 'contact-info';
+
+        // Add the avatar
+        const avatar = document.createElement('div');
+        avatar.className = 'avatar';
+        const avatarImg = document.createElement('img');
+        avatarImg.src = avatarSrc;
+        avatarImg.alt = 'Avatar';
+        avatar.appendChild(avatarImg);
+        contactInfo.appendChild(avatar);
+
+        // Add the contact details
+        const contactDetails = document.createElement('div');
+        contactDetails.className = 'contact-details';
+
+        const nameElement = document.createElement('p');
+        nameElement.className = 'name';
+        nameElement.textContent = name;
+        contactDetails.appendChild(nameElement);
+
+        const roleElement = document.createElement('p');
+        roleElement.className = 'role';
+        roleElement.textContent = role;
+        contactDetails.appendChild(roleElement);
+
+        const emailElement = document.createElement('p');
+        emailElement.className = 'email';
+        emailElement.textContent = email;
+        contactDetails.appendChild(emailElement);
+
+        contactInfo.appendChild(contactDetails);
+        contactCard.appendChild(contactInfo);
+
+        // Append the contact card to the container in the DOM
+        document.getElementById('consultant-container').appendChild(contactCard);
+    }
+
+        getQueryParams();
+
+        loadSurvey();
+
+
+
+This is the existing js 
+
+
+.body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.container {
+  background-color: #fff;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+  text-align: center;
+  max-width: 1000px; /* added max-width for responsiveness */
+  margin: 0 auto; /* added margin: 0 auto for centering */
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.header img {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.header h1 {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.header p {
+  font-size: 14px;
+  color: #555;
+}
+
+.description {
+  margin-bottom: 20px;
+  line-height: 1.6;
+  text-align: left;
+  padding: 0 32px; /* added padding for responsiveness */
+}
+
+.button-container {
+  text-align: left;
+  margin: 20px 0;
+}
+
+.button {
+  background-color: #358797;
+  color: #ffffff;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  margin-left: 32px;
+}
+
+#consultant-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* added flex-wrap for responsiveness */
+}
+
+.contact-card {
+  border: 1px solid #ccc;
+  padding: 16px;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  width: 100%; /* changed width to 100% for responsiveness */
+  max-width: 1000px; /* added max-width for responsiveness */
+  margin: 20px; /* added margin for responsiveness */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.assistance-text {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #555;
+  font-weight: bold;
+}
+
+.contact-info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* added flex-wrap for responsiveness */
+}
+
+.avatar {
+  margin-right: 12px;
+}
+
+.avatar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.contact-details .name {
+  font-style: poppins;
+  font-weight: bold;
+  margin: 0;
+  color: #005E6A;
+}
+
+.contact-details .role, .contact-details .email {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #777;
+}
+
+/* Media Queries */
+
+/* For mobile devices */
+@media only screen and (max-width: 768px) {
+  .container {
+    padding: 10px 20px;
+  }
+  .description {
+    padding: 0 20px;
+  }
+  .button {
+    margin-left: 20px;
+  }
+  .contact-card {
+    margin: 10px;
+  }
+}
+
+/* For smaller mobile devices */
+@media only screen and (max-width: 480px) {
+  .container {
+    padding: 10px 15px;
+  }
+  .description {
+    padding: 0 15px;
+  }
+  .button {
+    margin-left: 15px;
+  }
+  .contact-card {
+    margin: 5px;
+  }
+} 
+
+This is the existing css 
+
+<!-- you can write html here -->
+<!-- json data accessible through "response." then your key -->
+<!-- use < %- response.key.value.content % > for rendering rich text editor content-->
+
+
+<div class="body">
+        
+
+
+
+             <div class="container">
+        <div class="header" id="header"></div>
+        <div class="description" id="description"></div>
+        <div class="button-container" id="button_container">
+            
+        </div>
+    </div>
+   
+    <div id="consultant-container">
+    </div>
+
+     </div>
+And this is the existing html .
+
+
+Now i need a Modification that similar to the image i have shared now , i the header div , right now 
+i am having a image div . But i need a modification that instead of keeping a seperate div , i need to 
+keep the image as the background image of the header and also in the left side of the header div , I 
+need to add a new div where i need to display the name , Sililar to the way it is looking in the image 
+So based on my requirement modify the code and give the completely updated code based on my requirement 

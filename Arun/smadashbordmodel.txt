@@ -1,0 +1,146 @@
+
+
+ <div class="container">
+        <div class="box">
+            <div class="box_topic">Pass/Failed</div>
+            <i class="fa-solid fa-chart-simple"></i>
+            <div class="number">1</div>
+            <div class="indicator">
+                <i class="fa-solid fa-eye"></i>
+                <span class="text">Details</span>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box_topic">Top Teams</div>
+            <i class="fa-solid fa-people-group"></i>
+            <div class="number">1</div>
+            <div class="indicator">
+                <i class="fa-solid fa-eye"></i>
+                <span class="text">Details</span>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box_topic">Top Mentors</div>
+            <i class="fa-solid fa-people-group"></i>
+            <div class="number">1</div>
+            <div class="indicator">
+                <i class="fa-solid fa-eye"></i>
+                <span class="text">Details</span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="box">
+            <div class="box_topic">Total Surveys</div>
+            <i class="fa-solid fa-arrow-up-right-dots"></i>
+            <div class="number">1</div>
+            <div class="indicator">
+                <i class="fa-solid fa-eye"></i>
+                <span class="text">Details</span>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box_topic">Total Users</div>
+            <i class="fa-solid fa-arrow-up-right-dots"></i>
+            <div class="number">1</div>
+            <div class="indicator">
+                <i class="fa-solid fa-eye"></i>
+                <span class="text">Details</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="box">
+            <div class="box_topic">Pass/Failed</div>
+            <i class="fa-solid fa-chart-simple"></i>
+            <div class="number">1</div>
+            <div class="indicator">
+                <i class="fa-solid fa-eye"></i>
+                <span class="text">Details</span>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box_topic">Top Teams</div>
+            <i class="fa-solid fa-people-group"></i>
+            <div class="number">1</div>
+            <div class="indicator">
+                <i class="fa-solid fa-eye"></i>
+                <span class="text">Details</span>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box_topic">Top Mentors</div>
+            <i class="fa-solid fa-people-group"></i>
+            <div class="number">1</div>
+            <div class="indicator">
+                <i class="fa-solid fa-eye"></i>
+                <span class="text">Details</span>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+body {
+    background: #f5f6fa;
+    padding: 0 50px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 50px;
+}
+
+.container .box {
+    width: calc(100% / 3 - 10px);
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.container .box .box_topic {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.container .box i {
+    font-size: 35px;
+    margin: 10px 0;
+    color: #007dc3;
+}
+
+.container .box .number {
+    font-size: 35px;
+    font-weight: 500;
+}
+
+.container .box .indicator {
+    display: flex;
+    align-items: center;
+}
+
+.container .box .indicator i {
+    height: 15px;
+    width: 15px;
+    background: #007dc3;
+    line-height: 15px;
+    text-align: center;
+    border-radius: 50%;
+    color: #fff;
+}
+
+.container .box .indicator .text {
+    font-size: 12px;
+    color: #333;
+    margin-left: 5px;
+}

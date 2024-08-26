@@ -1,0 +1,30 @@
+Assessment - survey 
+
+
+
+DAta governace - 1 to 17 
+data architecture - 18 to 22
+Data Modeling and Design  -23  to 26
+Data Storage and Operations  - 27 , 28
+Data Security -  29 to 31
+Data Integration and Interoperability - 32 to 35
+Document & Content Management - 36 to 38
+Reference & Master Data Management - 39 to 40
+Data Warehousing & Business Intelligence - 41 to 46
+Metadata Management -  47 to 51
+Data Quality - 52 to 58 
+
+
+id      name
+
+8	Data Governance	
+9	Data Architecture	
+10	Data Modeling and Design	
+11	Data Storage and Operations	
+12	Data Security	
+13	Data Integration and Interopearationality	
+14	Document & Content Management	
+15	Reference & Master Data Management	
+16	Data Warehousing & Business Intelligence	
+17	Metadata Management	
+18      Data Quality

@@ -1,0 +1,41 @@
+<div id="surveyContainer1" style="height :90px;width:100%; max-width: 1200px;margin:auto;background-image: url('https://journey36-alumni.s3.eu-west-2.amazonaws.com/attachmentfiles/163027697348068300.png'); background-size: cover; background-position: center;border-radius:6px;color:#005E6A;font-size:24px;font-weight:800"> <div id = "surveyContainer2" style="width:400px;margin-left:12px"></div>
+  </div>
+    <div id="surveyContainer"></div>
+
+above code is thee html code 
+
+and the js code is 
+
+
+    // Get the container element
+    const surveyContainer1 = document.getElementById('surveyContainer1');
+
+    container.className = 'surveyContainer';
+    container.innerHTML = '';
+
+
+This is the existing code now i need to modify the above code that in here i am now getting the background
+image for the "surveyContainer1" , i need a modification that similar to the below code i have shared 
+below 
+
+
+ const defaultBannerImage = "https://journey36-alumni.s3.eu-west-2.amazonaws.com/attachmentfiles/135869015038374100.png"
+
+            const bannerImage = data.bannerImage ? data.bannerImage : defaultBannerImage
+            const titlename = data.title;
+
+            let header = document.getElementById("header");
+
+            const headerTitle = document.createElement('div');
+            headerTitle.className = "header-title";
+            // headerTitle.style.backgroundImage = `url(` + bannerImage + `)`;
+            header.style.backgroundImage = `url(${bannerImage})`;
+
+            headerTitle.textContent = titlename;
+            header.appendChild(headerTitle);
+
+
+
+similar to this code now i need to keep the default image and if i get any image in data.bannerImage 
+then i need to display the "bannerImage "  as the background of the "surveyContainer1 "  , SO based on my 
+requirement modify the code i have shared first and give the fully modified code as per my requirement 

@@ -1,0 +1,265 @@
+<div class="summary">
+
+    <div class="box ">
+        <div class="box_band">
+            <div class="txt1">Total Surveys</div>
+            <select>
+                <option>This week</option>
+                <option>Last week</option>
+                <option>This month</option>
+                <option>Last month</option>
+            </select>
+        </div>
+        <div class="box_bot">
+        <div class="txt2"><%= response.smaSurvey.value.length %></div>
+        <div class="txt3"><span> <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
+                        <path d="M18.7778 1H3.22222C1.99492 1 1 1.99492 1 3.22222V18.7778C1 20.0051 1.99492 21 3.22222 21H18.7778C20.0051 21 21 20.0051 21 18.7778V3.22222C21 1.99492 20.0051 1 18.7778 1Z" fill="#50CD88"/>
+                        <path d="M6.55566 6.55566H15.4446V15.4446" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6.55566 15.4446L15.4446 6.55566" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>11%</span></div>
+</div>
+    </div>
+
+     <div class="box ">
+        <div class="box_band">
+            <div class="txt1">Total Users</div>
+            <select>
+                <option>This week</option>
+                <option>Last week</option>
+                <option>This month</option>
+                <option>Last month</option>
+            </select>
+        </div>
+        <div class="box_bot">
+        <div class="txt2"><%= response.smaSurveyUser.value.length %></div>
+        <div class="txt3"><span> <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
+                        <path d="M18.7778 1H3.22222C1.99492 1 1 1.99492 1 3.22222V18.7778C1 20.0051 1.99492 21 3.22222 21H18.7778C20.0051 21 21 20.0051 21 18.7778V3.22222C21 1.99492 20.0051 1 18.7778 1Z" fill="#50CD88"/>
+                        <path d="M6.55566 6.55566H15.4446V15.4446" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6.55566 15.4446L15.4446 6.55566" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>11%</span></div>
+</div>
+    </div>
+
+    <div class="box ">
+        <div class="box_band">
+            <div class="txt1">Passed/Failed</div>
+            <select>
+                <option>This week</option>
+                <option>Last week</option>
+                <option>This month</option>
+                <option>Last month</option>
+            </select>
+        </div>
+<div class="wrapper">
+ <svg width="150px" height="150px" viewBox="0 0 42 42" class="donut">
+    <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+
+    
+  
+
+      <circle class="donut-segment" data-per="27" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FF4949" stroke-width="6" stroke-dasharray="10 90" stroke-dashoffset="35"></circle>
+            <circle class="donut-segment" data-per="21" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#E9EAF0" stroke-width="6" stroke-dasharray="30 70" stroke-dashoffset="55"></circle>
+          <circle class="donut-segment" data-per="52" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#79D9A3" stroke-width="6" stroke-dasharray="30 70" stroke-dashoffset="55"></circle>
+<!--   stroke-dashoffset formula:
+  100 − All preceding segments’ total length + First segment’s offset = Current segment offset
+-->
+
+  </svg>
+
+</div>
+        <div class="percent">
+            <div class="value2">27.1<span>%</span></div>
+            <div class="value1">52.4<span>%</span></div>
+            
+        </div>
+    </div>
+    <div class="box ">
+        <div class="box_band">
+            <div class="txt1">Top Teams</div>
+            <select>
+                <option>This week</option>
+                <option>Last week</option>
+                <option>This month</option>
+                <option>Last month</option>
+            </select>
+        </div>
+
+        <div class="all_bar">
+            <div class="bar_conte">
+                <div class="names">Development</div>
+                <div class="bar">
+                    <div class="bar_fill" style="width:95%;"></div>
+                </div>
+            </div>
+            <div class="bar_conte">
+                <div class="names">Database</div>
+                <div class="bar">
+                    <div class="bar_fill" style="width:75%;"></div>
+                </div>
+            </div>
+            <div class="bar_conte">
+                <div class="names">QC</div>
+                <div class="bar">
+                    <div class="bar_fill" style="width:50%;"></div>
+                </div>
+            </div>
+            <div class="bar_conte">
+                <div class="names">Marketing</div>
+                <div class="bar">
+                    <div class="bar_fill" style="width:35%;"></div>
+                </div>
+            </div>
+            <div class="bar_conte">
+                <div class="names">UI/UX</div>
+                <div class="bar">
+                    <div class="bar_fill" style="width:20%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box ">
+        <div class="box_band">
+            <div class="txt1">Top Mentors</div>
+            <select>
+                <option>This week</option>
+                <option>Last week</option>
+                <option>This month</option>
+                <option>Last month</option>
+            </select>
+        </div>
+        <div class="all_ment">
+            <div class="top_mentor_row">
+                <div class="top_mentor_row_left">
+                    <div class="top_left_details">
+                        <div class="top_mentor_image">
+                            <img src="https://journey36-demo.s3.eu-west-2.amazonaws.com/attachmentfiles/211387035250496.png" alt="">
+                        </div>
+                        <div class="user_detail">
+                            <div class="user_name">
+                                Andy Griffin
+                            </div>
+                            <div class="user_star">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+  <path d="M8 1L10.163 5.382L15 6.089L11.5 9.498L12.326 14.314L8 12.039L3.674 14.314L4.5 9.498L1 6.089L5.837 5.382L8 1Z" fill="#0099FF"/>
+</svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+  <path d="M8 1L10.163 5.382L15 6.089L11.5 9.498L12.326 14.314L8 12.039L3.674 14.314L4.5 9.498L1 6.089L5.837 5.382L8 1Z" fill="#0099FF"/>
+</svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+  <path d="M8 1L10.163 5.382L15 6.089L11.5 9.498L12.326 14.314L8 12.039L3.674 14.314L4.5 9.498L1 6.089L5.837 5.382L8 1Z" fill="#0099FF"/>
+</svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+  <path d="M8 1L10.163 5.382L15 6.089L11.5 9.498L12.326 14.314L8 12.039L3.674 14.314L4.5 9.498L1 6.089L5.837 5.382L8 1Z" fill="#0099FF"/>
+</svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+  <path d="M8 1L10.163 5.382L15 6.089L11.5 9.498L12.326 14.314L8 12.039L3.674 14.314L4.5 9.498L1 6.089L5.837 5.382L8 1Z" fill="#0099FF"/>
+</svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="top_mentor_row_right">
+                    <div class="user_percentage user_percentage_bg_01">74.2</div>
+                </div>
+            </div>
+            <div class="top_mentor_row">
+                <div class="top_mentor_row_left">
+                    <div class="top_left_details">
+                        <div class="top_mentor_image">
+                            <img src="https://journey36-demo.s3.eu-west-2.amazonaws.com/attachmentfiles/89332466062126320.png" alt="">
+                        </div>
+                        <div class="user_detail">
+                            <div class="user_name">
+                                Mohammad Athar
+                            </div>
+                            <div class="user_star">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16"
+                                    fill="none">
+                                    <path
+                                        d="M8.5 1L10.663 5.382L15.5 6.089L12 9.498L12.826 14.314L8.5 12.039L4.174 14.314L5 9.498L1.5 6.089L6.337 5.382L8.5 1Z"
+                                        fill="#0099FF" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16"
+                                    fill="none">
+                                    <path
+                                        d="M8.5 1L10.663 5.382L15.5 6.089L12 9.498L12.826 14.314L8.5 12.039L4.174 14.314L5 9.498L1.5 6.089L6.337 5.382L8.5 1Z"
+                                        fill="#0099FF" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16"
+                                    fill="none">
+                                    <path
+                                        d="M8.5 1L10.663 5.382L15.5 6.089L12 9.498L12.826 14.314L8.5 12.039L4.174 14.314L5 9.498L1.5 6.089L6.337 5.382L8.5 1Z"
+                                        fill="#0099FF" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16"
+                                    fill="none">
+                                    <path
+                                        d="M8.5 1L10.663 5.382L15.5 6.089L12 9.498L12.826 14.314L8.5 12.039L4.174 14.314L5 9.498L1.5 6.089L6.337 5.382L8.5 1Z"
+                                        fill="#0099FF" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                    fill="none">
+                                    <path
+                                        d="M8 1L10.163 5.382L15 6.089L11.5 9.498L12.326 14.314L8 12.039L3.674 14.314L4.5 9.498L1 6.089L5.837 5.382L8 1Z"
+                                        fill="#E9EAF0" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="top_mentor_row_right">
+                    <div class="user_percentage user_percentage_bg_02">24.6</div>
+                </div>
+            </div>
+            <div class="top_mentor_row">
+                <div class="top_mentor_row_left">
+                    <div class="top_left_details">
+                        <div class="top_mentor_image">
+                            <img src="https://app36-s3.s3.eu-west-2.amazonaws.com/attachmentfiles/25371701537402012.jpeg" alt="">
+                        </div>
+                        <div class="user_detail">
+                            <div class="user_name">
+                                Aamir Lakdawala
+                            </div>
+                            <div class="user_star">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16"
+                                    fill="none">
+                                    <path
+                                        d="M8.5 1L10.663 5.382L15.5 6.089L12 9.498L12.826 14.314L8.5 12.039L4.174 14.314L5 9.498L1.5 6.089L6.337 5.382L8.5 1Z"
+                                        fill="#0099FF" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16"
+                                    fill="none">
+                                    <path
+                                        d="M8.5 1L10.663 5.382L15.5 6.089L12 9.498L12.826 14.314L8.5 12.039L4.174 14.314L5 9.498L1.5 6.089L6.337 5.382L8.5 1Z"
+                                        fill="#0099FF" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16"
+                                    fill="none">
+                                    <path
+                                        d="M8.5 1L10.663 5.382L15.5 6.089L12 9.498L12.826 14.314L8.5 12.039L4.174 14.314L5 9.498L1.5 6.089L6.337 5.382L8.5 1Z"
+                                        fill="#0099FF" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                    fill="none">
+                                    <path
+                                        d="M8 1L10.163 5.382L15 6.089L11.5 9.498L12.326 14.314L8 12.039L3.674 14.314L4.5 9.498L1 6.089L5.837 5.382L8 1Z"
+                                        fill="#E9EAF0" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                    fill="none">
+                                    <path
+                                        d="M8 1L10.163 5.382L15 6.089L11.5 9.498L12.326 14.314L8 12.039L3.674 14.314L4.5 9.498L1 6.089L5.837 5.382L8 1Z"
+                                        fill="#E9EAF0" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="top_mentor_row_right">
+                    <div class="user_percentage user_percentage_bg_03">52.7</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

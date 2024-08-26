@@ -1,0 +1,1143 @@
+
+var searchParams = new URLSearchParams(window.location.search);
+var surveyId = parseInt(searchParams.get("surveyId") || "0");
+var userId = parseInt(searchParams.get("userId") || "0");
+var openId = parseInt(searchParams.get("isOpen") || "0");
+var surveyUserId = parseInt(searchParams.get("surveyUserId") || "0");
+var registerSuccess = parseInt(searchParams.get("registerSuccess") || "0");
+
+var surveyname;
+
+let rangeRecommendation = null
+let categoryRangeRecommendation = null
+let quesRecom = null
+let closedUserRecommendation = null
+let openUserRecommendation = null
+
+// var openId = userId > 100000 ? 1 : 0;
+
+console.log("surveyId", surveyId);
+console.log("userId", userId);
+
+function checkLockScreen(openId, surveyUserId, registerSuccess) {
+    if (openId == 1 && registerSuccess == 1) return 'unlocked';
+    else if (openId == 1 && surveyUserId == 0) return 'locked';
+    else if (openId == 1 && userId < 100000) return 'unlocked';
+    else if (openId == 0) return 'unlocked';
+    return 'locked';
+}
+
+fetch(window.__PATH__.appUrls.businessIntelligence + "api/process-api/smasurvey/surveycatquesanswers", {
+    method: "POST",
+    headers: {
+        'Content-Type': 'application/json',
+        "X-API-Endpoint": "U2FsdGVkX1/1AVz6uCndFXpCDMSlYOG0SHkjoSOmJLkb9PC/IzjheowPdFP0xzTvqEwLfTMyn0CKR1+9ebfRX9BuAuSGXPbn0c+5RbRpKh0Rp0Zs9XGl8XwwhiXdpc2IR/x/r3AeTFgN8SB4THVOzJHjPKMsIbTmNw0zFI1l2sExWQdzp3PxsEv7hNQQ6T3xYiGWrlgYXoPb5HPo37SvdQprMP9av8EQn9WLaehho/SXsUjqb+Kl3a/qNMkXxPFO4mv/5hVIDaiXAakq3YcWGg=="
+    },
+    body: JSON.stringify({
+        "isOpen": openId,
+        "registerSuccess": registerSuccess,
+        "surveyUserId": surveyUserId,
+        "surveyId": surveyId,
+        "userId": userId
+    })
+}).then(async (res) => {
+    let data = await res.json();
+
+    surveyname = data.surveyName;
+
+    console.log("surveyname", surveyname);
+
+    rangeRecommendation = data.rangeRecommendation
+    categoryRangeRecommendation = data.categoryRangeRecommendation
+    quesRecom = data.quesRecom
+    openUserRecommendation = data.openUserRecommendation
+    closedUserRecommendation = data.closedUserRecommendation
+
+    transformData(data.data);
+
+    //    consultantData(data.data1[0]);
+
+     if (data.data1 && data.data1.length > 0) {
+            const name = data.data1[0].Consultant_Name;
+            const role = data.data1[0].Role || '';
+            const email = data.data1[0].Mail_id || '';
+            const defaultAvatar = "https://journey36-alumni.s3.eu-west-2.amazonaws.com/attachmentfiles/168644387939918880.png";
+            const avatarSrc = data.data1[0].image || defaultAvatar;
+
+            console.log("Consultant Details:", name, role, email, avatarSrc);
+            createContactCard(name, role, email, avatarSrc);
+        } else {
+            console.error("No consultant details available.");
+        }
+
+    // createContactCard(name, role, email, avatarSrc)
+
+    // console.log("respone",responseData);
+});
+
+
+
+function createContactCard(name, role, email, avatarSrc) {
+    const contactCard = document.createElement('div');
+    contactCard.className = 'contact-card';
+
+    const assistanceText = document.createElement('p');
+    assistanceText.className = 'assistance-text';
+    assistanceText.textContent = `Need assistance? Don't hesitate to contact us.`;
+    contactCard.appendChild(assistanceText);
+
+    const contactInfo = document.createElement('div');
+    contactInfo.className = 'contact-info';
+
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar';
+    const avatarImg = document.createElement('img');
+    avatarImg.src = avatarSrc;
+    avatarImg.alt = 'Avatar';
+    avatar.appendChild(avatarImg);
+    contactInfo.appendChild(avatar);
+
+    const contactDetails = document.createElement('div');
+    contactDetails.className = 'contact-details';
+
+    const nameElement = document.createElement('p');
+    nameElement.className = 'name';
+    nameElement.textContent = name;
+    contactDetails.appendChild(nameElement);
+
+    const roleElement = document.createElement('p');
+    roleElement.className = 'role';
+    roleElement.textContent = role;
+    contactDetails.appendChild(roleElement);
+
+    const emailElement = document.createElement('p');
+    emailElement.className = 'email';
+    emailElement.textContent = email;
+    contactDetails.appendChild(emailElement);
+
+    contactInfo.appendChild(contactDetails);
+    contactCard.appendChild(contactInfo);
+
+    document.getElementById('consultant-container').appendChild(contactCard);
+}
+
+function setupScreen(responseData) {
+
+    const changeTitle = document.getElementById('surveyContainer2')
+    changeTitle.innerText = surveyname
+
+    // Get the container div and the inner div
+    const containerDiv = document.getElementById('surveyContainer1');
+    const innerDiv = document.getElementById('surveyContainer2');
+
+    // Set the height of the container div to the height of the inner div
+    containerDiv.style.height = innerDiv.offsetHeight + 'px';
+
+    const reportData = responseData;
+
+    const container = document.getElementById('surveyContainer');
+    if (!container) {
+        console.error("Container element not found.");
+        return;
+    }
+
+    if (!reportData) {
+        console.error("No report data available.");
+
+        const noDataMsg = document.createElement('h2');
+        noDataMsg.textContent = 'No report data available.';
+        noDataMsg.style.textAlign = 'center'; // Optional: center the message
+        container.appendChild(noDataMsg);
+
+        return;
+    }
+
+    container.className = 'surveyContainer';
+    container.innerHTML = '';
+
+    const yourResultsSection = document.createElement('div');
+    yourResultsSection.classList.add('your-results');
+    yourResultsSection.innerHTML = `
+    <h2>YOUR RESULTS</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in purus vitae tortor egestas dictum quis tincidunt felis. Aenean vitae dui in erat sollicitudin
+    porttitor. Maecenas id lacinia eros, commodo feugiat diam.</p>
+  `;
+    container.appendChild(yourResultsSection);
+
+    const newLine = document.createElement('hr');
+    container.appendChild(newLine);
+
+
+
+    const consultantContainer = document.createElement('div');
+    consultantContainer.id = 'consultant-container';
+    container.appendChild(consultantContainer);
+
+
+    // Flex container for tabs and download icon
+    const flexContainer = document.createElement('div');
+    flexContainer.style.display = 'flex';
+    flexContainer.style.justifyContent = 'space-between';
+    flexContainer.style.alignItems = 'center';
+
+    // Create Tabs
+    const tabs = document.createElement('div');
+    tabs.className = 'tabs';
+
+    const tabCharts = document.createElement('button');
+    tabCharts.textContent = 'Charts';
+    tabCharts.className = 'tablinks';
+
+    const tabUsers = document.createElement('button');
+    tabUsers.textContent = 'Users Report';
+    tabUsers.className = 'tablinks';
+
+    const tabSurvey = document.createElement('button');
+    tabSurvey.textContent = 'Survey Recommendations';
+    tabSurvey.className = 'tablinks';
+
+    if ((userId < 100000 && !closedUserRecommendation) || (userId > 100000 && !openUserRecommendation)) {
+        tabSurvey.classList.add('hide')
+    }
+
+    const tabCatRec = document.createElement('button');
+    tabCatRec.textContent = 'Category Recommendations';
+    tabCatRec.className = 'tablinks';
+
+    if ((userId < 100000 && !closedUserRecommendation) || (userId > 100000 && !openUserRecommendation)) {
+        tabCatRec.classList.add('hide')
+    }
+
+    const tabQuesRec = document.createElement('button');
+    tabQuesRec.textContent = 'Question Recommendations';
+    tabQuesRec.className = 'tablinks';
+
+    if ((userId < 100000 && !closedUserRecommendation) || (userId > 100000 && !openUserRecommendation)) {
+        tabQuesRec.classList.add('hide')
+    }
+
+
+    tabs.appendChild(tabCharts);
+    tabs.appendChild(tabUsers);
+    tabs.appendChild(tabSurvey);
+    tabs.appendChild(tabCatRec);
+    tabs.appendChild(tabQuesRec);
+
+    flexContainer.appendChild(tabs);
+
+
+    // Download icon button
+    // const downloadIcon = document.createElement('button');
+    // downloadIcon.className = 'download-btn';
+    // downloadIcon.innerHTML = '<i class="fas fa-download"></i>'; // Using Font Awesome icon
+    // downloadIcon.onclick = downloadCSVReport;
+    // flexContainer.appendChild(downloadIcon);
+
+    container.appendChild(flexContainer);
+
+    // Tab content containers
+
+
+    const chartContent = document.createElement('div');
+    chartContent.id = 'Charts';
+    chartContent.className = 'tabcontent';
+
+    const usersContent = document.createElement('div');
+    usersContent.id = 'Users';
+    usersContent.className = 'tabcontent';
+
+    const surveyContent = document.createElement('div');
+    surveyContent.id = 'surveyRecommendation';
+    surveyContent.className = 'tabcontent';
+
+    const catRecContent = document.createElement('div');
+    catRecContent.id = 'categoryRecommendation';
+    catRecContent.className = 'tabcontent';
+
+    const quesRecContent = document.createElement('div');
+    quesRecContent.id = 'questionRecommendation';
+    quesRecContent.className = 'tabcontent';
+
+
+
+    container.appendChild(chartContent);
+    container.appendChild(usersContent);
+    container.appendChild(surveyContent);
+    container.appendChild(catRecContent);
+    container.appendChild(quesRecContent);
+
+    // Default open Org Report
+    // usersContent.style.display = 'block';
+    // tabUsers.className += ' active';
+
+    chartContent.style.display = 'block';
+    tabCharts.className += ' active';
+
+
+    // Implementing tab logic
+
+    tabCharts.onclick = function () {
+        openTab('Charts');
+        const allTabs = document.querySelectorAll('.tablinks');
+        allTabs.forEach(tab => tab.classList.remove('active'));
+        tabCharts.classList.add('active');
+
+    };
+
+    tabUsers.onclick = function () {
+        openTab('Users');
+        const allTabs = document.querySelectorAll('.tablinks');
+        allTabs.forEach(tab => tab.classList.remove('active'));
+        tabUsers.classList.add('active');
+    };
+
+    tabSurvey.onclick = function () {
+        openTab('surveyRecommendation');
+        const allTabs = document.querySelectorAll('.tablinks');
+        allTabs.forEach(tab => tab.classList.remove('active'));
+        tabSurvey.classList.add('active');
+    };
+
+    tabCatRec.onclick = function () {
+        openTab('categoryRecommendation');
+        const allTabs = document.querySelectorAll('.tablinks');
+        allTabs.forEach(tab => tab.classList.remove('active'));
+        tabCatRec.classList.add('active');
+    };
+
+    tabQuesRec.onclick = function () {
+        openTab('questionRecommendation');
+        const allTabs = document.querySelectorAll('.tablinks');
+        allTabs.forEach(tab => tab.classList.remove('active'));
+        tabQuesRec.classList.add('active');
+    };
+
+    function openTab(tabName) {
+        let tabcontent = document.getElementsByClassName("tabcontent");
+        let tablinks = document.getElementsByClassName("tablinks");
+        for (let i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        for (let i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        event.currentTarget.className += " active";
+    }
+
+    // Function to handle the downloading logic based on the active tab
+    function downloadCSVReport() {
+        processDataAndDownloadCSV(reportData)
+    }
+
+    renderCharts(chartContent, reportData);
+
+    populateUsersReport(usersContent, reportData);
+
+    populateSurveyReport(surveyContent, reportData);
+
+    populateCatOrgReport(catRecContent, reportData);
+
+    populateQuesOrgReport(quesRecContent, reportData, quesRecom)
+}
+
+function populateUsersReport(usersContent, data) {
+
+    const app = document.createElement('div');
+    app.id = 'survey-result'
+    usersContent.appendChild(app);
+
+    data.forEach((categoryData, index) => {
+        const container = document.createElement('div');
+        container.classList.add('container');
+        container.appendChild(createCard(categoryData, index));
+        app.appendChild(container);
+    });
+
+}
+
+function renderCharts(chartContent, data) {
+
+    function createLockIcon() {
+        const lock = document.createElement('div');
+        lock.classList.add('lock');
+        lock.innerHTML = '&#x1f512;'; // Unicode for lock symbol
+        lock.style.position = 'absolute';  // Position the lock absolutely within the container
+        lock.style.top = '50%';           // Center the lock vertically
+        lock.style.left = '50%';          // Center the lock horizontally
+        lock.style.transform = 'translate(-50%, -50%)'; // Offset the lock position
+        lock.style.zIndex = '10'; // Ensure lock is above the blurred content
+        return lock;
+    }
+
+    chartContent.innerHTML = ''; // Clear existing charts
+
+    // Create a container for all charts
+    const chartsDiv = document.createElement('div');
+    chartsDiv.className = 'charts';
+
+    // Create a container for the donut chart
+    const donutChartBox = document.createElement('div');
+    donutChartBox.className = 'chart-box';
+    donutChartBox.id = 'donutChartBox';
+    const donutChartDiv = document.createElement('div');
+    donutChartDiv.id = 'donutChart';
+    donutChartBox.appendChild(donutChartDiv);
+    chartsDiv.appendChild(donutChartBox);
+
+    // Create a container for the bar chart
+    const barChartBox = document.createElement('div');
+    barChartBox.className = 'chart-box';
+    barChartBox.id = 'barChartBox';
+    barChartBox.style.position = 'relative'; // Make the container relative
+
+    const lock = createLockIcon();
+    if (checkLockScreen(openId, surveyUserId, registerSuccess) == 'locked') {
+        barChartBox.appendChild(lock); // Append lock first so it will be on top
+    }
+
+    const barChartCanvas = document.createElement('canvas');
+    barChartCanvas.id = 'barchart';
+    barChartCanvas.style.position = 'relative'; // Make the bar chart canvas relative
+
+    if (checkLockScreen(openId, surveyUserId, registerSuccess) == 'locked') {
+        // Add blur class to the canvas
+        barChartCanvas.classList.add('blur');
+    }
+
+    barChartBox.appendChild(barChartCanvas);
+    chartsDiv.appendChild(barChartBox);
+
+    // Create a container for the radar chart
+    const radarChartBox = document.createElement('div');
+    radarChartBox.className = 'chart-box';
+    radarChartBox.id = 'radarChartBox';
+    radarChartBox.style.position = 'relative'; // Make the container relative
+
+    const radarLock = createLockIcon();
+    if (checkLockScreen(openId, surveyUserId, registerSuccess) == 'locked') {
+        radarChartBox.appendChild(radarLock); // Append lock first so it will be on top
+    }
+    const radarChartCanvas = document.createElement('canvas');
+    radarChartCanvas.id = 'chartContainer1';
+    radarChartCanvas.style.width = '100%';
+    radarChartCanvas.style.height = '450px';
+    radarChartCanvas.style.marginInline = 'auto';
+    radarChartCanvas.style.position = 'relative'; // Make the radar chart canvas relative
+
+    if (checkLockScreen(openId, surveyUserId, registerSuccess) == 'locked') {
+        radarChartCanvas.classList.add('blur');
+    }
+
+    radarChartBox.appendChild(radarChartCanvas);
+    chartsDiv.appendChild(radarChartBox);
+
+    chartContent.appendChild(chartsDiv);
+
+    // Now call loadChart function to render charts
+    loadChart();
+}
+
+
+
+
+function transformData(data) {
+    let obj = Object.values(data).map(category => {
+        let categoryId = category.categoryId
+        let questions = Object.values(category.questions);
+        let totalScore = questions.reduce((acc, q) => acc + q.answers.selectedScore, 0);
+        // let averageScore = totalScore / questions.length;
+        let averageScore = (totalScore / questions.length).toFixed(2);
+        return {
+            categoryId: categoryId,
+            category: category.categoryName,
+            score: averageScore,
+            items: questions.map(question => ({
+                questionId: question.questionId,
+                question: question.name,
+                answer: question.answers.selectedScore,
+                percentage: Math.round((question.answers.selectedScore / question.answers.totalScore) * 100)
+            }))
+        };
+    });
+
+    setupScreen(obj);
+
+    // renderCards(obj);
+}
+
+function createCard(categoryData, index) {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    if (checkLockScreen(openId, surveyUserId, registerSuccess) == 'locked') {
+        if (index > 0) {
+            card.classList.add('locked');
+            card.addEventListener('click', () => alert('Please register to view this category.'));
+        }
+    }
+    const header = document.createElement('div');
+    header.classList.add('header');
+    const categoryName = document.createElement('div');
+    categoryName.textContent = categoryData.category;
+    const categoryScore = document.createElement('div');
+    categoryScore.textContent = `Average: ${categoryData.score}`;
+    header.appendChild(categoryName);
+    header.appendChild(categoryScore);
+
+    const body = document.createElement('div');
+    body.classList.add('body');
+    if (checkLockScreen(openId, surveyUserId, registerSuccess) == 'locked') {
+        if (index > 0) body.classList.add('blur');
+    }
+    categoryData.items.forEach(item => {
+        const itemContainer = document.createElement('div');
+        itemContainer.classList.add('progress-container');
+        const itemLabel = document.createElement('div');
+        itemLabel.textContent = `${item.question}`; //- ${item.answer}
+        itemContainer.appendChild(itemLabel);
+
+        const progressBarContainer = document.createElement('div');
+        progressBarContainer.classList.add('progress-bar-container');
+
+        const progressBar = document.createElement('div');
+        progressBar.classList.add('progress-bar');
+        progressBar.style.width = `${item.percentage}%`;
+        progressBar.textContent = `${item.answer}`;
+
+        progressBarContainer.appendChild(progressBar);
+        itemContainer.appendChild(progressBarContainer);
+
+        //itemContainer.appendChild(progressBar);
+        body.appendChild(itemContainer);
+    });
+
+    card.appendChild(header);
+    card.appendChild(body);
+
+    if (checkLockScreen(openId, surveyUserId, registerSuccess) == 'locked') {
+        if (index > 0) {
+            const lock = document.createElement('div');
+            lock.classList.add('lock');
+            lock.innerHTML = '&#x1f512;'; // Unicode for lock symbol
+            card.appendChild(lock);
+        }
+    }
+
+    return card;
+}
+
+// function renderCards(data) {
+//     const app = document.getElementById('survey-result');
+//     data.forEach((categoryData, index) => {
+//         const container = document.createElement('div');
+//         container.classList.add('container');
+//         container.appendChild(createCard(categoryData, index));
+//         app.appendChild(container);
+//     });
+// }
+
+// window.postMessage({
+//     messageType: "BODY_PADDING",
+//     message: {
+//         right: "0px"
+//     }
+// }, '*');
+//renderCards(transformedData);
+
+
+const loadScript = (FILE_URL, async = true, type = "text/javascript", integrity = "", crossorigin = "") => {
+    return new Promise((resolve, reject) => {
+        try {
+            const scriptEle = document.createElement("script");
+            scriptEle.type = type;
+            scriptEle.async = async;
+            scriptEle.src = FILE_URL;
+
+            if (integrity) {
+                scriptEle.integrity = integrity;
+            }
+
+            if (crossorigin) {
+                scriptEle.crossOrigin = crossorigin;
+            }
+
+            scriptEle.addEventListener("load", () => {
+                resolve({ status: true });
+            });
+
+            scriptEle.addEventListener("error", () => {
+                reject({
+                    status: false,
+                    message: `Failed to load the script ${FILE_URL}`
+                });
+            });
+
+            document.body.appendChild(scriptEle);
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
+loadScript("https://cdn.amcharts.com/lib/5/index.js")
+    .then(() => loadScript("https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.49.1/apexcharts.min.js"))
+    .then(() => loadScript("https://cdn.jsdelivr.net/npm/chart.js"))
+    .then(() => loadScript("https://cdn.jsdelivr.net/npm/apexcharts"))
+    .then(() => {
+        loadChart();
+    });
+
+function loadChart() {
+    fetch(window.__PATH__.appUrls.businessIntelligence + "api/process-api/smasurvey/surveycatquesanswers", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            "X-API-Endpoint": "U2FsdGVkX1/1AVz6uCndFXpCDMSlYOG0SHkjoSOmJLkb9PC/IzjheowPdFP0xzTvqEwLfTMyn0CKR1+9ebfRX9BuAuSGXPbn0c+5RbRpKh0Rp0Zs9XGl8XwwhiXdpc2IR/x/r3AeTFgN8SB4THVOzJHjPKMsIbTmNw0zFI1l2sExWQdzp3PxsEv7hNQQ6T3xYiGWrlgYXoPb5HPo37SvdQprMP9av8EQn9WLaehho/SXsUjqb+Kl3a/qNMkXxPFO4mv/5hVIDaiXAakq3YcWGg=="
+        },
+        body: JSON.stringify({
+            "isOpen": openId,
+            "registerSuccess": registerSuccess,
+            "surveyUserId": surveyUserId,
+            "surveyId": surveyId,
+            "userId": userId
+        })
+    }).then(async (res) => {
+        let responseData = await res.json();
+        const categoryDetails = Object.values(responseData.data)//.map(entry => entry[1])
+
+        const category_length = categoryDetails.length;
+
+        const labels = categoryDetails.map(category => category.categoryName);
+
+        const scores = categoryDetails.map(catgory => {
+            const totalScore = Object.values(catgory.questions).reduce((acc, question) => acc + question.answers.selectedScore, 0);
+            const totalMaxScore = Object.values(catgory.questions).reduce((acc, question) => acc + question.answers.totalScore, 0);
+            const percentage = (totalScore / totalMaxScore) * 100;
+            return Math.round(percentage);
+        });
+
+        // const scores = data.reportData[0].subjects.map(subject => {
+        //     const totalScore = subject.questions.reduce((acc, question) => acc + question.score, 0);
+        //     const totalMaxScore = subject.questions.reduce((acc, question) => acc + question.maxScore, 0);
+        //     const percentage = (totalScore / totalMaxScore) * 100;
+        //     return Math.round(percentage);
+        // });
+
+
+        // Calculate the maximum possible score for each subject
+        const maxScores = categoryDetails.map(catgory => {
+            const totalMaxScore = Object.values(catgory.questions).reduce((acc, question) => acc + question.answers.totalScore, 0);
+            return Math.round(totalMaxScore);
+        });
+
+        // Find the maximum maxScore across all subjects
+        const maxMaxScore = Math.max(...maxScores);
+
+        const assessmentname = null//data.reportData[0].assessmentName;
+
+        const donutChartBox = document.getElementById('donutChartBox');
+        const barChartBox = document.getElementById('barChartBox');
+        const radarChartBox = document.getElementById('radarChartBox');
+
+        // Donut Chart
+        // if (filteredCharts.includes('2')) {
+
+
+        for (let i = 0; i < category_length; i++) {
+            const canvas = document.createElement("canvas");
+            canvas.setAttribute("id", "donutChart" + i);
+            canvas.classList.add("chart-container");
+            canvas.style.cssText = "width: 800px; height: 600px;";
+            document.querySelector("#donutChart").appendChild(canvas);
+
+            const percentage = scores[i];
+            const maxscores = maxScores[i]
+
+            const data = {
+                labels,
+                datasets: [{
+                    data: [percentage, 100 - percentage],
+                    backgroundColor: ['#4db6ac', '#e0e0e0'],
+                    hoverBackgroundColor: ['#4db6ac', '#e0e0e0'],
+                    borderWidth: 0,
+                }]
+            };
+
+            const options = {
+                cutout: '70%',
+                plugins: {
+                    tooltip: {
+                        enabled: false
+                    },
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: `${labels[i]}: ${scores[i]} %`, // Dynamic title based on category
+                        font: {
+                            size: 16
+                        },
+                        padding: {
+                            top: 20,
+                            bottom: 30
+                        }
+                    }
+                }
+            };
+
+            const ctx = document.querySelector("#donutChart" + i);
+            new Chart(ctx, {
+                type: 'doughnut',
+                data,
+                options
+            });
+        }
+        // } else {
+        //     donutChartBox.style.display = 'none';
+        // }
+
+        // Radar Chart
+        // if (filteredCharts.includes('1')) {
+        // Select the canvas element and set its width
+        const radarChartCanvas = document.querySelector("#chartContainer1");
+        radarChartCanvas.width = 700; // Set the desired width
+
+        const dataradar = {
+            labels: labels,
+            datasets: [{
+                label: 'Score ',
+                data: scores,
+                fill: true,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgb(54, 162, 235)',
+                pointBackgroundColor: 'rgb(54, 162, 235)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(54, 162, 235)'
+            }]
+        };
+
+        new Chart(radarChartCanvas, {
+            type: 'radar',
+            data: dataradar,
+            options: {
+                responsive: true, // Enable responsive behavior
+                maintainAspectRatio: false, // Allow chart resizing
+                elements: {
+                    line: {
+                        borderWidth: 3
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: true
+                        },
+                        pointLabels: {
+                            font: {
+                                size: getFontSize() // Call getFontSize() function here
+                            },
+                            display: getLabelDisplay() // Call getLabelDisplay() function here
+                        },
+                        ticks: {
+                            display: false // Hides the labels on the axes
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false, // Hides the legend
+                        position: 'top'
+                    }
+                }
+            }
+        });
+        // } else {
+        //     radarChartBox.style.display = 'none';
+        // }
+
+
+
+        // Function to determine the font size based on screen width
+        function getFontSize() {
+            const screenWidth = window.innerWidth;
+            if (screenWidth < 768) {
+                return 10; // Font size for mobile
+            } else {
+                return 14; // Font size for desktop
+            }
+        }
+
+        // Function to determine whether to display labels based on screen width
+        function getLabelDisplay() {
+            const screenWidth = window.innerWidth;
+            if (screenWidth < 768) {
+                return false; // Hide labels on mobile
+            } else {
+                return true; // Show labels on desktop
+            }
+        }
+
+
+        // Bar Chart
+        // if (filteredCharts.includes('3')) {
+        new Chart(document.querySelector("#barchart").getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Score",
+                    data: scores,
+                    backgroundColor: function (context) {
+                        const baseHue = 185; // Base hue for #8ed1ca
+                        const hueRange = 30; // Define the range for hue variation
+                        const numBars = scores.length; // Get the number of bars
+                        const colorHue = (baseHue - hueRange / 2 + (context.dataIndex * (hueRange / numBars))) % 360; // Calculate hue based on index and number of bars within the range
+                        return `hsla(${colorHue}, 50%, 50%, 0.8)`; // Generate color string in HSLA format, keeping saturation and lightness consistent
+                    },
+                    borderColor: function (context) {
+                        const baseHue = 185; // Base hue for #8ed1ca
+                        const hueRange = 30; // Define the range for hue variation
+                        const numBars = scores.length; // Get the number of bars
+                        const colorHue = (baseHue - hueRange / 2 + (context.dataIndex * (hueRange / numBars))) % 360; // Calculate hue based on index and number of bars within the range
+                        return `hsla(${colorHue}, 50%, 50%, 1)`; // Generate color string in HSLA format, keeping saturation and lightness consistent
+                    },
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        display: getLabelDisplay(), // Call getLabelDisplay() function here
+                        font: {
+                            size: getFontSize() // Call getFontSize() function here
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 100 // Use the highest maxScore as the y-axis maximum value
+                    }
+                }
+            }
+        });
+        // } else {
+        //     barChartBox.style.display = 'none';
+        // }
+    });
+}
+
+function populateSurveyReport(usersContent, data) {
+
+    const userHeaderRow = document.createElement('div');
+    userHeaderRow.className = 'header-row';
+    usersContent.appendChild(userHeaderRow);
+
+    const userDetailsContainer = document.createElement('div');
+    userDetailsContainer.id = 'userDetailsContainer';
+    userDetailsContainer.className = 'details-container';
+    usersContent.appendChild(userDetailsContainer);
+
+    const averageScore = calculateAverageUserScore(data);
+    const userButton = document.createElement('button');
+    userButton.className = 'tab-button';
+    userButton.textContent = `Average Score: ${averageScore}`;
+    userButton.onclick = () => {
+        const allButtons = usersContent.parentNode.querySelectorAll('.tab-button');
+        allButtons.forEach(btn => btn.classList.remove('active-button'));
+        userButton.classList.add('active-button');
+        loadSurveyDetails(data, userDetailsContainer);
+    };
+    userHeaderRow.appendChild(userButton);
+
+}
+
+function loadSurveyDetails(userData, userDetailsContainer) {
+
+    userDetailsContainer.innerHTML = '';
+
+    const recommendationContainer = document.createElement('div');
+    recommendationContainer.className = 'recommendation-container';
+    recommendationContainer.style.marginTop = '10px';
+
+    const recommendationHeader = document.createElement('div');
+    recommendationHeader.className = 'recommendation-header';
+    recommendationHeader.textContent = "Recommendation Points";
+    recommendationContainer.appendChild(recommendationHeader);
+
+    const recommendationList = document.createElement('ul');
+    recommendationList.className = 'recommendation-list';
+
+    const averageScore = calculateAverageUserScore(userData);
+    // const rangeRecommendation = response.rangeRecommendation.value;
+
+
+    let filteredRecommendation = rangeRecommendation.filter(data => (
+        parseInt(data.Survey_Id, 10) === parseInt(assessmentId, 10) &&
+        parseFloat(data.Score_Range_From, 10) < parseFloat(averageScore, 10) &&
+        parseFloat(averageScore, 10) <= parseFloat(data.Score_Range_To, 10)
+    ));
+
+
+
+    if (!Array.isArray(filteredRecommendation) || filteredRecommendation.length === 0) {
+        console.error("Recommendation not mapped for the Level");
+
+        const noDataMsg = document.createElement('h2');
+        noDataMsg.textContent = 'Recommendation not mapped for the Level';
+        noDataMsg.style.textAlign = 'center';
+        recommendationContainer.appendChild(noDataMsg);
+        userDetailsContainer.appendChild(recommendationContainer);
+
+        return;
+    }
+
+    filteredRecommendation.forEach(rec => {
+        const listItem = document.createElement('li');
+        listItem.textContent = rec.Recommendation_Text;
+        recommendationList.appendChild(listItem);
+    });
+
+    recommendationContainer.appendChild(recommendationList);
+    userDetailsContainer.appendChild(recommendationContainer);
+}
+
+function populateCatOrgReport(catOrgContent, data) {
+
+    const catOrgHeaderRow = document.createElement('div');
+    catOrgHeaderRow.className = 'header-row';
+    catOrgContent.appendChild(catOrgHeaderRow);
+
+    const catOrgDetailsContainer = document.createElement('div');
+    catOrgDetailsContainer.id = 'catOrgDetailsContainer';
+    catOrgDetailsContainer.className = 'details-container';
+    catOrgContent.appendChild(catOrgDetailsContainer);
+
+    const subjectAggregates = {};
+
+    // Aggregate data
+    data.forEach(subject => {
+        const subjectName = subject.category;
+
+        if (!subjectAggregates[subjectName]) {
+            subjectAggregates[subjectName] = { avgScore: 0, categoryId: 0 };
+        }
+
+        subjectAggregates[subjectName].avgScore = parseFloat(subject.score);
+        subjectAggregates[subjectName].categoryId = subject.categoryId;
+    });
+
+    // Display subjects and their details
+    Object.entries(subjectAggregates).forEach(([subjectName, aggData]) => {
+        const averageScore = aggData.avgScore;  // Average score calculation
+        const subjectButton = document.createElement('button');
+        subjectButton.className = 'tab-button';
+        subjectButton.textContent = aggData.avgScore > 0 ? `${subjectName} - Avg Score: ${averageScore.toFixed(2)}` : `${subjectName} - No Data`;
+        subjectButton.onclick = () => {
+            const allButtons = catOrgContent.parentNode.querySelectorAll('.tab-button');
+            allButtons.forEach(btn => btn.classList.remove('active-button'));
+            subjectButton.classList.add('active-button');
+            loadCatOrgDetails(subjectName, aggData, catOrgDetailsContainer);
+        };
+        catOrgHeaderRow.appendChild(subjectButton);
+    });
+}
+
+function loadCatOrgDetails(subjectName, aggData, catOrgDetailsContainer) {
+
+    catOrgDetailsContainer.innerHTML = '';
+
+    const recommendationContainer = document.createElement('div');
+    recommendationContainer.className = 'recommendation-container';
+    recommendationContainer.style.marginTop = '10px';
+
+    const recommendationHeader = document.createElement('div');
+    recommendationHeader.className = 'recommendation-header';
+    recommendationHeader.textContent = "Recommendation Points";
+    recommendationContainer.appendChild(recommendationHeader);
+
+    const recommendationList = document.createElement('ul');
+    recommendationList.className = 'recommendation-list';
+
+    const averageScore = aggData.avgScore > 0 ? aggData.avgScore : 0;
+    const rangeRecommendation = categoryRangeRecommendation;
+    const categoryId = aggData.categoryId
+
+
+    let filteredRecommendation = rangeRecommendation.filter(data => (
+        parseInt(data.Category_id, 10) === parseInt(categoryId, 10) &&
+        parseFloat(data.Score_Range_From, 10) < parseFloat(averageScore, 10) &&
+        parseFloat(averageScore, 10) <= parseFloat(data.Score_Range_To, 10)
+    ));
+
+
+    if (!Array.isArray(filteredRecommendation) || filteredRecommendation.length === 0) {
+        console.error("Recommendation not mapped for the Level");
+
+        const noDataMsg = document.createElement('h2');
+        noDataMsg.textContent = 'Recommendation not mapped for the Level';
+        noDataMsg.style.textAlign = 'center';
+        recommendationContainer.appendChild(noDataMsg);
+        catOrgDetailsContainer.appendChild(recommendationContainer);
+
+        return;
+    }
+
+    filteredRecommendation.forEach(rec => {
+        const listItem = document.createElement('li');
+        listItem.textContent = rec.Recommendation_Text;
+        recommendationList.appendChild(listItem);
+    });
+
+    recommendationContainer.appendChild(recommendationList);
+    catOrgDetailsContainer.appendChild(recommendationContainer);
+
+
+}
+
+function populateQuesOrgReport(quesOrgContent, data, quesRecom) {
+
+    const subjectHeaderRow = document.createElement('div');
+    subjectHeaderRow.className = 'header-row';
+    quesOrgContent.appendChild(subjectHeaderRow);
+
+    const subjectDetailsContainer = document.createElement('div');
+    subjectDetailsContainer.id = 'subjectDetailsContainer';
+    subjectDetailsContainer.className = 'details-container';
+    quesOrgContent.appendChild(subjectDetailsContainer);
+
+    const subjectAggregates = {};
+
+    // Aggregate data
+    data.forEach(subject => {
+
+        const subjectName = subject.category;
+
+        if (!subjectAggregates[subjectName]) {
+            subjectAggregates[subjectName] = { avgScore: 0, categoryId: 0, questions: {} };
+        }
+
+        subjectAggregates[subjectName].avgScore = parseFloat(subject.score);
+        subjectAggregates[subjectName].categoryId = subject.categoryId;
+
+        subject.items.forEach(question => {
+            if (!subjectAggregates[subjectName].questions[question.question]) {
+                subjectAggregates[subjectName].questions[question.question] = { questionId: question.questionId, score: question.answer };
+            }
+        });
+    });
+
+    // Display subjects and their details
+    Object.entries(subjectAggregates).forEach(([subjectName, aggData]) => {
+        const averageScore = aggData.avgScore;  // Average score calculation
+        const subjectButton = document.createElement('button');
+        subjectButton.className = 'tab-button';
+        subjectButton.textContent = aggData.avgScore > 0 ? `${subjectName} - Avg Score: ${averageScore.toFixed(2)}` : `${subjectName} - No Data`;
+        subjectButton.onclick = () => {
+            const allButtons = quesOrgContent.parentNode.querySelectorAll('.tab-button');
+            allButtons.forEach(btn => btn.classList.remove('active-button'));
+            subjectButton.classList.add('active-button');
+            loadQuesDetails(subjectName, aggData, subjectDetailsContainer, quesRecom);
+        };
+        subjectHeaderRow.appendChild(subjectButton);
+    });
+}
+
+function loadQuesDetails(subjectName, aggData, container, quesRecom) {
+
+    container.innerHTML = ''; // Clear previous details
+
+    const averageScore = aggData.avgScore > 0 ? aggData.avgScore : 0;
+
+    // Update header with subject name and average score
+    const header = document.createElement('h3');
+    header.className = 'subject-header';
+    header.textContent = aggData.avgScore > 0 ? `${subjectName} - Avg Score: ${averageScore}` : `${subjectName} - No Data`;
+    container.appendChild(header);
+
+    const list = document.createElement('ul');
+
+    Object.entries(aggData.questions).forEach(([questionText, questionData]) => {
+
+        if (Object.keys(quesRecom).includes(questionData.questionId.toString())) {
+
+            const item = document.createElement('li');
+            item.className = 'qestionText'
+
+
+            const questionTextSpan = document.createElement('div');
+            questionTextSpan.className = 'recommendation-question-text';
+
+            const avgScore = (questionData.totalScore / questionData.count).toFixed(2);
+            questionTextSpan.textContent = questionText + ' - ' + avgScore
+
+            item.appendChild(questionTextSpan);
+            list.appendChild(item);
+
+            const recommendationContainer = document.createElement('div');
+            recommendationContainer.className = 'recommendation-container';
+            recommendationContainer.style.marginTop = '10px';
+
+            const recommendationHeader = document.createElement('div');
+            recommendationHeader.className = 'recommendation-header';
+            recommendationHeader.textContent = "Recommendation Points";
+            recommendationContainer.appendChild(recommendationHeader);
+
+            const recommendationList = document.createElement('ul');
+            recommendationList.className = 'recommendation-list';
+
+            let filteredRecommendation = quesRecom[questionData.questionId.toString()].filter(data => (
+                parseFloat(data.score_Range_From, 10) < parseFloat(averageScore, 10) &&
+                parseFloat(averageScore, 10) <= parseFloat(data.score_Range_To, 10)
+            ));
+
+            if (!Array.isArray(filteredRecommendation) || filteredRecommendation.length === 0) {
+                console.error("Recommendation not mapped for the Level");
+
+                const noDataMsg = document.createElement('h2');
+                noDataMsg.textContent = 'Recommendation not mapped for the Level';
+                noDataMsg.style.textAlign = 'center';
+                recommendationContainer.appendChild(noDataMsg);
+                catOrgDetailsContainer.appendChild(recommendationContainer);
+
+                return;
+            }
+
+            filteredRecommendation.forEach(rec => {
+                const listItem = document.createElement('li');
+                listItem.textContent = rec.recommendation_Text;
+                recommendationList.appendChild(listItem);
+            });
+
+            recommendationContainer.appendChild(recommendationList);
+            list.appendChild(recommendationContainer);
+
+        }
+    });
+
+    if (!list.innerHTML) {
+        console.error("Recommendations not found for any questions");
+
+        const noDataMsg = document.createElement('h2');
+        noDataMsg.textContent = 'Recommendations not found for any Questions';
+        noDataMsg.style.textAlign = 'center';
+        container.appendChild(noDataMsg);
+        return;
+    }
+
+    container.appendChild(list);
+}
+
+function calculateAverageUserScore(subjects) {
+    let totalScore = 0;
+    let totalCount = 0;
+
+    subjects.forEach(subject => {
+        totalScore += parseFloat(subject.score);
+        totalCount++;
+    });
+
+    return totalCount > 0 ? (totalScore / totalCount).toFixed(2) : "No Data";
+}

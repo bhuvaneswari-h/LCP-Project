@@ -1,0 +1,1322 @@
+
+
+
+JS CODE
+
+
+var searchParams = new URLSearchParams(window.location.search);
+var surveyId = parseInt(searchParams.get("surveyId") || "0");
+var userId = parseInt(searchParams.get("userId") || "0");
+var openId = parseInt(searchParams.get("isOpen") || "0");
+var surveyUserId = parseInt(searchParams.get("surveyUserId") || "0");
+var registerSuccess = parseInt(searchParams.get("registerSuccess") || "0");
+var title = searchParams.get("Title") || "0";
+
+var surveyname;
+
+// var openId = userId > 100000 ? 1 : 0;
+
+console.log("surveyId", surveyId);
+console.log("userId", userId);
+console.log("title", title);
+
+function checkLockScreen(openId, surveyUserId, registerSuccess) {
+    if (openId == 1 && registerSuccess == 1) return 'unlocked';
+    else if (openId == 1 && surveyUserId == 0) return 'locked';
+    else if (openId == 1 && userId < 100000) return 'unlocked';
+    else if (openId == 0) return 'unlocked';
+    return 'locked';
+}
+
+
+
+
+
+
+fetch(window.__PATH__.appUrls.businessIntelligence + "api/process-api/smasurvey/surveycatquesanswers", {
+    method: "POST",
+    headers: {
+        'Content-Type': 'application/json',
+        "X-API-Endpoint": "U2FsdGVkX1/1AVz6uCndFXpCDMSlYOG0SHkjoSOmJLkb9PC/IzjheowPdFP0xzTvqEwLfTMyn0CKR1+9ebfRX9BuAuSGXPbn0c+5RbRpKh0Rp0Zs9XGl8XwwhiXdpc2IR/x/r3AeTFgN8SB4THVOzJHjPKMsIbTmNw0zFI1l2sExWQdzp3PxsEv7hNQQ6T3xYiGWrlgYXoPb5HPo37SvdQprMP9av8EQn9WLaehho/SXsUjqb+Kl3a/qNMkXxPFO4mv/5hVIDaiXAakq3YcWGg=="
+    },
+    body: JSON.stringify({
+        "isOpen": openId,
+        "registerSuccess": registerSuccess,
+        "surveyUserId": surveyUserId,
+        "surveyId": surveyId,
+        "userId": userId
+    })
+}).then(async (res) => {
+    let data = await res.json();
+
+
+    //  loader.style.display = 'none';
+
+     surveyname = data.surveyName;
+     console.log("surveyname", surveyname);
+
+    transformData(data.data);
+
+    //    consultantData(data.data1[0]);
+
+    
+
+     
+
+    if (data.data1 && data.data1.length > 0) {
+            const name = data.data1[0].Consultant_Name;
+            const role = data.data1[0].Role || '';
+            const email = data.data1[0].Mail_id || '';
+            const defaultAvatar = "https://journey36-alumni.s3.eu-west-2.amazonaws.com/attachmentfiles/168644387939918880.png";
+            const avatarSrc = data.data1[0].image || defaultAvatar;
+
+            console.log("Consultant Details:", name, role, email, avatarSrc);
+            createContactCard(name, role, email, avatarSrc);
+        } else {
+            console.error("No consultant details available.");
+        }
+
+    // console.log("respone",responseData);
+});
+
+
+function createContactCard(name, role, email, avatarSrc) {
+    const contactCard = document.createElement('div');
+    contactCard.className = 'contact-card';
+
+    const assistanceText = document.createElement('p');
+    assistanceText.className = 'assistance-text';
+    assistanceText.textContent = `Need assistance? Don't hesitate to contact us.`;
+    contactCard.appendChild(assistanceText);
+
+    const contactInfo = document.createElement('div');
+    contactInfo.className = 'contact-info';
+
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar';
+    const avatarImg = document.createElement('img');
+    avatarImg.src = avatarSrc;
+    avatarImg.alt = 'Avatar';
+    avatar.appendChild(avatarImg);
+    contactInfo.appendChild(avatar);
+
+    const contactDetails = document.createElement('div');
+    contactDetails.className = 'contact-details';
+
+    const nameElement = document.createElement('p');
+    nameElement.className = 'name';
+    nameElement.textContent = name;
+    contactDetails.appendChild(nameElement);
+
+    const roleElement = document.createElement('p');
+    roleElement.className = 'role';
+    roleElement.textContent = role;
+    contactDetails.appendChild(roleElement);
+
+    const emailElement = document.createElement('p');
+    emailElement.className = 'email';
+    emailElement.textContent = email;
+    contactDetails.appendChild(emailElement);
+
+    contactInfo.appendChild(contactDetails);
+    contactCard.appendChild(contactInfo);
+
+    document.getElementById('consultant-container').appendChild(contactCard);
+}
+
+function setupScreen(responseData) {
+
+    const changeTitle = document.getElementById('surveyContainer2')
+    changeTitle.innerText = surveyname
+
+
+    // Get the container div and the inner div
+    const containerDiv = document.getElementById('surveyContainer1');
+    const innerDiv = document.getElementById('surveyContainer2');
+
+    // Set the height of the container div to the height of the inner div
+    containerDiv.style.height = innerDiv.offsetHeight + 'px';
+    
+
+    const reportData = responseData;
+
+    const container = document.getElementById('surveyContainer');
+    if (!container) {
+        console.error("Container element not found.");
+        return;
+    }
+
+    if (!reportData) {
+        console.error("No report data available.");
+
+        const noDataMsg = document.createElement('h2');
+        noDataMsg.textContent = 'No report data available.';
+        noDataMsg.style.textAlign = 'center'; // Optional: center the message
+        container.appendChild(noDataMsg);
+
+        return;
+    }
+
+
+    // Get the container element
+    const surveyContainer1 = document.getElementById('surveyContainer1');
+
+    // // Create an image element
+    // const image = document.createElement('img');
+    // image.src = 'https://journey36-alumni.s3.eu-west-2.amazonaws.com/attachmentfiles/163027697348068300.png'; // Replace with your actual image path
+    // image.alt = 'Descriptive image alt text';
+
+    // // Add the image to the container
+    // surveyContainer1.appendChild(image);
+
+
+    container.className = 'surveyContainer';
+    container.innerHTML = '';
+
+    // Add "Your Results" section
+    const yourResultsSection = document.createElement('div');
+    yourResultsSection.classList.add('your-results');
+    yourResultsSection.innerHTML = `
+    <h2>YOUR RESULTS</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in purus vitae tortor egestas dictum quis tincidunt felis. Aenean vitae dui in erat sollicitudin
+    porttitor. Maecenas id lacinia eros, commodo feugiat diam.</p>
+  `;
+    container.appendChild(yourResultsSection);
+
+    const newLine = document.createElement('hr');
+    container.appendChild(newLine);
+
+    const consultantContainer = document.createElement('div');
+    consultantContainer.id = 'consultant-container';
+    container.appendChild(consultantContainer);
+
+
+
+    // Flex container for tabs and download icon
+    const flexContainer = document.createElement('div');
+    flexContainer.style.display = 'flex';
+    flexContainer.style.justifyContent = 'space-between';
+    flexContainer.style.alignItems = 'center';
+
+    // Create Tabs
+    const tabs = document.createElement('div');
+    tabs.className = 'tabs';
+
+
+    const tabCharts = document.createElement('button');
+    tabCharts.textContent = 'Charts';
+    tabCharts.className = 'tablinks';
+
+    const tabUsers = document.createElement('button');
+    tabUsers.textContent = 'Users Report';
+    tabUsers.className = 'tablinks';
+
+
+    tabs.appendChild(tabCharts);
+    tabs.appendChild(tabUsers);
+
+    flexContainer.appendChild(tabs);
+
+
+    // Download icon button
+    // const downloadIcon = document.createElement('button');
+    // downloadIcon.className = 'download-btn';
+    // downloadIcon.innerHTML = '<i class="fas fa-download"></i>'; // Using Font Awesome icon
+    // downloadIcon.onclick = downloadCSVReport;
+    // flexContainer.appendChild(downloadIcon);
+
+    container.appendChild(flexContainer);
+
+    // Tab content containers
+
+
+    const chartContent = document.createElement('div');
+    chartContent.id = 'Charts';
+    chartContent.className = 'tabcontent';
+
+    const usersContent = document.createElement('div');
+    usersContent.id = 'Users';
+    usersContent.className = 'tabcontent';
+
+
+
+    container.appendChild(chartContent);
+    container.appendChild(usersContent);
+
+    // Default open Org Report
+    // usersContent.style.display = 'block';
+    // tabUsers.className += ' active';
+
+    chartContent.style.display = 'block';
+    tabCharts.className += ' active';
+
+    tabCharts.onclick = function () {
+        openTab('Charts');
+        const allTabs = document.querySelectorAll('.tablinks');
+        allTabs.forEach(tab => tab.classList.remove('active'));
+        tabCharts.classList.add('active');
+
+    };
+
+
+    // Implementing tab logic
+
+    tabUsers.onclick = function () {
+        openTab('Users');
+        const allTabs = document.querySelectorAll('.tablinks');
+        allTabs.forEach(tab => tab.classList.remove('active'));
+        tabUsers.classList.add('active');
+    };
+
+    function openTab(tabName) {
+        let tabcontent = document.getElementsByClassName("tabcontent");
+        let tablinks = document.getElementsByClassName("tablinks");
+        for (let i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        for (let i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        event.currentTarget.className += " active";
+    }
+
+    // Function to handle the downloading logic based on the active tab
+    function downloadCSVReport() {
+        processDataAndDownloadCSV(reportData)
+    }
+
+    renderCharts(chartContent, reportData);
+
+    // Populate data into 'Users' tab
+    populateUsersReport(usersContent, reportData);
+
+    // Populate data into 'Charts' tab
+    // populateOrgReport(chartContent, reportData);
+}
+
+function populateUsersReport(usersContent, data) {
+
+    const app = document.createElement('div');
+    app.id = 'survey-result'
+    usersContent.appendChild(app);
+
+    data.forEach((categoryData, index) => {
+        const container = document.createElement('div');
+        container.classList.add('container');
+        container.appendChild(createCard(categoryData, index));
+        app.appendChild(container);
+    });
+
+}
+
+function renderCharts(chartContent, data) {
+
+    function createLockIcon() {
+        const lock = document.createElement('div');
+        lock.classList.add('lock');
+        lock.innerHTML = '&#x1f512;'; // Unicode for lock symbol
+        return lock;
+    }
+
+
+
+
+    // console.log("chart data", data);
+
+    chartContent.innerHTML = ''; // Clear existing charts
+
+    // Create a container for all charts
+    const chartsDiv = document.createElement('div');
+    chartsDiv.className = 'charts';
+
+    // Create a container for the donut chart
+    const donutChartBox = document.createElement('div');
+    donutChartBox.className = 'chart-box';
+    donutChartBox.id = 'donutChartBox';
+    const donutChartDiv = document.createElement('div');
+    donutChartDiv.id = 'donutChart';
+    donutChartBox.appendChild(donutChartDiv);
+    chartsDiv.appendChild(donutChartBox);
+
+    // Create a container for the bar chart
+    const barChartBox = document.createElement('div');
+    barChartBox.className = 'chart-box';
+    barChartBox.id = 'barChartBox';
+    if (checkLockScreen(openId, surveyUserId, registerSuccess) == 'locked') {
+        barChartBox.classList.add('blur');
+        barChartBox.appendChild(createLockIcon());
+    }
+    const barChartCanvas = document.createElement('canvas');
+    barChartCanvas.id = 'barchart';
+    barChartBox.appendChild(barChartCanvas);
+    chartsDiv.appendChild(barChartBox);
+
+    // Create a container for the radar chart
+    const radarChartBox = document.createElement('div');
+    radarChartBox.className = 'chart-box';
+    radarChartBox.id = 'radarChartBox';
+    if (checkLockScreen(openId, surveyUserId, registerSuccess) == 'locked') {
+        radarChartBox.classList.add('blur');
+        radarChartBox.appendChild(createLockIcon());
+    }
+    const radarChartCanvas = document.createElement('canvas');
+    radarChartCanvas.id = 'chartContainer1';
+    radarChartCanvas.style.width = '100%';
+    radarChartCanvas.style.height = '450px';
+    radarChartCanvas.style.marginInline = 'auto';
+    radarChartBox.appendChild(radarChartCanvas);
+    chartsDiv.appendChild(radarChartBox);
+
+    chartContent.appendChild(chartsDiv);
+
+    // Now call loadChart function to render charts
+    loadChart();
+}
+
+
+
+
+
+function transformData(data) {
+    let obj = Object.values(data).map(category => {
+        let questions = Object.values(category.questions);
+        let totalScore = questions.reduce((acc, q) => acc + q.answers.selectedScore, 0);
+        // let averageScore = totalScore / questions.length;
+        let averageScore = (totalScore / questions.length).toFixed(2);
+        return {
+            category: category.categoryName,
+            score: averageScore,
+            items: questions.map(question => ({
+                question: question.name,
+                answer: question.answers.selectedScore,
+                percentage: Math.round((question.answers.selectedScore / question.answers.totalScore) * 100)
+            }))
+        };
+    });
+
+    setupScreen(obj);
+
+    // renderCards(obj);
+}
+
+function createCard(categoryData, index) {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    if (checkLockScreen(openId, surveyUserId, registerSuccess) == 'locked') {
+        if (index > 0) {
+            card.classList.add('locked');
+            card.addEventListener('click', () => alert('Please register to view this category.'));
+        }
+    }
+    const header = document.createElement('div');
+    header.classList.add('header');
+    const categoryName = document.createElement('div');
+    categoryName.textContent = categoryData.category;
+    const categoryScore = document.createElement('div');
+    categoryScore.textContent = `Average: ${categoryData.score}`;
+    header.appendChild(categoryName);
+    header.appendChild(categoryScore);
+
+    const body = document.createElement('div');
+    body.classList.add('body');
+    if (checkLockScreen(openId, surveyUserId, registerSuccess) == 'locked') {
+        if (index > 0) body.classList.add('blur');
+    }
+    categoryData.items.forEach(item => {
+        const itemContainer = document.createElement('div');
+        itemContainer.classList.add('progress-container');
+        const itemLabel = document.createElement('div');
+        itemLabel.textContent = `${item.question}`; //- ${item.answer}
+        itemContainer.appendChild(itemLabel);
+
+        const progressBarContainer = document.createElement('div');
+        progressBarContainer.classList.add('progress-bar-container');
+
+        const progressBar = document.createElement('div');
+        progressBar.classList.add('progress-bar');
+        progressBar.style.width = `${item.percentage}%`;
+        progressBar.textContent = `${item.answer}`;
+
+        progressBarContainer.appendChild(progressBar);
+        itemContainer.appendChild(progressBarContainer);
+
+        //itemContainer.appendChild(progressBar);
+        body.appendChild(itemContainer);
+    });
+
+    card.appendChild(header);
+    card.appendChild(body);
+
+    if (checkLockScreen(openId, surveyUserId, registerSuccess) == 'locked') {
+        if (index > 0) {
+            const lock = document.createElement('div');
+            lock.classList.add('lock');
+            lock.innerHTML = '&#x1f512;'; // Unicode for lock symbol
+            card.appendChild(lock);
+        }
+    }
+
+    return card;
+}
+// function renderCards(data) {
+//     const app = document.getElementById('survey-result');
+//     data.forEach((categoryData, index) => {
+//         const container = document.createElement('div');
+//         container.classList.add('container');
+//         container.appendChild(createCard(categoryData, index));
+//         app.appendChild(container);
+//     });
+// }
+
+// window.postMessage({
+//     messageType: "BODY_PADDING",
+//     message: {
+//         right: "0px"
+//     }
+// }, '*');
+//renderCards(transformedData);
+
+
+const loadScript = (FILE_URL, async = true, type = "text/javascript", integrity = "", crossorigin = "") => {
+    return new Promise((resolve, reject) => {
+        try {
+            const scriptEle = document.createElement("script");
+            scriptEle.type = type;
+            scriptEle.async = async;
+            scriptEle.src = FILE_URL;
+
+            if (integrity) {
+                scriptEle.integrity = integrity;
+            }
+
+            if (crossorigin) {
+                scriptEle.crossOrigin = crossorigin;
+            }
+
+            scriptEle.addEventListener("load", () => {
+                resolve({ status: true });
+            });
+
+            scriptEle.addEventListener("error", () => {
+                reject({
+                    status: false,
+                    message: `Failed to load the script ${FILE_URL}`
+                });
+            });
+
+            document.body.appendChild(scriptEle);
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
+loadScript("https://cdn.amcharts.com/lib/5/index.js")
+    .then(() => loadScript("https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.49.1/apexcharts.min.js"))
+    .then(() => loadScript("https://cdn.jsdelivr.net/npm/chart.js"))
+    .then(() => loadScript("https://cdn.jsdelivr.net/npm/apexcharts"))
+    .then(() => loadScript("https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"))
+    .then(() => {
+        loadChart();
+    });
+
+
+
+// Add a loader element to your HTML
+const loader = document.createElement('div');
+loader.className = 'loader';
+loader.innerHTML = '<div class="spinner-border text-primary" role="status"><span class="sr-only"></span></div>';
+document.body.appendChild(loader);
+
+// Show the loader initially
+loader.style.display = 'block';
+
+
+
+
+function loadChart() {
+    fetch(window.__PATH__.appUrls.businessIntelligence + "api/process-api/smasurvey/surveycatquesanswers", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            "X-API-Endpoint": "U2FsdGVkX1/1AVz6uCndFXpCDMSlYOG0SHkjoSOmJLkb9PC/IzjheowPdFP0xzTvqEwLfTMyn0CKR1+9ebfRX9BuAuSGXPbn0c+5RbRpKh0Rp0Zs9XGl8XwwhiXdpc2IR/x/r3AeTFgN8SB4THVOzJHjPKMsIbTmNw0zFI1l2sExWQdzp3PxsEv7hNQQ6T3xYiGWrlgYXoPb5HPo37SvdQprMP9av8EQn9WLaehho/SXsUjqb+Kl3a/qNMkXxPFO4mv/5hVIDaiXAakq3YcWGg=="
+        },
+        body: JSON.stringify({
+            "isOpen": openId,
+            "registerSuccess": registerSuccess,
+            "surveyUserId": surveyUserId,
+            "surveyId": surveyId,
+            "userId": userId
+        })
+    }).then(async (res) => {
+        let responseData = await res.json();
+
+          loader.style.display = 'none';
+
+
+        const categoryDetails = Object.values(responseData.data)//.map(entry => entry[1])
+        console.log("Fetched data:", categoryDetails);
+
+        const category_length = categoryDetails.length;
+        console.log("category_length data:", category_length);
+
+
+        const labels = categoryDetails.map(category => category.categoryName);
+
+        console.log("labels", labels)
+        console.log(" surveyId", surveyId);
+
+        const filteredCharts = response.Charts.value.filter(chart => parseInt(chart.surveyId) === surveyId).map(chart => chart.ChartsId);
+        console.log(" arun charts", response);
+        console.log(" arun filtereedchart", filteredCharts);
+
+
+        const scores = categoryDetails.map(catgory => {
+            const totalScore = Object.values(catgory.questions).reduce((acc, question) => acc + question.answers.selectedScore, 0);
+            const totalMaxScore = Object.values(catgory.questions).reduce((acc, question) => acc + question.answers.totalScore, 0);
+            const percentage = (totalScore / totalMaxScore) * 100;
+            return Math.round(percentage);
+        });
+
+        // const scores = data.reportData[0].subjects.map(subject => {
+        //     const totalScore = subject.questions.reduce((acc, question) => acc + question.score, 0);
+        //     const totalMaxScore = subject.questions.reduce((acc, question) => acc + question.maxScore, 0);
+        //     const percentage = (totalScore / totalMaxScore) * 100;
+        //     return Math.round(percentage);
+        // });
+
+        console.log("Arun scores", scores)
+
+
+
+        // Calculate the maximum possible score for each subject
+        const maxScores = categoryDetails.map(catgory => {
+            const totalMaxScore = Object.values(catgory.questions).reduce((acc, question) => acc + question.answers.totalScore, 0);
+            return Math.round(totalMaxScore);
+        });
+
+        console.log("Arun maxScores", maxScores)
+
+        // Find the maximum maxScore across all subjects
+        const maxMaxScore = Math.max(...maxScores);
+
+
+        console.log("labels", labels);
+        console.log("scores", scores);
+        console.log("maxscores", maxMaxScore);
+
+        const assessmentname = null//data.reportData[0].assessmentName;
+
+        const donutChartBox = document.getElementById('donutChartBox');
+        const barChartBox = document.getElementById('barChartBox');
+        const radarChartBox = document.getElementById('radarChartBox');
+
+        // Donut Chart
+        // ...
+
+        if (filteredCharts.includes('2')) {
+            for (let i = 0; i < category_length; i++) {
+                const canvas = document.createElement("canvas");
+                canvas.setAttribute("id", `donutChart${i}`);
+                canvas.classList.add("chart-container");
+                canvas.style.cssText = "width: 800px; height: 600px;";
+                document.querySelector("#donutChart").appendChild(canvas);
+
+                const percentage = scores[i];
+                const maxscores = maxScores[i];
+
+                const data = {
+                    labels: [labels[i]], // Use the category label as the only label
+                    datasets: [{
+                        data: [percentage, 100 - percentage],
+                        backgroundColor: ['#4db6ac', '#e0e0e0'],
+                        hoverBackgroundColor: ['#4db6ac', '#e0e0e0'],
+                        borderWidth: 0,
+                    }]
+                };
+
+                const options = {
+                    cutout: '70%',
+                    plugins: {
+                        tooltip: {
+                            enabled: false
+                        },
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: `${labels[i]}: ${scores[i]}%`, // Dynamic title based on category
+                            font: {
+                                size: 16
+                            },
+                            padding: {
+                                top: 20,
+                                bottom: 30
+                            }
+                        }
+                    }
+                };
+
+                const ctx = document.querySelector(`#donutChart${i}`);
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data,
+                    options
+                });
+            }
+        } else {
+            donutChartBox.style.display = 'none';
+        }
+
+        // Radar Chart
+        // Radar Chart
+        if (filteredCharts.includes('1')) {
+            // Select the canvas element and set its width
+            const radarChartCanvas = document.querySelector("#chartContainer1");
+            radarChartCanvas.width = 700; // Set the desired width
+
+            const dataradar = {
+                labels: labels,  // Add the labels back
+                datasets: [{
+                    label: 'Score ',
+                    data: scores,
+                    fill: true,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgb(54, 162, 235)',
+                    pointBackgroundColor: 'rgb(54, 162, 235)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgb(54, 162, 235)'
+                }]
+            };
+
+            new Chart(radarChartCanvas, {
+                type: 'radar',
+                data: dataradar,
+                options: {
+                    responsive: true, // Enable responsive behavior
+                    maintainAspectRatio: false, // Allow chart resizing
+                    elements: {
+                        line: {
+                            borderWidth: 3
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: getFontSize() // Call getFontSize() function here
+                                },
+                                display: getLabelDisplay() // Call getLabelDisplay() function here
+                            },
+                            ticks: {
+                                display: false // Hides the labels on the axes
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false, // Hides the legend
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        } else {
+            radarChartBox.style.display = 'none';
+        }
+
+        // Function to determine the font size based on screen width
+        function getFontSize() {
+            const screenWidth = window.innerWidth;
+            if (screenWidth < 768) {
+                return 10; // Font size for mobile
+            } else {
+                return 14; // Font size for desktop
+            }
+        }
+
+        // Function to determine whether to display labels based on screen width
+        function getLabelDisplay() {
+            const screenWidth = window.innerWidth;
+            if (screenWidth < 768) {
+                return false; // Hide labels on mobile
+            } else {
+                return true; // Show labels on desktop
+            }
+        }
+
+
+        // Bar Chart
+        if (filteredCharts.includes('3')) {
+            new Chart(document.querySelector("#barchart").getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: "Score",
+                        data: scores,
+                        backgroundColor: function (context) {
+                            const baseHue = 185; // Base hue for #8ed1ca
+                            const hueRange = 30; // Define the range for hue variation
+                            const numBars = scores.length; // Get the number of bars
+                            const colorHue = (baseHue - hueRange / 2 + (context.dataIndex * (hueRange / numBars))) % 360; // Calculate hue based on index and number of bars within the range
+                            return `hsla(${colorHue}, 50%, 50%, 0.8)`; // Generate color string in HSLA format, keeping saturation and lightness consistent
+                        },
+                        borderColor: function (context) {
+                            const baseHue = 185; // Base hue for #8ed1ca
+                            const hueRange = 30; // Define the range for hue variation
+                            const numBars = scores.length; // Get the number of bars
+                            const colorHue = (baseHue - hueRange / 2 + (context.dataIndex * (hueRange / numBars))) % 360; // Calculate hue based on index and number of bars within the range
+                            return `hsla(${colorHue}, 50%, 50%, 1)`; // Generate color string in HSLA format, keeping saturation and lightness consistent
+                        },
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            display: getLabelDisplay(), // Call getLabelDisplay() function here
+                            font: {
+                                size: getFontSize() // Call getFontSize() function here
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            max: 100 // Use the highest maxScore as the y-axis maximum value
+                        }
+                    }
+                }
+            });
+        } else {
+            barChartBox.style.display = 'none';
+        }
+    });
+}
+// you can write js here!!
+// Here you can access the 'response' variable
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+HTML CODE 
+
+
+
+<div class="body">
+     <div id="surveyContainer1" style="height :90px;width:100%; max-width: 1200px;margin:auto;background-image: url('https://journey36-alumni.s3.eu-west-2.amazonaws.com/attachmentfiles/163027697348068300.png'); background-size: cover; background-position: center;border-radius:6px;color:#005E6A;font-size:24px;font-weight:800"> <div id = "surveyContainer2" style="width:400px;margin-left:12px"></div>
+  </div>
+    <div id="surveyContainer"></div>
+</div>
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+CSS CODE
+
+
+
+
+
+
+
+.body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+#survey-result {
+    display: flex;
+    flex-wrap: wrap;
+}
+.container {
+    width: 48%;
+    box-sizing: border-box;
+    padding: 10px;
+}
+.card {
+    background-color: #e0f7fa;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+}
+.header {
+    background-color: #00796b;
+    color: #fff;
+    padding: 10px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.body {
+    padding: 10px;
+    background-color: #ffffff;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+.progress-container {
+    background-color: #e0f7fa;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.progress-bar-container {
+    position: relative;
+    width: 100%;
+    background-color: rgba(0,121,107,0.2);
+    height: 25px;
+    border-radius: 5px;
+}
+.progress-bar {
+    height: 24px;
+    background-color: #00796b;
+    text-align: right;
+    padding-right: 5px;
+    color: #fff;
+    line-height: 20px;
+    flex-grow: 1;
+    border-radius: 5px;
+}
+.blur {
+    filter: blur(5px);
+    pointer-events: none;
+}
+.lock {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: #00796b;
+    pointer-events: none;
+}
+.locked {
+    position: relative;
+    cursor: pointer;
+}
+
+/* Added from demo2 */
+.surveyContainer {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    background-color: #fff; /* White background for the container */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Soft shadow for depth */
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+    color: #01497C; /* Deep air color for text */
+
+    margin-top: 25px;
+}
+
+/* Style for the tabs */
+.tabs {
+    overflow: hidden;
+    background-color: #C6E7E4; /* Light water color for tabs background */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.tabs button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    color: #01497C; /* Matching text color to the general text */
+}
+
+.tabs button:hover {
+    background-color: #005E6A; /* Dark water color for hover */
+    color: #fff; /* White text on hover */
+}
+
+.tabs button.active {
+    background-color: #005E6A; /* Dark water color for active tab */
+    color: #fff; /* White text for active tab */
+}
+
+/* Style for tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #C6E7E4; /* Light water color for border */
+    border-top: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: #f4f4f4; /* Very light grey for content background */
+}
+
+/* Style for specific content elements within tabs */
+.item-title, .subject-header {
+    font-family: 'Poppins', sans-serif;
+    color: #005E6A; /* Dark water color for titles */
+    font-size: 20px;
+    padding: 10px;
+}
+
+.subject-header {
+    background-color: #C6E7E4; /* Light water color for header background */
+    color: #01497C; /* Deep air color for text */
+    padding: 10px;
+    margin-bottom: 15px; /* Increased space between headers and content */    
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.details-container {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #E9F6F4; /* Very light blue for the details background */
+}
+
+.details-container ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+}
+
+.details-container li {
+    margin-bottom: 10px;
+    padding: 5px 0;
+}
+
+.header-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start; /* Aligns items to the top */
+    justify-content: start;
+    padding: 10px 0;
+}
+
+.tab-button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tab-button:hover {
+    background-color: #ddd;
+}
+
+.tab-button.active-button {
+    background-color: #005E6A; /* Example blue color */
+    color: white;
+    border-color: #005E6A;
+}
+
+.download-btn {
+    background-color: #4CAF50; /* Green background */
+    border: none;
+    color: white; /* White text */
+    padding: 10px 20px; /* Padding around the text */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition: 0.3s;
+    cursor: pointer;
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Shadow for 3D effect */
+    width: 150px; /* Fixed width */
+}
+
+/* Hover effect for the button */
+.download-btn:hover {
+    background-color: #45a049; /* Darker shade of green */
+}
+
+/* Styles specific to the icon within the button */
+.download-btn i {
+    margin-right: 8px; /* Space between icon and text */
+    font-size: 20px; /* Larger icon size */
+}
+
+.two-column-container {
+    display: flex;
+    gap: 20px;
+}
+
+.left-column, .right-column {
+    flex: 1;
+}
+
+.subject-box {
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    margin-right: 4px;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.chart-container {
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px;
+    width: 230px !important;
+    height: 230px !important;
+}
+
+#donutChart {
+    display: flex;
+    /* flex-direction: column; */
+    overflow-x: auto;
+}
+
+#chartContainer {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+#barchart {
+    display: none;
+}
+
+#chartContainer1 {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+}
+
+.progress-bar {
+    background-color: #C6E7E4; /* Light water color for progress bar background */
+    border-radius: 5px;
+    padding: 3px;
+    width: 100%; /* Full width of the content area */
+}
+
+.progress-bar-fill {
+    background-color: #2A6F97; /* Darker brand color for progress bar fill */
+    height: 20px; /* Fixed height for the fill bar */
+    border-radius: 2px;
+    transition: width 0.5s ease-in-out; /* Smooth transition for animation */
+}
+
+.progress-bar-container {
+    background-color: #ADD4E4; /* Light blue for the empty part of the bar */
+    width: 70%; /* Adjust based on your layout */
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar {
+    background-color: #005E6A; /* Dark water color for progress fill */
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.score-text {
+    color: white;
+}
+
+.chart-box {
+    border: 1px solid #ccc;
+    margin: 10px;
+    padding: 15px;
+    background-color: #fff; /* White background for the chart boxes */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Light shadow for depth */
+    border-radius: 8px; /* Rounded corners for the boxes */
+}
+
+.charts {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+
+.lock {
+    display: inline-block;
+    font-size: 16px;
+    color: #888;
+    margin-left: 8px;
+}
+
+.tablinks.locked {
+    color: #888; /* Change color or style for the locked tab */
+    cursor: not-allowed; /* Change cursor to indicate disabled state */
+}
+
+
+
+
+
+.blurred {
+    filter: blur(4px); /* Adjust the blur level as needed */
+    pointer-events: none; /* Disable interactions if needed */
+}
+
+
+@media (max-width: 767px) {
+    .container {
+        width: 100%;
+    }
+}
+
+/* Style for 'Your Results' section */
+.your-results {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f4f4f4; /* Light gray background */
+    border-radius: 5px; /* Slightly rounded corners */
+    text-align: center; /* Center-align the content */
+}
+
+.your-results h2 {
+    font-size: 29px;
+    font-weight: 800;
+    color: #005E6A; /* Dark blue color */
+    margin-bottom: 10px;
+    text-align:left;
+}
+
+.your-results p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #01497C; /* Deep air color for text */
+    text-align:left;
+}
+
+
+#consultant-container {
+            display: flex;
+            justify-content: left;
+            flex-wrap: wrap; /* added flex-wrap for responsiveness */
+        }
+
+        .contact-card {
+            /* border: 1px solid #ccc; */
+            padding: 16px;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            width: 100%; /* changed width to 100% for responsiveness */
+            max-width: 1000px; /* added max-width for responsiveness */
+            /* margin: 20px; added margin for responsiveness */
+            /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+            margin-bottom: 20px;
+            margin-left:3px;
+           
+        }
+
+        .assistance-text {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+            margin-left:-20px;
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap; /* added flex-wrap for responsiveness */
+            margin-left:-20px;
+        }
+
+        .avatar {
+            margin-right: 12px;
+        }
+
+        .avatar img {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+        }
+
+        .contact-details .name {
+            font-style: poppins;
+            font-weight: 900;
+            margin: 0;
+            color: #005E6A;
+            font-size: 26px;
+        }
+
+        .contact-details .role {
+            margin: 4px 0;
+            font-size: 20px;
+            font-weight: 600;
+            color: #439398;
+
+        }
+
+        .contact-details .email {
+            margin: 4px 0;
+            font-size: 16px;
+            /* font-weight: 600; */
+            color: #454E53;
+
+        }
+
+        .loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+    border: 0.25em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spinner-border 0.75s linear infinite;
+}
+
+@keyframes spinner-border {
+    to {
+        transform: rotate(360deg);
+    }
+}

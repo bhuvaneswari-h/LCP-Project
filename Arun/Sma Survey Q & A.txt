@@ -1,0 +1,275 @@
+const queryString = window.location.search;
+const queryStringParent = window.parent.location.search;
+
+const urlParams = new URLSearchParams(queryString);
+const urlParamsParent = new URLSearchParams(queryStringParent);
+
+const categoryId = urlParams.get('categoryId') || urlParamsParent.get('categoryId');
+const surveyId = urlParams.get('surveyId') || urlParamsParent.get('surveyId');
+const userId = urlParams.get('userId') || urlParamsParent.get('userId');
+
+async function loadQuestions(categoryId) {    
+
+    let data = await J36.Notification.BlApi(
+        "https://alumni.thejourney36.com/bl/api/process-api/survey-genie/load-questions-by-category",
+        "U2FsdGVkX1/BbsFHcYscrmKhHCcqTJJczOYdrJKUIqA93/gMq65RjTObPnuL30zRbbwhuOmfgEnFGi3fOTqsm9rzKRFzu1LuaIaReLmpUkw7Wfu/i58n08zECtzJiMAzulskfQr2CMmdR1+ier7PWrHRfc7mNOM3e+sFm0AYpTDwNaEn9BUmAKHRjbEXR8XDN8lN+jOipqGfNImEMCbtN+HcaQ8bf8kDOIUMfe1JYfRs7RAvAGYpXoTszyldDqX7T4nT4aR6coOcb438usX+A+dGNHlqdFLZ05pmGQVdWDQ=",
+        { "categoryId": categoryId,
+          "surveyId": surveyId,
+          "userId": userId
+        }
+    );
+    if (data.status == 404 || data.status == 401) {
+        window.postMessage({
+            messageType: "SHOW_ALERT_NOTIFICATION",
+            payload: {
+                alertType: "error",
+                message: 'Something Went Wrong!',
+            },
+        }, "*");
+    } else {
+        setupUIQA(data);
+    }
+}
+
+let requiredQuestionList = [];
+let currentQuestionCount = 0;
+let questionCount = 0;
+let questionAnswersJson = [];
+let questionAnswers;
+let uniqueQuestionCount = [];
+let prevButtonFlag = false;
+let nextButtonFlag = false;
+
+function setupUIQA(data) {
+
+    const surveyContainer = document.querySelector('.jeva_survey_wrap');
+    surveyContainer.innerHTML = ''; // Clear existing content
+    prevButtonFlag = data?.options.prev;
+    nextButtonFlag = data?.options.next;
+
+    data.subcategories.forEach(subcategory => {
+        const subCategoryDiv = document.createElement('div');
+        subCategoryDiv.className = 'survey_container';
+
+        const subHeadingBand = document.createElement('div');
+        subHeadingBand.className = 'question_sub_heading_band';
+
+        const subheading = document.createElement('div');
+        subheading.className = 'question_subheading';
+        subheading.innerText = subcategory.subCategoryName;
+
+        subHeadingBand.appendChild(subheading);
+        subCategoryDiv.appendChild(subHeadingBand);
+
+        subcategory.questions.forEach(question => {
+
+            questionCount++;
+
+            const surveyContents = document.createElement('div');
+            surveyContents.className = 'survey_contents';
+
+            const questionBand = document.createElement('div');
+            questionBand.className = 'question_band';
+
+            const questionHeading = document.createElement('div');
+            questionHeading.className = 'question_heading';
+            questionHeading.innerText = 'Q';
+
+            const questionNum = document.createElement('div');
+            questionNum.className = 'question_count';
+            questionNum.innerText = `${question.id}:`;
+
+            const questionLabel = document.createElement('div');
+            questionLabel.className = 'question_label';
+            questionLabel.innerText = question.questionText;
+
+            if (question.isRequired == 1) {
+                
+                requiredQuestionList.push(question.id);
+
+                const requiredSup = document.createElement('sup');
+                requiredSup.className = 'required';
+                requiredSup.innerText = ' *';
+                questionLabel.appendChild(requiredSup);
+            }
+
+            questionBand.appendChild(questionHeading);
+            questionBand.appendChild(questionNum);
+            questionBand.appendChild(questionLabel);
+
+            surveyContents.appendChild(questionBand);
+
+            question.answers.forEach(answer => {
+                const radioContent = document.createElement('div');
+                radioContent.className = 'radio_content';
+
+                const label = document.createElement('label');
+                label.className = 'radio-button';
+
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.className = 'radio-button__input';
+                input.id = `choice-${question.id}-${answer.id}`;
+                input.name = `choice-${question.id}`;
+                //input.checked = ((question.selectedAns != '' && question.selectedAns == answer.id)? true : false);
+                input.value = answer.id; // Set the value to the answer ID
+                input.setAttribute('data-src', question.id); // Set the question ID
+
+                const span = document.createElement('span');
+                span.className = 'radio-button__control';
+
+                label.appendChild(input);
+                label.appendChild(span);
+
+                const radioText = document.createElement('div');
+                radioText.className = 'radio_text';
+                radioText.innerText = answer.answerText;
+
+                radioContent.appendChild(label);
+                radioContent.appendChild(radioText);
+
+                surveyContents.appendChild(radioContent);
+            });
+
+            subCategoryDiv.appendChild(surveyContents);
+
+            if (requiredQuestionList.length > 0) {
+                disableNextButton();
+               // enableBackButton();
+            }
+        });
+
+        surveyContainer.appendChild(subCategoryDiv);
+        selectSavedValue(data);
+    });
+    if(prevButtonFlag) 
+        enableBackButton();
+    else
+        disableBackButton();
+}
+
+function selectSavedValue(data) {
+    data.subcategories.forEach(subcategory => {
+        subcategory.questions.forEach(question => {
+            if(question.selectedAns != ''){
+                let idv = `choice-${question.id}-${question.selectedAns}`;
+                console.log(idv);
+                var $radioButton = $('#' + idv);
+                if ($radioButton.length) {
+                    $radioButton.prop('checked', true).trigger('change');
+                }
+                // const element = document.getElementById(idv);
+                // if(element){
+                //     element.checked = true;
+                //     postAnswer(question.id, question.selectedAns, answerText)
+                // }
+                enableBackButton();
+            }
+        });
+    });
+}
+
+$(document).on('change', 'input[type=radio][class=radio-button__input]', function () {
+    var answerValue = $(this).val();
+    var questionId = $(this).attr('data-src');
+    var answerText = $(this).closest('.radio-button').next('.radio_text').html();
+    console.log("Selected Answer:", answerValue, "for Question ID:", questionId);
+
+    postAnswer(questionId, answerValue, answerText);
+});
+
+function disableNextButton() {
+    // disable answer button
+    (window).J36.Notification.Broadcast({
+        channel: "SET_FLOW_DATA",
+        data: {
+            type: "DISABLE_ANSWER_BUTTONS",
+        },
+    });
+}
+
+function enableNextButton() {
+    // enable answer buttons
+    (window).J36.Notification.Broadcast({
+        channel: "SET_FLOW_DATA",
+        data: {
+            type: "ENABLE_ANSWER_BUTTONS",
+        },
+    });
+}
+
+function enableBackButton() {
+    // enable answer buttons
+    (window).J36.Notification.Broadcast({
+        channel: "SET_FLOW_DATA",
+        data: {
+            type: "ENABLE_BACK_BUTTON",
+        },
+    });
+}
+
+function disableBackButton() {
+    // enable answer buttons
+    (window).J36.Notification.Broadcast({
+        channel: "SET_FLOW_DATA",
+        data: {
+            type: "DISABLE_BACK_BUTTON",
+        },
+    });
+}
+
+async function postAnswer(questionId, answerValue, answerText) {
+
+    currentQuestionCount++;
+    if(!uniqueQuestionCount.includes(questionId)){
+        uniqueQuestionCount.push(questionId);
+    }
+
+    // Check if questionId exists in requiredQuestionList
+    const index = requiredQuestionList.indexOf(parseInt(questionId));
+
+    if (index !== -1) {
+
+        // Remove the questionId from the list
+        requiredQuestionList.splice(index, 1);
+
+        // Check if the list is empty after removal
+        if (requiredQuestionList.length === 0) {
+            enableNextButton();
+            disableBackButton();
+        }
+    }
+
+    //broadcast count
+    (window).J36.Notification.Broadcast({
+        channel: "UPDATE_QUESTION_COUNT",
+        data: {
+            currentQuestionCount: uniqueQuestionCount.length, //currentQuestionCount,
+            categoryId: categoryId,
+            questionCount: questionCount
+        },
+    });
+
+    const qaPair = {
+        questionId: questionId,
+        answerId: answerValue,
+        answerText: answerText
+    };
+
+    // Add the object to the array
+    questionAnswersJson.push(qaPair);
+    questionAnswers = JSON.stringify(questionAnswersJson);
+
+    // Set collection variable
+    (window).J36.Notification.Broadcast({
+        channel: "SET_FLOW_DATA",
+        data: {
+            type: "SET_COLLECTION",
+            value: {
+                questionAnswers: questionAnswers,
+            },
+        },
+    });
+}
+
+loadQuestions(categoryId);

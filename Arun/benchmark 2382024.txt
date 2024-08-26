@@ -1,0 +1,137 @@
+/* you can write css here */
+.body {
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 40px;
+        padding: 20px;
+        width: 100%;
+        transition: transform 0.2s;
+    }
+    .card:hover {
+        transform: scale(1.00);
+    }
+    .card h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    .list-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    .list-item:last-child {
+        margin-bottom: 0;
+    }
+    .category {
+        font-weight: normal;
+    }
+    .value {
+        background-color: #358797;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    .value1 {
+    background-color: #358797;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    /* margin-right: 10px;  */
+    /* Add some margin to separate from the value field */
+}
+
+
+the js code is 
+
+
+fetch(window.__PATH__.appUrls.businessIntelligence + "api/process-api/sma-survey/smabenchmarkreport", {
+    method: "POST",
+    headers: {
+        'Content-Type': 'application/json',
+        "X-API-Endpoint": "U2FsdGVkX182nP7Tv1pDon5kmeJcMWKnsVI/dm/jOT9tYCHykPICSThnPov9PNfTFsEdbiZjjJGilJXQkjHcJBtRJnPfiJ1WZwNjth14khGxZwvehiZjVcbhiBKJ5YeIbPTLhRVGp+qCx3Jo22JL9hYdlVDHMfFaWFpZJ29absdW9onJ76ffa65VQf7mQ9EH1CBvBwfi03yKs2b3YVVFuLMyxZHZxF+drA/UFFOEK5kpCU4q/MBXS18Hq6DrRDWaXsbZoFe2lra9ccluEle+Opa1UUfOewRJOiNjoWWxrrlNiInffF5R8mGUXLfSKElS80xnZxXWZ2vQVLADOaFuZjEz6olbFtQfEvQ57KdQt1k5dKosIvr/SgHJo3W/8fi6"
+    },
+    body: JSON.stringify({
+        "assessmentId"
+            : 6
+    })
+}).then(async (res) => {
+    let data = await res.json();
+
+    console.log("records length", data.records);
+
+    if (!data.records) {
+        const body = document.querySelector('.body');
+        body.innerHTML = '';
+        message = document.createElement('h1')
+        message.innerText = 'No Records Available'
+        body.appendChild(message)
+        return
+    }
+    else {
+        renderReport(data.records);
+    }
+});
+
+// Function to render report
+function renderReport(records) {
+    const body = document.querySelector('.body');
+    body.innerHTML = ''; // Clear existing content
+
+
+    Object.keys(records).forEach(function (key) {
+        // Create a card element
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        // Create and append the title element
+        const title = document.createElement('h2');
+        title.textContent = records[key].title;
+        card.appendChild(title);
+
+        // Create and append detail items
+        records[key].details.forEach(function (detail) {
+            const listItem = document.createElement('div');
+            listItem.className = 'list-item';
+
+            const category = document.createElement('span');
+            category.className = 'category';
+            category.textContent = detail.categoryTitle;
+
+            const value1 = document.createElement('span');
+            value1.className = 'value1';
+            value1.textContent = `${detail.averageScore}/${detail.maxAverageScore}`;
+
+            const value = document.createElement('span');
+            value.className = 'value';
+            value.textContent = `${detail.averageScore}/${detail.maxAverageScore}`;
+
+            listItem.appendChild(category);
+            listItem.appendChild(value1);
+            listItem.appendChild(value);
+            card.appendChild(listItem);
+        });
+
+        // Append the card to the body
+        body.appendChild(card);
+    });
+}
+
+
+Now if you look at the image i have shared , the values of the "value1" filed is not aligned and flexed
+properly . SO modify the code that the flex is currectly based on the "value" filed  and give the modified code 

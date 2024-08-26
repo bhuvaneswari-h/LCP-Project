@@ -1,0 +1,185 @@
+const externalUserReport = (postData, queryParams, userObject, requestHeaders, config, appUrls, _extra) => new Promise(async (resolve, reject) => {
+try {let errorMessage = "";
+let userId = postData.userId;
+let assessmentId = postData.assessmentId;
+
+// Get user level survey categories
+let surveyCategory = await selectTableData({
+    compName: "SMASurveyCategory",
+    recordCount: 0,
+    selectSpecs: [
+        { fieldName: "surveyId" }, { fieldName: "categoryId" }
+    ],
+    whereSpecs: []
+});
+
+let surveyProgress = await selectTableData({
+    compName: "SMASurveyProgress",
+    recordCount: 0,
+    selectSpecs: [
+        { fieldName: "userId" }, { fieldName: "surveyId" }, { fieldName: "status" }, { fieldName: "categoryId" }
+    ],
+    whereSpecs: []
+});
+
+// Function to find category IDs for a given survey
+function getCategoryIdsForSurvey(surveyId) {
+    return surveyCategory
+        .filter(category => category.surveyId === surveyId)
+        .map(category => category.categoryId);
+}
+
+// Function to check if a user has completed all categories for a given survey
+function hasUserCompletedSurvey(userId, surveyId) {
+    const requiredCategories = getCategoryIdsForSurvey(surveyId);
+    const userProgress = surveyProgress.filter(progress => progress.userId === userId && progress.surveyId === surveyId && progress.status === "Completed");
+    const completedCategories = userProgress.map(progress => progress.categoryId);
+    return requiredCategories.every(categoryId => completedCategories.includes(categoryId));
+}
+
+// Check if the user has completed the survey with assessmentId
+const isUserCompletedSurvey = hasUserCompletedSurvey(userId, assessmentId);
+
+let organisationAssessmentCompletedUsersList = await selectTableData({
+    compName: "SMASurveyProgress",
+    recordCount: 0,
+    selectSpecs: [
+        { fieldName: "id" },
+        { fieldName: "surveyId" },
+        { fieldName: "userId" },
+        { fieldName: "clientId" },
+        { fieldName: "createdBy" }
+    ],
+    whereSpecs: [
+        { fieldName: "status", fieldOperator: "=", fieldValue: "Completed" }
+    ]
+});
+
+function getLatestUniqueEntries(data) {
+    const latestEntriesMap = new Map();
+    data.forEach(entry => {
+        const createdBy = entry.createdBy;
+        if (!latestEntriesMap.has(createdBy) || entry.id > latestEntriesMap.get(createdBy).id) {
+            latestEntriesMap.set(createdBy, entry);
+        }
+    });
+    return Array.from(latestEntriesMap.values());
+}
+
+let uniqueCompletedUsersList = getLatestUniqueEntries(organisationAssessmentCompletedUsersList);
+let completedAssessmentUsers = uniqueCompletedUsersList.map(assessment => assessment.createdBy);
+
+let assessmentUsers = await selectTableData({
+    compName: "users",
+    recordCount: 0,
+    selectSpecs: [
+        { fieldName: "id" }, { fieldName: "FullName" }
+    ],
+    whereSpecs: [
+        { fieldName: "id", fieldOperator: "IN", fieldValue: completedAssessmentUsers }
+    ]
+});
+
+let completedAssessmentReport = await selectTableData({
+    compName: "SMACompletedSurveyReportView",
+    recordCount: 0,
+    selectSpecs: [
+        { fieldName: "title" },
+        { fieldName: "userId" },
+        { fieldName: "FullName" },
+        { fieldName: "categoryName" },
+        { fieldName: "subCategoryName" },
+        { fieldName: "questionText" },
+        { fieldName: "answerText" },
+        { fieldName: "score" },
+        { fieldName: "surveyId" },
+        { fieldName: "id" },
+        { fieldName: "answersCount" },
+        { fieldName: "created" },
+        { fieldName: "name" }
+    ],
+    whereSpecs: [
+        { fieldName: "id", fieldOperator: "=", fieldValue: assessmentId },
+        { fieldName: "userId", fieldOperator: "=", fieldValue: userId }
+    ],
+    type: "view",
+});
+
+// Process the completed assessment report to structure the response
+let assessmentReport = {};
+
+completedAssessmentReport.forEach(question => {
+    let completedAssessmentId = question.surveyId;
+    let createdDate = new Date(question.created); // Convert created to a Date object for easier comparison
+
+    // Initialize the assessment entry if it doesn't exist
+    if (!assessmentReport[completedAssessmentId]) {
+        assessmentReport[completedAssessmentId] = {
+            assessmentId: question.surveyId,
+            userId: question.userId,
+            userName: question.FullName, // Store the FullName as userName
+            assessmentName: question.title,
+            created: createdDate,
+            subjects: {}
+        };
+    }
+
+    // Check if the current entry has a newer created date
+    if (assessmentReport[completedAssessmentId].created < createdDate) {
+        assessmentReport[completedAssessmentId].created = createdDate;
+    }
+
+    // Add or update subjects and questions
+    let subject = question.categoryName;
+    // Initialize the subject if it doesn't exist
+    if (!assessmentReport[completedAssessmentId].subjects[subject]) {
+        assessmentReport[completedAssessmentId].subjects[subject] = {
+            subjectName: subject,
+            questions: {}
+        };
+    }
+
+    // Create a unique identifier for the question
+    let questionKey = `${question.subCategoryName}-${question.questionText}`;
+
+    // Add or update the question details
+    assessmentReport[completedAssessmentId].subjects[subject].questions[questionKey] = {
+        topicName: question.subCategoryName,
+        questionText: question.questionText,
+        answerText: question.answerText,
+        score: question.score,
+        maxScore: question.answersCount
+    };
+});
+
+let reportData = Object.values(assessmentReport).map(entry => {
+    if (entry.userId !== 0) {
+        return {
+            assessmentId: entry.assessmentId,
+            userId: entry.userId,
+            userName: entry.userName,
+            assessmentName: entry.assessmentName,
+            created: entry.created,
+            subjects: Object.values(entry.subjects).map(subject => ({
+                subjectName: subject.subjectName,
+                questions: Object.values(subject.questions)
+            }))
+        };
+    }
+    // Return null or an empty object for entries with userId 0 (excluded from response)
+    return null;
+}).filter(Boolean); // Filter out any null values (entries with userId 0)
+
+resolve({ reportData: reportData, message: "", statusCode: 200 });
+} catch (e) {
+  reject(e);
+}
+});       This is the code written for to fetch report as shown in the above image , 
+but when you look at the image well , you can find  that in my reports therre are two results
+based on external employee , with the fact that ,this code shows the result of all the survey
+ the external employee attended , but this particular page should show result for the particular 
+survey or the survey id when i open it , that is for a example , this is a pae based on survey 
+named employee feedback , but here in the my report i am getting the result for not only employee feedback
+baut all the ssurvey attend by the external employee . So based on my request please moddify the code and
+give the correct code , that the report should be based on the particular surveyid and userid for that 
+particular page 

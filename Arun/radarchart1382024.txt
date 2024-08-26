@@ -1,0 +1,70 @@
+// Radar Chart
+if (filteredCharts.includes('1')) {
+    // Select the canvas element and set its width
+    const radarChartCanvas = document.querySelector("#chartContainer1");
+    radarChartCanvas.width = 700; // Set the desired width
+
+    const dataradar = {
+        labels: labels,  // Add the labels back
+        datasets: [{
+            label: 'Score ',
+            data: scores,
+            fill: true,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgb(54, 162, 235)',
+            pointBackgroundColor: 'rgb(54, 162, 235)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(54, 162, 235)'
+        }]
+    };
+
+    new Chart(radarChartCanvas, {
+        type: 'radar',
+        data: dataradar,
+        options: {
+            responsive: true, // Enable responsive behavior
+            maintainAspectRatio: false, // Allow chart resizing
+            elements: {
+                line: {
+                    borderWidth: 3
+                }
+            },
+            scales: {
+                r: {
+                    angleLines: {
+                        display: true
+                    },
+                    pointLabels: {
+                        font: {
+                            size: getFontSize() // Call getFontSize() function here
+                        }
+                    },
+                    ticks: {
+                        display: false // Hides the labels on the axes
+                    },
+                    suggestedMin: 0,
+                    suggestedMax: 100
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false, // Hides the legend
+                    position: 'top'
+                }
+            }
+        }
+    });
+} else {
+    radarChartBox.style.display = 'none';
+}
+
+// Function to determine the font size based on screen width
+function getFontSize() {
+    const screenWidth = window.innerWidth;
+    if (screenWidth < 768) {
+        return 10; // Font size for mobile
+    } else {
+        return 14; // Font size for desktop
+    }
+}

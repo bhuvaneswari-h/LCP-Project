@@ -1,0 +1,50 @@
+
+                    new ApexCharts(document.querySelector("#reportsChart"), {
+                      series: [{
+                        name: 'Total Parts',
+                        data: [400, 440, 450, 450, 460, 500],
+                      }, {
+                        name: 'Requires Rotation',
+                        data: [80, 60, 50, 100, 80, 90]
+                      }, {
+                        name: 'In Maintainece',
+                        data: [15, 11, 32, 18, 9, 24]
+                      }],
+                      chart: {
+                        height: 350,
+                        type: 'area',
+                        toolbar: {
+                          show: false
+                        },
+                      },
+                      markers: {
+                        size: 4
+                      },
+                      colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                      fill: {
+                        type: "gradient",
+                        gradient: {
+                          shadeIntensity: 1,
+                          opacityFrom: 0.3,
+                          opacityTo: 0.4,
+                          stops: [0, 90, 100]
+                        }
+                      },
+                      dataLabels: {
+                        enabled: false
+                      },
+                      stroke: {
+                        curve: 'smooth',
+                        width: 2
+                      },
+                      xaxis: {
+                        type: 'datetime',
+                        categories: ["2024-01-19T00:00:00.000Z", "2024-02-19T00:00:00.000Z", "2024-03-19T00:00:00.000Z", "2024-04-19T00:00:00.000Z", "2024-05-19T00:00:00.000Z", "2024-06-19T00:00:00.000Z"]
+                      },
+                      tooltip: {
+                        x: {
+                          format: 'dd/MM/yy HH:mm'
+                        },
+                      }
+                    }).render();
+

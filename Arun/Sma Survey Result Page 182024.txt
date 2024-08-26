@@ -1,0 +1,135 @@
+
+var searchParams = new URLSearchParams(window.location.search);
+var surveyId = parseInt(searchParams.get("surveyId") || "0");
+var userId = parseInt(searchParams.get("userId") || "0");
+var openId = parseInt(searchParams.get("isOpen") || "0");
+var surveyUserId = parseInt(searchParams.get("surveyUserId") || "0");
+var registerSuccess = parseInt(searchParams.get("registerSuccess") || "0");
+
+// var openId = userId > 100000 ? 1 : 0;
+
+console.log("surveyId",surveyId );
+console.log("userId",userId );
+
+function checkLockScreen(openId, surveyUserId, registerSuccess) {
+    if (openId ==  1 && registerSuccess == 1)
+        return 'unlocked';
+    else if (openId == 1 && surveyUserId == 0)
+        return 'locked';
+    else if (openId == 1 && userId < 100000)
+        return 'unlocked';
+    else if (openId == 0)
+        return 'unlocked';
+    return 'locked';
+}
+
+fetch(window.__PATH__.appUrls.businessIntelligence + "api/process-api/smasurvey/surveycatquesanswers", {
+    method: "POST",
+    headers: {
+        'Content-Type': 'application/json',
+        "X-API-Endpoint": "U2FsdGVkX1/1AVz6uCndFXpCDMSlYOG0SHkjoSOmJLkb9PC/IzjheowPdFP0xzTvqEwLfTMyn0CKR1+9ebfRX9BuAuSGXPbn0c+5RbRpKh0Rp0Zs9XGl8XwwhiXdpc2IR/x/r3AeTFgN8SB4THVOzJHjPKMsIbTmNw0zFI1l2sExWQdzp3PxsEv7hNQQ6T3xYiGWrlgYXoPb5HPo37SvdQprMP9av8EQn9WLaehho/SXsUjqb+Kl3a/qNMkXxPFO4mv/5hVIDaiXAakq3YcWGg=="
+    },
+    body: JSON.stringify({
+        // "surveyId": '1',
+        // "userId": '100020'
+        "isOpen": openId,
+        "registerSuccess": registerSuccess,
+        "surveyUserId": surveyUserId,
+        "surveyId": surveyId,
+        "userId": userId
+    })
+}).then(async (res) => {
+    let data = await res.json();
+    transformData(data.data);
+});
+
+  function transformData(data) {
+      let obj =  Object.values(data).map(category => ({
+        category: category.categoryName,
+        score: Object.values(category.questions).reduce((acc, q) => acc + q.answers.selectedScore, 0),
+        items: Object.values(category.questions).map(question => ({
+          question: question.name,
+          answer: question.answers.selectedScore,
+          percentage: Math.round((question.answers.selectedScore / question.answers.totalScore) * 100)
+        }))
+      }));
+      renderCards(obj);
+    }
+
+    function createCard(categoryData, index) {
+      const card = document.createElement('div');
+      card.classList.add('card');
+      if(checkLockScreen(openId, surveyUserId, registerSuccess) == 'locked') {
+        if (index > 0) {
+            card.classList.add('locked');
+            card.addEventListener('click', () => alert('Please register to view this category.'));
+        }
+      }
+      const header = document.createElement('div');
+      header.classList.add('header');
+      const categoryName = document.createElement('div');
+      categoryName.textContent = categoryData.category;
+      const categoryScore = document.createElement('div');
+      categoryScore.textContent = categoryData.score;
+      header.appendChild(categoryName);
+      header.appendChild(categoryScore);
+
+      const body = document.createElement('div');
+      body.classList.add('body');
+      if(checkLockScreen(openId, surveyUserId, registerSuccess) == 'locked') {
+        if (index > 0) body.classList.add('blur');
+      }
+      categoryData.items.forEach(item => {
+        const itemContainer = document.createElement('div');
+        itemContainer.classList.add('progress-container');
+        const itemLabel = document.createElement('div');
+        itemLabel.textContent = `${item.question}`; //- ${item.answer}
+        itemContainer.appendChild(itemLabel);
+
+        const progressBarContainer = document.createElement('div');
+        progressBarContainer.classList.add('progress-bar-container');
+
+        const progressBar = document.createElement('div');
+        progressBar.classList.add('progress-bar');
+        progressBar.style.width = `${item.percentage}%`;
+        progressBar.textContent = `${item.percentage}%`;
+
+        progressBarContainer.appendChild(progressBar);
+        itemContainer.appendChild(progressBarContainer);
+
+        //itemContainer.appendChild(progressBar);
+        body.appendChild(itemContainer);
+      });
+
+      card.appendChild(header);
+      card.appendChild(body);
+
+      if(checkLockScreen(openId, surveyUserId, registerSuccess) == 'locked') {
+        if (index > 0) {
+            const lock = document.createElement('div');
+            lock.classList.add('lock');
+            lock.innerHTML = '&#x1f512;'; // Unicode for lock symbol
+            card.appendChild(lock);
+        }
+      }
+
+      return card;
+    }
+
+    function renderCards(data) {
+      const app = document.getElementById('survey-result');
+      data.forEach((categoryData, index) => {
+        const container = document.createElement('div');
+        container.classList.add('container');
+        container.appendChild(createCard(categoryData, index));
+        app.appendChild(container);
+      });
+    }
+
+// window.postMessage({
+//     messageType: "BODY_PADDING",
+//     message: {
+//         right: "0px"
+//     }
+// }, '*');
+    //renderCards(transformedData);

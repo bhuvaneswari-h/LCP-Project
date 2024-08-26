@@ -1,0 +1,315 @@
+const loadScript = (FILE_URL, async = true, type = "text/javascript", integrity = "", crossorigin = "") => {
+  return new Promise((resolve, reject) => {
+    try {
+      const scriptEle = document.createElement("script");
+      scriptEle.type = type;
+      scriptEle.async = async;
+      scriptEle.src = FILE_URL;
+
+      if (integrity) {
+        scriptEle.integrity = integrity;
+      }
+
+      if (crossorigin) {
+        scriptEle.crossOrigin = crossorigin;
+      }
+
+      scriptEle.addEventListener("load", () => {
+        resolve({ status: true });
+      });
+
+      scriptEle.addEventListener("error", () => {
+        reject({
+          status: false,
+          message: `Failed to load the script ${FILE_URL}`
+        });
+      });
+
+      document.body.appendChild(scriptEle);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+loadScript("https://cdn.amcharts.com/lib/5/index.js")
+  .then(() => loadScript("https://cdn.amcharts.com/lib/5/map.js"))
+  .then(() => loadScript("https://cdn.amcharts.com/lib/5/geodata/worldLow.js"))
+  .then(() => loadScript("https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.49.1/apexcharts.min.js"))
+  .then(() => {
+    loadChart();
+  });
+
+function loadChart() {
+  var root = am5.Root.new("chartdiv");
+
+var chart = root.container.children.push(am5map.MapChart.new(root, {
+  panX: "none",
+  panY: "none",
+  wheelY: "none",
+  projection: am5map.geoEquirectangular()
+}));
+
+// Load world low detail GeoJSON data
+var worldSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
+  geoJSON: am5geodata_worldLow,
+  stroke: am5.color(0xcccccc),
+  strokeWidth: 1,
+  exclude: ["AQ"] // Exclude Antarctica
+}));
+
+// Country name mapping (static data)
+const countryName1 = {
+  "New York": "US",
+  "China": "CN",
+  "India": "IN",
+  "Singapore": "SG",
+  "Tokyo": "JP",
+  "London": "GB",
+  "Brazil": "BR",
+  "South Africa": "ZA",
+  "Australia": "AU"
+};
+
+// Function to process JSON data and create dynamic country data
+function processJsonData(jsonData) {
+  const countryData = [];
+
+  for (const part of jsonData.Parts.value) {
+    const countryName = part.Current_Location;
+
+    // Check if country exists in static mapping first
+    let mappedCountryName = countryName1[countryName];
+
+    // If not found in static mapping, use original name (might not be in GeoJSON)
+    if (!mappedCountryName) {
+      mappedCountryName = countryName;
+      console.warn(`Country "${countryName}" not found in static mapping. Using original name.`);
+    }
+
+    // Check if mapped country code exists in GeoJSON data
+    if (am5geodata_worldLow.features.find(feature => feature.properties.id === mappedCountryName)) {
+      countryData.push({ id: mappedCountryName, value: part.flown });
+    } else {
+      console.warn(`Country "${mappedCountryName}" not found in GeoJSON data. Skipping.`);
+    }
+  }
+
+  return countryData;
+}
+
+// Assuming you have the JSON data stored in a variable named 'response'
+const jsonData = response;
+
+// Process JSON data to get dynamic country data
+const dynamicCountryData = processJsonData(jsonData);
+
+// Create a series to represent country data
+var countrySeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
+  geoJSON: am5geodata_worldLow,
+  calculateAggregates: true,
+  valueField: "value",
+  fillField: "fill",
+  exclude: ["AQ"] // Exclude Antarctica
+}));
+
+// Set the heat rules for coloring the countries
+countrySeries.set("heatRules", [{
+  target: countrySeries.mapPolygons.template,
+  dataField: "value",
+  min: am5.color(0x90EE90), // Light green
+  max: am5.color(0x006400), // Dark green
+  key: "fill"
+}]);
+
+// Set the default fill color for world series
+worldSeries.mapPolygons.template.setAll({
+  fill: am5.color(0x808080) // Grey color
+});
+
+countrySeries.mapPolygons.template.setAll({
+  tooltipText: "[{id}] - {value}"
+});
+
+// Set dynamic country data
+countrySeries.data.setAll(dynamicCountryData);
+
+// Ensure that worldSeries is drawn first
+worldSeries.mapPolygons.template.set("zIndex", -1);
+
+
+
+
+
+
+
+
+
+
+// if (reportsData && Array.isArray(reportsData)) {
+//   // Create an object to store the counts of each Parts_status
+//   const partsStatusCounts = {};
+//   for (const item of reportsData) {
+//     const partStatus = item.Part_status;
+//     if (partsStatusCounts[partStatus]) {
+//       partsStatusCounts[partStatus]++; // Increment count for existing status
+//     } else {
+//       partsStatusCounts[partStatus] = 1; // Initialize count for new status
+//     }
+//   }
+
+//   const categories = reportsData.map(item => item.updated_date);
+
+//    const series = Object.entries(partsStatusCounts).map(([name, count]) => ({
+//     name,
+//     data: [count], // Wrap count in an array for compatibility with ApexCharts
+//   }));
+
+
+const reportsData = response.Parts.value;
+
+
+  if (reportsData && Array.isArray(reportsData)) {
+
+      const categories = reportsData.map(item => item.updated_date);
+      
+    // Count occurrences of each Part_status
+    const countMap = {};
+    reportsData.forEach(item => {
+        const status = item.Part_status;
+        if (countMap[status]) {
+            countMap[status]++;
+        } else {
+            countMap[status] = 1;
+        }
+    });
+
+
+const seriesData = Object.keys(countMap).map(status => ({
+        name: status,
+        data: Array.from({ length: categories.length }, (_, index) => {
+            // If chartData is supposed to be related to reportsData, modify as needed
+            // Assuming you have a way to map `status` to `categories` and `values`
+            return countMap[status]; // Adjust this according to your actual data structure
+        })
+    }));
+
+  new ApexCharts(document.querySelector("#reportsChart"), {
+    series:seriesData,
+    chart: {
+      height: 350,
+      type: 'area',
+      toolbar: {
+        show: false
+      }
+    },
+    markers: {
+      size: 4
+    },
+    colors: ['#4154f1', '#2eca6a', '#ff771d'],
+    fill: {
+      type: "gradient",
+      gradient: {
+        shadeIntensity: 1,
+        opacityFrom: 0.3,
+        opacityTo: 0.4,
+        stops: [0, 90, 100]
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth',
+      width: 2
+    },
+    xaxis: {
+      type: 'datetime',
+      categories: categories
+    },
+    tooltip: {
+      x: {
+        format: 'yyyy/MM/dd HH:mm'
+      }
+    }
+  }).render();
+
+  }
+
+  const chartData = response.Parts.value; // Use "chartData" instead of "jsonData"
+
+// Check if data exists and is an array before processing
+if (chartData && Array.isArray(chartData)) {
+  // Count occurrences of each category
+  const categoryCounts = chartData.reduce((acc, item) => {
+    acc[item.category] = (acc[item.category] || 0) + 1;
+    return acc;
+  }, {});
+
+  // Extract categories and values from the counted occurrences
+  const categories = Object.keys(categoryCounts);
+  const values = Object.values(categoryCounts);
+
+  // Create the chart
+  new ApexCharts(document.querySelector("#donutChart"), {
+    series: values,
+    chart: {
+      width: 500,
+      type: 'donut',
+    },
+    labels: categories,
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        chart: {
+          width: 350
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }],
+    fill: {
+      type: 'gradient',
+    },
+    colors: ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0'],
+    legend: {
+      position: 'right',
+      offsetY: 0,
+      height: 230,
+    }
+  }).render();
+} else {
+  console.error("Invalid JSON data format. Please ensure response.Parts.value is an array of objects with 'category' and 'flown' fields.");
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+ 
+<h5 class="card-title" style="margin-left:40px;">Reports <span>/Today</span></h5>
+ <div id="reportsChart"   style="margin-top:30px;"></div>
+    <div class="col-12" style="display: flex;">
+
+    <div style="flex: 1; display: flex; flex-direction: column; gap:130px; margin-top:40px;">
+            <h5 class="card-title" style="margin-left:40px;">Parts by Category</h5>
+            <div  id="donutChart" ></div>
+        </div>
+        <div style="flex: 1;">
+            <h5 class="card-title" style="margin-top:40px;">Parts by Location</h5>
+            <div  id="chartdiv" style="width: 100%; height: 500px;"></div>
+        </div>
+
+
+         
+    </div>
+
+    
