@@ -1,0 +1,17 @@
+
+Company:
+component: CRMCompany3
+form: company creation
+grid: company_grid2
+page: Crm_company_page
+
+Contacts:
+component: CRMContacts2
+form: Crmcontact
+grid: Contacts_grid
+
+
+Opportunity:
+component: CRMOpportunity2
+form: Opportunity Creation
+grid: Opportunity_grid

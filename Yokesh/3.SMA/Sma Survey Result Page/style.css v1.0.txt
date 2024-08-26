@@ -1,0 +1,239 @@
+@import url("https://fonts.googleapis.com/css?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");   
+
+/* General container and font settings */
+.surveyContainer {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    background-color: #fff; /* White background for the container */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Soft shadow for depth */
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+    color: #01497C; /* Deep air color for text */
+}
+
+.score-text{
+
+    color:white;
+}
+
+/* Style for the tabs */
+.tabs {
+    overflow: hidden;
+    background-color: #C6E7E4; /* Light water color for tabs background */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.tabs button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    color: #01497C; /* Matching text color to the general text */
+}
+
+.tabs button:hover {
+    background-color: #005E6A; /* Dark water color for hover */
+    color: #fff; /* White text on hover */
+}
+
+.tabs button.active {
+    background-color: #005E6A; /* Dark water color for active tab */
+    color: #fff; /* White text for active tab */
+}
+
+/* Style for tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #C6E7E4; /* Light water color for border */
+    border-top: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: #f4f4f4; /* Very light grey for content background */
+}
+
+/* Style for specific content elements within tabs */
+.item-title, .subject-header {
+    font-family: 'Poppins', sans-serif;
+    color: #005E6A; /* Dark water color for titles */
+    font-size: 20px;
+    padding: 10px;
+}
+
+.subject-header {
+    background-color: #C6E7E4; /* Light water color for header background */
+    color: #01497C; /* Deep air color for text */
+    padding: 10px;
+    margin-bottom: 15px; /* Increased space between headers and content */    
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.progress-bar {
+    background-color: #C6E7E4; /* Light water color for progress bar background */
+    border-radius: 5px;
+    padding: 3px;
+    width: 100%; /* Full width of the content area */
+}
+
+.progress-bar-fill {
+    background-color: #2A6F97; /* Darker brand color for progress bar fill */
+    height: 20px; /* Fixed height for the fill bar */
+    border-radius: 2px;
+    transition: width 0.5s ease-in-out; /* Smooth transition for animation */
+}
+
+.details-container {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #E9F6F4; /* Very light blue for the details background */
+}
+
+.details-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.details-container li {
+    margin-bottom: 10px;
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+question-text {
+    flex-grow: 1;
+}
+
+.header-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start; /* Aligns items to the top */
+    justify-content: start;
+    padding: 10px 0;
+}
+
+
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content (and add display:none to hide not active content by default) */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+/* Additional styles for report details */
+.subject-report, .user-report {
+    border: 1px solid #ccc;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.subject-report h3, .user-report h3 {
+    color: #333;
+    margin: 5px 0;
+}
+
+
+.tab-button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.progress-bar-container {
+    background-color: #ADD4E4; /* Light blue for the empty part of the bar */
+    width: 70%; /* Adjust based on your layout */
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar {
+    background-color: #005E6A; /* Dark water color for progress fill */
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.download-btn {
+    background-color: #4CAF50; /* Green background */
+    border: none;
+    color: white; /* White text */
+    padding: 10px 20px; /* Padding around the text */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition: 0.3s;
+    cursor: pointer;
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Shadow for 3D effect */
+    width: 150px; /* Fixed width */            
+}
+
+/* Hover effect for the button */
+.download-btn:hover {
+    background-color: #45a049; /* Darker shade of green */
+}
+
+/* Styles specific to the icon within the button */
+.download-btn i {
+    margin-right: 8px; /* Space between icon and text */
+    font-size: 20px; /* Larger icon size */
+}
+
+.active-button {
+    background-color: #005E6A; /* Example blue color */
+    color: white;
+    border-color: #005E6A;
+}

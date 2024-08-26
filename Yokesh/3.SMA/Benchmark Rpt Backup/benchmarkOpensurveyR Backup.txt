@@ -1,0 +1,116 @@
+const categoryData = await selectTableData({
+    compName: "SMACategories", recordCount: 0,
+    selectSpecs: [
+        { fieldName: "id" }, { fieldName: "name" }
+    ],
+    whereSpecs: [],
+});
+const categories = {};
+for (let category of categoryData) {
+    categories[category.id] = category.name;
+}
+
+const allAnswers = await selectTableData({
+    compName: "SMAAnswers", recordCount: 0,
+    selectSpecs: [
+        { fieldName: "id" }, { fieldName: "questionId" }, { fieldName: "score" }
+    ],
+    whereSpecs: [],
+});
+const answers = {};
+for (let ans of allAnswers) {
+    if (!answers[ans.questionId])
+        answers[ans.questionId] = 0;
+    answers[ans.questionId] += ans.score;
+}
+
+const allQuestions = await selectTableData({
+    compName: "SMAQuestions", recordCount: 0,
+    selectSpecs: [
+        { fieldName: "id" }, { fieldName: "categoryId" }, { fieldName: "answersCount" }
+    ],
+    whereSpecs: [],
+});
+const questionScores = {};
+for (let ques of allQuestions) {
+    if (!questionScores[ques.categoryId]) {
+        questionScores[ques.categoryId] = [];
+    }
+    questionScores[ques.categoryId].push(answers[ques.id] || 0); // Ensure answers[ques.id] is defined
+}
+
+const questionCount = {};
+const totalScore = {};
+for (let ques of allQuestions) {
+    if (!totalScore[ques.categoryId]) {
+        totalScore[ques.categoryId] = 0;
+        questionCount[ques.categoryId] = 0;
+    }
+    totalScore[ques.categoryId] += ques.answersCount; // Sum up the answersCount
+    questionCount[ques.categoryId] += 1; // Count the number of questions per category
+}
+
+const averageScores = {};
+for (let categoryId in totalScore) {
+    averageScores[categoryId] = totalScore[categoryId] / questionCount[categoryId];
+}
+
+// resolve({"average":averageScores});
+
+const surveyAnswers = await selectTableData({
+    compName: "smaopenuserattemptedview", recordCount: 0,
+    selectSpecs: [
+        { fieldName: "id" }, { fieldName: "surveyId" }, { fieldName: "categoryId" }, { fieldName: "calculatedScore" }, { fieldName: "email" }
+    ],
+    whereSpecs: [{ fieldName: "email", fieldOperator: "LIKE", fieldValue: "%@alumniserv.com" }],
+    type: "view"
+});
+
+let surAns = {};
+let surveyIds = new Set(); // To store unique survey IDs from surveyAnswers
+
+for (let survey of surveyAnswers) {
+    surveyIds.add(survey.surveyId); // Add surveyId to the set
+    if (!surAns[survey.surveyId])
+        surAns[survey.surveyId] = {};
+    if (!surAns[survey.surveyId][survey.categoryId])
+        surAns[survey.surveyId][survey.categoryId] = { count: 0, calculatedScore: 0 };
+    let temp = surAns[survey.surveyId][survey.categoryId];
+    surAns[survey.surveyId][survey.categoryId] = { count: temp.count + 1, calculatedScore: temp.calculatedScore + survey.calculatedScore };
+}
+
+const surveyData = await selectTableData({
+    compName: "SMASurvey", recordCount: 0,
+    selectSpecs: [
+        { fieldName: "id" }, { fieldName: "title" }
+    ],
+    whereSpecs: [{ fieldName: "id", fieldOperator: "IN", fieldValue: Array.from(surveyIds) }], // Filter surveys based on surveyIds
+});
+
+let records = {};
+for (let survey of surveyData) {
+    const cat = await selectTableData({
+        compName: "SMASurveyCategory", recordCount: 0,
+        selectSpecs: [
+            { fieldName: "id" }, { fieldName: "categoryId" }
+        ],
+        whereSpecs: [{ fieldName: "surveyId", fieldOperator: "=", fieldValue: survey.id }],
+    });
+    const list = [];
+     for(let temp of cat){
+        let count = surAns[survey.id][temp.categoryId]?.count || 1;
+        let calcScore = surAns[survey.id][temp.categoryId]?.calculatedScore || 0;
+        let t = {
+            categoryTitle: categories[temp.categoryId], 
+            calcScore: calcScore, 
+            count: count,
+            maxCount: totalScore[temp.categoryId],
+            maxAverageScore: (averageScores[temp.categoryId]).toFixed(2), // Use averageScores for maxAverageScore
+            averageScore: (calcScore/count).toFixed(2),
+            };
+        list.push(t);
+    }
+    records[survey.id] = { title: survey.title, details: list };
+}
+
+resolve({ records, message: "Something awesome is coming...", statusCode: 200 });

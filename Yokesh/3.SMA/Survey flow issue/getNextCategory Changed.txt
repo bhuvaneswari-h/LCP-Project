@@ -1,0 +1,156 @@
+if (postData.surveyId && postData.activityId && postData.attemptId) {
+    function dateFormat() {
+        let currentDate = new Date();
+
+        let year = currentDate.getFullYear();
+        let month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        let day = String(currentDate.getDate()).padStart(2, '0');
+        let hours = String(currentDate.getHours()).padStart(2, '0');
+        let minutes = String(currentDate.getMinutes()).padStart(2, '0');
+        let seconds = String(currentDate.getSeconds()).padStart(2, '0');
+
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
+    let categoryId = 0;
+
+    let getUserProgress = {
+        compName: '	SMASurveyProgress', recordCount: 0,
+        selectSpecs: [{ fieldName: 'categoryId' }],
+        whereSpecs: [{ fieldName: "surveyId", fieldOperator: "=", fieldValue: postData.surveyId },
+        { fieldName: "userId", fieldOperator: "=", fieldValue: postData.userId },
+        { fieldName: "activityId", fieldOperator: "=", fieldValue: postData.activityId },
+        { fieldName: "status", fieldOperator: "=", fieldValue: "Completed" }
+        ]
+    };
+    const progress = await selectTableData(getUserProgress);
+    //{"postData": {"surveyId": 1,"userId": 3821, "activityId": 148 }}
+    //const progressCategoryArray = progress.map(item => item.categoryId);
+    let category;
+
+    /*if (progressCategoryArray.length < 0) {
+        let fetchModules = {
+            compName: 'SMASurveyCategory', recordCount: 1,
+            selectSpecs: [{ fieldName: 'id' }, { fieldName: 'categoryId' }],
+            whereSpecs: [{ fieldName: "surveyId", fieldOperator: "=", fieldValue: postData.surveyId }, { fieldName: "categoryId", fieldOperator: "NOT IN", fieldValue: progressCategoryArray }]
+        };
+        [category] = await selectTableData(fetchModules);
+    } else*/
+    {
+        let fetchCategory = {
+            compName: 'SMASurveyCategory', recordCount: 0,
+            selectSpecs: [{ fieldName: 'id' }, { fieldName: 'categoryId' }],
+            whereSpecs: [{ fieldName: "surveyId", fieldOperator: "=", fieldValue: postData.surveyId }]
+        };
+        //[category] = await selectTableData(fetchCategory);
+        const categoriesList = await selectTableData(fetchCategory);
+
+        //if(postData.attemptId){
+        //Check surveyId for User is vailable or not
+        let surveyExistsorNot = await selectTableData({
+            compName: "SMAUserAttempts", recordCount: 0,
+            selectSpecs: [
+                { fieldName: "id" }, { fieldName: "activityId" }, { fieldName: "status" }
+            ],
+            whereSpecs: [
+                { fieldName: "surveyId", fieldOperator: "=", fieldValue: postData.surveyId },
+                { fieldName: "userId", fieldOperator: "=", fieldValue: postData.userId }
+            ],
+        });
+
+        let attemptId = 0;
+        if (surveyExistsorNot.length > 0) {
+            attemptId = surveyExistsorNot[0].id;
+        }
+
+        for (let index in categoriesList) {
+            let cat = await selectTableData({
+                compName: "SMACategories",
+                recordCount: 0,
+                selectSpecs: [
+                    { fieldName: "id" },
+                    { fieldName: "name" },
+                    { fieldName: "questionCount" },
+                ],
+                whereSpecs: [
+                    { fieldName: "id", fieldOperator: "=", fieldValue: categoriesList[index].categoryId }
+                ]
+            });
+            /*Code Added for not allowing next operation when required question completed starts */
+            let requiredQuestionCount = await selectTableData({
+                compName: "SMAQuestions",
+                recordCount: 0,
+                selectSpecs: [
+                    { fieldName: "categoryId" },
+                    { fieldName: "categoryName" },
+                    { fieldName: "isRequired" },
+                ],
+                whereSpecs: [
+                    { fieldName: "categoryId", fieldOperator: "=", fieldValue: categoriesList[index].categoryId },
+                    { fieldName: "isRequired", fieldOperator: "=", fieldValue: 1 }
+                ]
+            });
+
+            /*Getting Required Question count of the category*/
+            requiredQuestionCount[0].isRequired = requiredQuestionCount.length
+
+
+            /*Code Added for not allowing next operation when required question completed ends */
+
+
+
+
+            let answers = await selectTableData({
+                compName: "SMAUserAnswers",
+                recordCount: 0,
+                selectSpecs: [
+                    { fieldName: "id" }
+                ],
+                whereSpecs: [
+                    { fieldName: "categoryId", fieldOperator: "=", fieldValue: categoriesList[index].categoryId },
+                    { fieldName: "surveyId", fieldOperator: "=", fieldValue: postData.surveyId },
+                    //{ fieldName: "attemptId", fieldOperator: "=", fieldValue: attemptId },
+                    { fieldName: "userId", fieldOperator: "=", fieldValue: postData.userId },
+                ]
+            });
+
+            const completedCount = answers.length;
+            /*Code Added for not allowing next operation when required question completed starts */
+            if (completedCount !== requiredQuestionCount[0].isRequired) {
+                category = categoriesList[index];
+                break;
+            }
+            /*Code Added for not allowing next operation when required question completed ends */
+
+            /*if (completedCount !== cat[0].questionCount) {
+                category = categoriesList[index];
+                break;
+            }*//*Code Commented for not allowing next operation when required question completed ends */
+        }
+        // } else {
+        //     category = categoriesList[0];
+        // }
+    }
+
+    if (category) {
+        categoryId = category.categoryId;
+    } else {
+        let currentDate = dateFormat();
+        await updateTableData({
+            compName: "SMASurveyUser",
+            updateSpecs: [
+                { fieldName: "status", fieldValue: 'completed' },
+                { fieldName: "surveyEndDate", fieldValue: currentDate },
+            ],
+            whereSpecs: [
+                { fieldName: "userId", fieldOperator: "=", fieldValue: postData.userId },
+                { fieldName: "surveyId", fieldOperator: "=", fieldValue: postData.surveyId }
+            ]
+        });
+    }
+
+    resolve({ categoryId: categoryId, category, postData, statusCode: 200 });
+
+} else {
+    resolve({ message: "Inputs missing ...", statusCode: 404 });
+}
+

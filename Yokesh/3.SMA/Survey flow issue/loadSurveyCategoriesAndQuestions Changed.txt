@@ -1,0 +1,103 @@
+if (postData.surveyId || postData.categoryId) {
+
+    if (postData.surveyId) {
+        let surveyCategories = await selectTableData({
+            compName: "SMASurveyCategory",
+            recordCount: 0,
+            selectSpecs: [
+                { fieldName: "categoryId" }
+            ],
+            whereSpecs: [
+                { fieldName: "surveyId", fieldOperator: "=", fieldValue: postData.surveyId }
+            ]
+        });
+
+
+        const categoryIds = surveyCategories.map(categories => categories.categoryId.toString());
+
+        if (surveyCategories.length > 0) {
+
+            let categories = await selectTableData({
+                compName: "SmaSurveyCategoryMappingOrder",/*View Created and Added for side bar Category flow issue */
+                recordCount: 0,
+                selectSpecs: [
+                    { fieldName: "id" },
+                    { fieldName: "name" },
+                    { fieldName: "questionCount" },
+                ],
+                whereSpecs: [
+                    { fieldName: "categoryId", fieldOperator: "IN", fieldValue: categoryIds },
+                    { fieldName: "surveyId", fieldOperator: "IN", fieldValue: postData.surveyId },
+                ],
+                type: "view"
+            });
+
+
+
+            let surveyExistsorNot = await selectTableData({
+                compName: "SMAUserAttempts", recordCount: 0,
+                selectSpecs: [
+                    { fieldName: "id" }, { fieldName: "activityId" }, { fieldName: "status" }
+                ],
+                whereSpecs: [
+                    { fieldName: "surveyId", fieldOperator: "=", fieldValue: postData.surveyId },
+                    { fieldName: "userId", fieldOperator: "=", fieldValue: postData.userId }
+                ],
+            });
+
+            let attemptId = 0;
+            if (surveyExistsorNot.length > 0) {
+                attemptId = surveyExistsorNot[0].id;
+            }
+
+            for (let index in categories) {
+                let answers = await selectTableData({
+                    compName: "SMAUserAnswers",
+                    recordCount: 0,
+                    selectSpecs: [
+                        { fieldName: "id" }
+                    ],
+                    whereSpecs: [
+                        { fieldName: "categoryId", fieldOperator: "=", fieldValue: categories[index].id },
+                        { fieldName: "surveyId", fieldOperator: "=", fieldValue: postData.surveyId },
+                        { fieldName: "attemptId", fieldOperator: "=", fieldValue: attemptId },
+                        { fieldName: "userId", fieldOperator: "=", fieldValue: postData.userId },
+                    ]
+                });
+
+                // categories[index].test = [
+                //         { fieldName: "categoryId", fieldOperator: "=", fieldValue: categories[index].id },
+                //         { fieldName: "surveyId", fieldOperator: "=", fieldValue: postData.surveyId },
+                //         { fieldName: "attemptId", fieldOperator: "=", fieldValue: postData.attemptId },
+                //         { fieldName: "userId", fieldOperator: "=", fieldValue: userObject.id },
+                //     ];
+                //categories[index].test2 = {postData, queryParams, userObject, requestHeaders, config, appUrls, _extra};
+                categories[index].completedCount = answers.length;
+            }
+
+            resolve(categories);
+
+        } else {
+            resolve({ message: "Categories are not mapped to the survey.", statusCode: 404 });
+        }
+    } else {
+
+        let [categories] = await selectTableData({
+            compName: "SMACategories",
+            recordCount: 0,
+            selectSpecs: [
+                { fieldName: "id" },
+                { fieldName: "name" },
+                { fieldName: "questionCount" },
+            ],
+            whereSpecs: [
+                { fieldName: "id", fieldOperator: "=", fieldValue: postData.categoryId }
+            ]
+        });
+
+        resolve({ postData, queryParams, userObject, requestHeaders, config, appUrls, _extra, ...categories, completedCount: 0 });
+    }
+
+} else {
+    resolve({ message: "Survey ID not provided. Please include a valid Survey ID and try again.", statusCode: 404 });
+}

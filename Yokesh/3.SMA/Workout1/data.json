@@ -1,0 +1,1418 @@
+{
+    "organisationAssessmentInfo": [
+      {
+        "User_Id": 3932
+      },
+      {
+        "User_Id": 3933
+      },
+      {
+        "User_Id": 3934
+      },
+      {
+        "User_Id": 3953
+      }
+    ],
+    "surveyCategory": [
+      {
+        "surveyId": 1,
+        "categoryId": 1
+      },
+      {
+        "surveyId": 1,
+        "categoryId": 2
+      },
+      {
+        "surveyId": 1,
+        "categoryId": 3
+      },
+      {
+        "surveyId": 2,
+        "categoryId": 2
+      },
+      {
+        "surveyId": 2,
+        "categoryId": 4
+      },
+      {
+        "surveyId": 1,
+        "categoryId": 4
+      }
+    ],
+    "surveyProgress": [
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 3
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3821,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3821,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3821,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3821,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 3
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 3
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 3
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 3
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 3
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 3
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 3
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 3
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 3
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 3
+      },
+      {
+        "userId": 3929,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3929,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 2
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 3
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 3
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 3
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 3
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3888,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 3
+      },
+      {
+        "userId": 3929,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 3
+      },
+      {
+        "userId": 3929,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 4
+      },
+      {
+        "userId": 3930,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3930,
+        "surveyId": 1,
+        "status": "InProgress",
+        "categoryId": 2
+      },
+      {
+        "userId": 3930,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 1
+      },
+      {
+        "userId": 3930,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 2
+      },
+      {
+        "userId": 3930,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 3
+      },
+      {
+        "userId": 3930,
+        "surveyId": 1,
+        "status": "Completed",
+        "categoryId": 4
+      }
+    ],
+    "organisationAssessmentCompletedUsersList": [
+      {
+        "id": 379,
+        "surveyId": 1,
+        "userId": 3888,
+        "clientId": -1,
+        "createdBy": 3888
+      },
+      {
+        "id": 382,
+        "surveyId": 1,
+        "userId": 3888,
+        "clientId": -1,
+        "createdBy": 3888
+      },
+      {
+        "id": 383,
+        "surveyId": 1,
+        "userId": 3888,
+        "clientId": -1,
+        "createdBy": 3888
+      },
+      {
+        "id": 386,
+        "surveyId": 1,
+        "userId": 3821,
+        "clientId": -1,
+        "createdBy": 3821
+      },
+      {
+        "id": 388,
+        "surveyId": 1,
+        "userId": 3821,
+        "clientId": -1,
+        "createdBy": 3821
+      },
+      {
+        "id": 395,
+        "surveyId": 1,
+        "userId": 3888,
+        "clientId": -1,
+        "createdBy": 3888
+      },
+      {
+        "id": 410,
+        "surveyId": 1,
+        "userId": 3888,
+        "clientId": -1,
+        "createdBy": 3888
+      },
+      {
+        "id": 411,
+        "surveyId": 1,
+        "userId": 3888,
+        "clientId": -1,
+        "createdBy": 3888
+      },
+      {
+        "id": 417,
+        "surveyId": 1,
+        "userId": 3888,
+        "clientId": -1,
+        "createdBy": 3888
+      },
+      {
+        "id": 421,
+        "surveyId": 1,
+        "userId": 3888,
+        "clientId": -1,
+        "createdBy": 3888
+      },
+      {
+        "id": 430,
+        "surveyId": 1,
+        "userId": 3888,
+        "clientId": -1,
+        "createdBy": 3888
+      },
+      {
+        "id": 438,
+        "surveyId": 1,
+        "userId": 3888,
+        "clientId": -1,
+        "createdBy": 3888
+      },
+      {
+        "id": 439,
+        "surveyId": 1,
+        "userId": 3888,
+        "clientId": -1,
+        "createdBy": 3888
+      },
+      {
+        "id": 449,
+        "surveyId": 1,
+        "userId": 3888,
+        "clientId": -1,
+        "createdBy": 3888
+      },
+      {
+        "id": 452,
+        "surveyId": 1,
+        "userId": 3888,
+        "clientId": -1,
+        "createdBy": 3888
+      },
+      {
+        "id": 455,
+        "surveyId": 1,
+        "userId": 3888,
+        "clientId": -1,
+        "createdBy": 3888
+      },
+      {
+        "id": 457,
+        "surveyId": 1,
+        "userId": 3888,
+        "clientId": -1,
+        "createdBy": 3888
+      },
+      {
+        "id": 459,
+        "surveyId": 1,
+        "userId": 3929,
+        "clientId": -1,
+        "createdBy": 3929
+      },
+      {
+        "id": 460,
+        "surveyId": 1,
+        "userId": 3929,
+        "clientId": -1,
+        "createdBy": 3929
+      },
+      {
+        "id": 461,
+        "surveyId": 1,
+        "userId": 3888,
+        "clientId": -1,
+        "createdBy": 3888
+      },
+      {
+        "id": 464,
+        "surveyId": 1,
+        "userId": 3888,
+        "clientId": -1,
+        "createdBy": 3888
+      },
+      {
+        "id": 467,
+        "surveyId": 1,
+        "userId": 3888,
+        "clientId": -1,
+        "createdBy": 3888
+      },
+      {
+        "id": 469,
+        "surveyId": 1,
+        "userId": 3929,
+        "clientId": -1,
+        "createdBy": 3929
+      },
+      {
+        "id": 470,
+        "surveyId": 1,
+        "userId": 3929,
+        "clientId": -1,
+        "createdBy": 3929
+      },
+      {
+        "id": 471,
+        "surveyId": 1,
+        "userId": 3930,
+        "clientId": -1,
+        "createdBy": 3930
+      },
+      {
+        "id": 473,
+        "surveyId": 1,
+        "userId": 3930,
+        "clientId": -1,
+        "createdBy": 3930
+      },
+      {
+        "id": 474,
+        "surveyId": 1,
+        "userId": 3930,
+        "clientId": -1,
+        "createdBy": 3930
+      },
+      {
+        "id": 475,
+        "surveyId": 1,
+        "userId": 3930,
+        "clientId": -1,
+        "createdBy": 3930
+      },
+      {
+        "id": 476,
+        "surveyId": 1,
+        "userId": 3930,
+        "clientId": -1,
+        "createdBy": 3930
+      }
+    ],
+    "assessmentUsers": [
+      {
+        "id": 3930,
+        "FullName": "Arun Vairavel"
+      },
+      {
+        "id": 3929,
+        "FullName": "Yokesh Venkatesan"
+      },
+      {
+        "id": 3888,
+        "FullName": "Srihari Posemreddy"
+      },
+      {
+        "id": 3821,
+        "FullName": "Shoaib Bagwan"
+      }
+    ],
+    "completedAssessmentReport": [
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3888,
+        "FullName": "Srihari Posemreddy",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, do employees trust the quality of data to make decisions?",
+        "answerText": "No",
+        "score": 1,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-08T17:58:27.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3888,
+        "FullName": "Srihari Posemreddy",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, do employees trust the quality of data to make decisions?",
+        "answerText": "No",
+        "score": 7,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-08T17:58:27.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3888,
+        "FullName": "Srihari Posemreddy",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, do employees trust the quality of data to make decisions?",
+        "answerText": "No",
+        "score": 3,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-08T17:58:27.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3888,
+        "FullName": "Srihari Posemreddy",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, are there quality metrics defined for your data and are they approved by a Data Governance Board?",
+        "answerText": "Data is trused and used 70-90% of the time as an input to support decision making.",
+        "score": 5,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-08T17:58:27.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3888,
+        "FullName": "Srihari Posemreddy",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, are there quality metrics defined for your data and are they approved by a Data Governance Board?",
+        "answerText": "Data is trused and used 70-90% of the time as an input to support decision making.",
+        "score": 5,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-08T17:58:27.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3888,
+        "FullName": "Srihari Posemreddy",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, are there quality metrics defined for your data and are they approved by a Data Governance Board?",
+        "answerText": "Data is trused and used 70-90% of the time as an input to support decision making.",
+        "score": 10,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-08T17:58:27.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3888,
+        "FullName": "Srihari Posemreddy",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, are data quality issues documented?",
+        "answerText": "For all our data",
+        "score": 2,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-08T17:58:27.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3888,
+        "FullName": "Srihari Posemreddy",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, are data quality issues documented?",
+        "answerText": "For all our data",
+        "score": 9,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-08T17:58:27.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3888,
+        "FullName": "Srihari Posemreddy",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, are data quality issues documented?",
+        "answerText": "For all our data",
+        "score": 1,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-08T17:58:27.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3929,
+        "FullName": "Yokesh Venkatesan",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, do employees trust the quality of data to make decisions?",
+        "answerText": "There is some trust; data is used anecdotally",
+        "score": 1,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T10:11:28.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3929,
+        "FullName": "Yokesh Venkatesan",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, do employees trust the quality of data to make decisions?",
+        "answerText": "There is some trust; data is used anecdotally",
+        "score": 7,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T10:11:28.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3929,
+        "FullName": "Yokesh Venkatesan",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, do employees trust the quality of data to make decisions?",
+        "answerText": "There is some trust; data is used anecdotally",
+        "score": 3,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T10:11:28.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3929,
+        "FullName": "Yokesh Venkatesan",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, are there quality metrics defined for your data and are they approved by a Data Governance Board?",
+        "answerText": "For all our data",
+        "score": 5,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T10:11:28.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3929,
+        "FullName": "Yokesh Venkatesan",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, are there quality metrics defined for your data and are they approved by a Data Governance Board?",
+        "answerText": "For all our data",
+        "score": 5,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T10:11:28.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3929,
+        "FullName": "Yokesh Venkatesan",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, are there quality metrics defined for your data and are they approved by a Data Governance Board?",
+        "answerText": "For all our data",
+        "score": 10,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T10:11:28.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3929,
+        "FullName": "Yokesh Venkatesan",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, are data quality issues documented?",
+        "answerText": "There is no management of quality issues, let alone any agreement",
+        "score": 2,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T10:11:28.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3929,
+        "FullName": "Yokesh Venkatesan",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, are data quality issues documented?",
+        "answerText": "There is no management of quality issues, let alone any agreement",
+        "score": 9,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T10:11:28.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3929,
+        "FullName": "Yokesh Venkatesan",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, are data quality issues documented?",
+        "answerText": "There is no management of quality issues, let alone any agreement",
+        "score": 1,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T10:11:28.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3929,
+        "FullName": "Yokesh Venkatesan",
+        "categoryName": "Governance",
+        "subCategoryName": "Storage & Operations",
+        "questionText": "In your organization, is there a clear agreement between technical and business domains on managing data quality issues?",
+        "answerText": "There are&nbsp; quality management activities, with moderate agreement between technical and business domains on managing data quality issues.",
+        "score": 5,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T10:11:54.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3929,
+        "FullName": "Yokesh Venkatesan",
+        "categoryName": "Governance",
+        "subCategoryName": "Storage & Operations",
+        "questionText": "In your organization, is there a clear agreement between technical and business domains on managing data quality issues?",
+        "answerText": "There are&nbsp; quality management activities, with moderate agreement between technical and business domains on managing data quality issues.",
+        "score": 5,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T10:11:54.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3929,
+        "FullName": "Yokesh Venkatesan",
+        "categoryName": "Governance",
+        "subCategoryName": "Storage & Operations",
+        "questionText": "In your organization, is there a clear agreement between technical and business domains on managing data quality issues?",
+        "answerText": "There are&nbsp; quality management activities, with moderate agreement between technical and business domains on managing data quality issues.",
+        "score": 6,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T10:11:54.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3929,
+        "FullName": "Yokesh Venkatesan",
+        "categoryName": "Governance",
+        "subCategoryName": "Storage & Operations",
+        "questionText": "In your organization, how often are data quality metrics used by the technical domains?",
+        "answerText": "Never",
+        "score": 9,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 2,
+        "created": "2024-07-09T10:11:54.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3929,
+        "FullName": "Yokesh Venkatesan",
+        "categoryName": "Governance",
+        "subCategoryName": "Storage & Operations",
+        "questionText": "In your organization, how often are data quality metrics used by the technical domains?",
+        "answerText": "Never",
+        "score": 1,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 2,
+        "created": "2024-07-09T10:11:54.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3930,
+        "FullName": "Arun Vairavel",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, do employees trust the quality of data to make decisions?",
+        "answerText": "No",
+        "score": 1,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T11:05:04.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3930,
+        "FullName": "Arun Vairavel",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, do employees trust the quality of data to make decisions?",
+        "answerText": "No",
+        "score": 7,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T11:05:04.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3930,
+        "FullName": "Arun Vairavel",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, do employees trust the quality of data to make decisions?",
+        "answerText": "No",
+        "score": 3,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T11:05:04.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3930,
+        "FullName": "Arun Vairavel",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, are there quality metrics defined for your data and are they approved by a Data Governance Board?",
+        "answerText": "Most categories and data domains",
+        "score": 5,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T11:05:04.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3930,
+        "FullName": "Arun Vairavel",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, are there quality metrics defined for your data and are they approved by a Data Governance Board?",
+        "answerText": "Most categories and data domains",
+        "score": 5,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T11:05:04.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3930,
+        "FullName": "Arun Vairavel",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, are there quality metrics defined for your data and are they approved by a Data Governance Board?",
+        "answerText": "Most categories and data domains",
+        "score": 10,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T11:05:04.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3930,
+        "FullName": "Arun Vairavel",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, are data quality issues documented?",
+        "answerText": "Often",
+        "score": 2,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T11:05:04.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3930,
+        "FullName": "Arun Vairavel",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, are data quality issues documented?",
+        "answerText": "Often",
+        "score": 9,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T11:05:04.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3930,
+        "FullName": "Arun Vairavel",
+        "categoryName": "Architecture",
+        "subCategoryName": "Integration & Interoperability",
+        "questionText": "In your organization, are data quality issues documented?",
+        "answerText": "Often",
+        "score": 1,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T11:05:04.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3930,
+        "FullName": "Arun Vairavel",
+        "categoryName": "Governance",
+        "subCategoryName": "Storage & Operations",
+        "questionText": "In your organization, is there a clear agreement between technical and business domains on managing data quality issues?",
+        "answerText": "There are&nbsp; quality management activities, with moderate agreement between technical and business domains on managing data quality issues.",
+        "score": 5,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T11:05:32.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3930,
+        "FullName": "Arun Vairavel",
+        "categoryName": "Governance",
+        "subCategoryName": "Storage & Operations",
+        "questionText": "In your organization, is there a clear agreement between technical and business domains on managing data quality issues?",
+        "answerText": "There are&nbsp; quality management activities, with moderate agreement between technical and business domains on managing data quality issues.",
+        "score": 5,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T11:05:32.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3930,
+        "FullName": "Arun Vairavel",
+        "categoryName": "Governance",
+        "subCategoryName": "Storage & Operations",
+        "questionText": "In your organization, is there a clear agreement between technical and business domains on managing data quality issues?",
+        "answerText": "There are&nbsp; quality management activities, with moderate agreement between technical and business domains on managing data quality issues.",
+        "score": 6,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 3,
+        "created": "2024-07-09T11:05:32.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3930,
+        "FullName": "Arun Vairavel",
+        "categoryName": "Governance",
+        "subCategoryName": "Storage & Operations",
+        "questionText": "In your organization, how often are data quality metrics used by the technical domains?",
+        "answerText": "Never",
+        "score": 9,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 2,
+        "created": "2024-07-09T11:05:32.000Z",
+        "name": "Test"
+      },
+      {
+        "title": "Alumni Benchmark",
+        "userId": 3930,
+        "FullName": "Arun Vairavel",
+        "categoryName": "Governance",
+        "subCategoryName": "Storage & Operations",
+        "questionText": "In your organization, how often are data quality metrics used by the technical domains?",
+        "answerText": "Never",
+        "score": 1,
+        "surveyId": 1,
+        "id": 2,
+        "answersCount": 2,
+        "created": "2024-07-09T11:05:32.000Z",
+        "name": "Test"
+      }
+    ]
+  }

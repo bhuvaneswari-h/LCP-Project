@@ -1,0 +1,815 @@
+var searchParams = new URLSearchParams(window.location.search);
+// var searchParamsParent = new URLSearchParams(window.parent.location.search);
+
+// var organisationId
+// var assessmentId
+
+var organisationId = parseInt(searchParams.get("orgid") || "0")
+var assessmentId = parseInt(searchParams.get("surveyId") || "0")
+
+
+
+// console.log("organisationId", organisationId)
+// console.log("assessmentId", assessmentId)
+
+function loadData() {
+    fetch(window.__PATH__.appUrls.businessIntelligence + "api/process-api/sma/organizationreport", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            "X-API-Endpoint": "U2FsdGVkX18MEmnMwzoLS4iKHOwi957c4pAFup3Z8Ga3VDdEst0B3eZAKiz2mmFeyeyNb6515i+WoMOWcHMHCE37dPYEkWA4TMJrCbLj/kMlzia3IQGCR917Ze3gCfqrstQV5cTWHBiU08ljjEZqHXzj1xHlCqxvcvEWHXzp2aHF4PB3NeW9DlmFOWVQgDe/SvTmQRXDb8ADlAswh7rHoL0i1sEox6H4fM6zOnSU+/weCBx9Z9tAULNiEUkAC0Gp"
+        },
+        body: JSON.stringify({
+            "organizationId": organisationId,
+            "assessmentId": assessmentId
+        })
+    }).then(async (res) => {
+        let data = await res.json();
+        console.log("Assessment Report", data.reportData);
+        setupScreen(data);
+    });
+}
+
+function setupScreen(responseData) {
+    const reportData = responseData.reportData;
+
+    const container = document.getElementById('surveyContainer');
+    if (!container) {
+        console.error("Container element not found.");
+        return;
+    }
+
+    if (!Array.isArray(reportData) || reportData.length === 0) {
+        console.error("No report data available.");
+
+        const noDataMsg = document.createElement('h2');
+        noDataMsg.textContent = 'No report data available.';
+        noDataMsg.style.textAlign = 'center'; // Optional: center the message
+        container.appendChild(noDataMsg);    
+
+        return;
+    }
+
+    container.className = 'surveyContainer';
+    container.innerHTML = '';
+
+    // Flex container for tabs and download icon
+    const flexContainer = document.createElement('div');
+    flexContainer.style.display = 'flex';
+    flexContainer.style.justifyContent = 'space-between';
+    flexContainer.style.alignItems = 'center';
+
+    // Create Tabs
+    const tabs = document.createElement('div');
+    tabs.className = 'tabs';
+    const tabOrg = document.createElement('button');
+    tabOrg.textContent = 'Organisation Report';
+    tabOrg.className = 'tablinks';
+    const tabUsers = document.createElement('button');
+    tabUsers.textContent = 'Users Report';
+    tabUsers.className = 'tablinks';
+    const tabCharts = document.createElement('button');
+    tabCharts.textContent = 'Org Charts';
+    tabCharts.className = 'tablinks';
+
+
+    tabs.appendChild(tabCharts);
+    tabs.appendChild(tabOrg);
+    tabs.appendChild(tabUsers);
+    flexContainer.appendChild(tabs);
+
+    // Download icon button
+    const downloadIcon = document.createElement('button');
+    downloadIcon.className = 'download-btn';
+    downloadIcon.innerHTML = '<i class="fas fa-download"></i>'; // Using Font Awesome icon
+    downloadIcon.onclick = downloadCSVReport;
+    flexContainer.appendChild(downloadIcon);
+
+    container.appendChild(flexContainer);
+
+    // Tab content containers
+    const orgContent = document.createElement('div');
+    orgContent.id = 'Organisation';
+    orgContent.className = 'tabcontent';
+    const usersContent = document.createElement('div');
+    usersContent.id = 'Users';
+    usersContent.className = 'tabcontent';
+    const chartContent = document.createElement('div');
+    chartContent.id = 'Charts';
+    chartContent.className = 'tabcontent';
+    
+    container.appendChild(chartContent);  
+    container.appendChild(orgContent);
+    container.appendChild(usersContent);
+   
+
+    // Default open Org Report
+    
+
+    chartContent.style.display = 'block';
+    tabCharts.className += ' active';
+
+    // Implementing tab logic
+    tabOrg.onclick = function () {
+        openTab('Organisation');
+        const allTabs = document.querySelectorAll('.tablinks');
+        allTabs.forEach(tab => tab.classList.remove('active'));
+        tabOrg.classList.add('active');
+    };
+    tabUsers.onclick = function () {
+        openTab('Users');
+        const allTabs = document.querySelectorAll('.tablinks');
+        allTabs.forEach(tab => tab.classList.remove('active'));
+        tabUsers.classList.add('active');
+    };
+
+
+    tabCharts.onclick = function () {
+        openTab('Charts');
+        const allTabs = document.querySelectorAll('.tablinks');
+        allTabs.forEach(tab => tab.classList.remove('active'));
+        tabCharts.classList.add('active');
+       
+    };
+
+
+    function openTab(tabName) {
+        let tabcontent = document.getElementsByClassName("tabcontent");
+        let tablinks = document.getElementsByClassName("tablinks");
+        for (let i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        for (let i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        event.currentTarget.className += " active";
+    }
+
+    // Function to handle the downloading logic based on the active tab
+    function downloadCSVReport() {    
+        processDataAndDownloadCSV(reportData)
+    }
+
+     renderCharts(chartContent, reportData);
+
+    // Populate data into 'Organisation' tab
+    populateOrgReport(orgContent, reportData);
+
+    // Populate data into 'Users' tab
+    populateUsersReport(usersContent, reportData);
+}
+
+function populateOrgReport(orgContent, data) {
+    const subjectHeaderRow = document.createElement('div');
+    subjectHeaderRow.className = 'header-row';
+    orgContent.appendChild(subjectHeaderRow);
+
+    const subjectDetailsContainer = document.createElement('div');
+    subjectDetailsContainer.id = 'subjectDetailsContainer';
+    subjectDetailsContainer.className = 'details-container';
+    orgContent.appendChild(subjectDetailsContainer);
+
+    const subjectAggregates = {};
+
+    // Aggregate data
+    data.forEach(userReport => {
+        userReport.subjects.forEach(subject => {
+            const subjectName = subject.subjectName;
+            if (!subjectAggregates[subjectName]) {
+                subjectAggregates[subjectName] = { totalScore: 0, totalMaxScore: 0, count: 0, questions: {} };
+            }
+
+            subject.questions.forEach(question => {
+                if (!subjectAggregates[subjectName].questions[question.questionText]) {
+                    subjectAggregates[subjectName].questions[question.questionText] = { totalScore: 0, totalMaxScore: 0, count: 0 };
+                }
+                subjectAggregates[subjectName].questions[question.questionText].totalScore += question.score;
+                subjectAggregates[subjectName].questions[question.questionText].totalMaxScore += question.maxScore;
+                subjectAggregates[subjectName].questions[question.questionText].count++;
+                subjectAggregates[subjectName].totalScore += question.score;
+                subjectAggregates[subjectName].totalMaxScore += question.maxScore;
+                subjectAggregates[subjectName].count++;
+            });
+        });
+    });
+
+    // Display subjects and their details
+    Object.entries(subjectAggregates).forEach(([subjectName, aggData]) => {
+        const averageScore = aggData.totalMaxScore > 0 ? (aggData.totalScore / aggData.count) : 0;  // Average score calculation
+        const subjectButton = document.createElement('button');
+        subjectButton.className = 'tab-button';
+        subjectButton.textContent = aggData.count > 0 ? `${subjectName} - Avg Score: ${averageScore.toFixed(2)}` : `${subjectName} - No Data`;
+        subjectButton.onclick = () => {
+            const allButtons = orgContent.parentNode.querySelectorAll('.tab-button');
+            allButtons.forEach(btn => btn.classList.remove('active-button'));
+            subjectButton.classList.add('active-button');
+            loadSubjectDetails(subjectName, aggData, subjectDetailsContainer);
+        };
+        subjectHeaderRow.appendChild(subjectButton);
+    });
+}
+
+function loadSubjectDetails(subjectName, aggData, container) {
+    container.innerHTML = ''; // Clear previous details
+
+    const averageScore = aggData.count > 0 ? (aggData.totalScore / aggData.count) : 0;
+
+    // Update header with subject name and average score
+    const header = document.createElement('h3');
+    header.className = 'subject-header';
+    header.textContent = `${subjectName} - Avg Score: ${averageScore.toFixed(2)}`;
+    container.appendChild(header);
+
+    const list = document.createElement('ul');
+
+    // console.log("yoki aggData.questions",aggData.questions)
+
+    Object.entries(aggData.questions).forEach(([questionText, questionData]) => {
+        const item = document.createElement('li');
+        const questionTextSpan = document.createElement('span');
+        questionTextSpan.className = 'question-text';
+        questionTextSpan.textContent = questionText;
+
+        const progressBarContainer = document.createElement('div');
+        progressBarContainer.className = 'progress-bar-container';
+
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-bar';
+        const avgScore = (questionData.totalScore / questionData.count).toFixed(2);
+        progressBar.style.width = `${(avgScore / 5) * 100}%`; // Assuming max score is 5 per question for visual representation
+
+        const progressText = document.createElement('div');
+        progressText.className = 'progress-text';
+        progressText.textContent = avgScore;
+
+        progressBarContainer.appendChild(progressBar);
+        progressBar.appendChild(progressText);
+
+        item.appendChild(questionTextSpan);
+        item.appendChild(progressBarContainer);
+        list.appendChild(item);
+    });
+
+    container.appendChild(list);
+}
+
+function populateUsersReport(usersContent, data) {
+    const userHeaderRow = document.createElement('div');
+    userHeaderRow.className = 'header-row';
+    usersContent.appendChild(userHeaderRow);
+
+    const userDetailsContainer = document.createElement('div');
+    userDetailsContainer.id = 'userDetailsContainer';
+    userDetailsContainer.className = 'details-container';
+    usersContent.appendChild(userDetailsContainer);
+
+    data.forEach(userReport => {
+        const userName = userReport.userName;
+        const averageScore = calculateAverageUserScore(userReport.subjects);
+        const userButton = document.createElement('button');
+        userButton.className = 'tab-button';
+        userButton.textContent = `${userName} - Avg Score: ${averageScore}`;
+        userButton.onclick = () => {
+            const allButtons = usersContent.parentNode.querySelectorAll('.tab-button');
+            allButtons.forEach(btn => btn.classList.remove('active-button'));
+            userButton.classList.add('active-button');
+            loadUserDetails(userName, userReport.subjects, userDetailsContainer);
+        };
+        userHeaderRow.appendChild(userButton);
+    });
+}
+
+
+function renderCharts(chartContent, data) {
+    // console.log("chart data", data);
+
+    chartContent.innerHTML = ''; // Clear existing charts
+
+    // Create a container for all charts
+    const chartsDiv = document.createElement('div');
+    chartsDiv.className = 'charts';
+
+    // Create a container for the donut chart
+    const donutChartBox = document.createElement('div');
+    donutChartBox.className = 'chart-box';
+    donutChartBox.id = 'donutChartBox';
+    const donutChartDiv = document.createElement('div');
+    donutChartDiv.id = 'donutChart';
+    donutChartBox.appendChild(donutChartDiv);
+    chartsDiv.appendChild(donutChartBox);
+
+    // Create a container for the bar chart
+    const barChartBox = document.createElement('div');
+    barChartBox.className = 'chart-box';
+    barChartBox.id = 'barChartBox';
+    const barChartCanvas = document.createElement('canvas');
+    barChartCanvas.id = 'barchart';
+    barChartBox.appendChild(barChartCanvas);
+    chartsDiv.appendChild(barChartBox);
+
+    // Create a container for the radar chart
+    const radarChartBox = document.createElement('div');
+    radarChartBox.className = 'chart-box';
+    radarChartBox.id = 'radarChartBox';
+    const radarChartCanvas = document.createElement('canvas');
+    radarChartCanvas.id = 'chartContainer1';
+    radarChartCanvas.style.width = '50%';
+    radarChartCanvas.style.height = '450px';
+    radarChartCanvas.style.marginInline = 'auto';
+    radarChartBox.appendChild(radarChartCanvas);
+    chartsDiv.appendChild(radarChartBox);
+
+    chartContent.appendChild(chartsDiv);
+
+    // Now call loadChart function to render charts
+    loadChart();
+}
+
+
+function calculateAverageUserScore(subjects) {
+    let totalScore = 0;
+    let totalCount = 0;
+
+    subjects.forEach(subject => {
+        subject.questions.forEach(question => {
+            totalScore += question.score;
+            totalCount++;
+        });
+    });
+
+    return totalCount > 0 ? (totalScore / totalCount).toFixed(2) : "No Data";
+}
+
+
+function loadUserDetails(userName, userData, userDetailsContainer) {
+    userDetailsContainer.innerHTML = ''; // Clear existing contents
+
+    // Create container for two columns
+    const twoColumnContainer = document.createElement('div');
+    twoColumnContainer.className = 'two-column-container';
+    twoColumnContainer.style.display = 'flex';
+
+    // Create two columns within the container
+    const leftColumn = document.createElement('div');
+    leftColumn.className = 'left-column';
+    leftColumn.style.flex = '1';
+
+    const rightColumn = document.createElement('div');
+    rightColumn.className = 'right-column';
+    rightColumn.style.flex = '1';
+
+    // Add both columns to the main container
+    twoColumnContainer.appendChild(leftColumn);
+    twoColumnContainer.appendChild(rightColumn);
+
+    function createSubjectBox(subjectName, subjectData) {
+        const subjectBox = document.createElement('div');
+        subjectBox.className = 'subject-box';
+        subjectBox.style.border = '1px solid #ccc';  // Adds a border to each subject box
+        subjectBox.style.marginTop = '10px';        
+        subjectBox.style.marginRight = '4px';          
+
+        let totalScore = 0;
+        let totalCount = 0;
+        subjectData.questions.forEach(question => {
+            totalScore += question.score;
+            totalCount++;
+        });
+
+        const averageScore = totalCount > 0 ? (totalScore / totalCount).toFixed(2) : "No Data";
+
+        const subjectHeader = document.createElement('div');
+        subjectHeader.className = 'subject-header';
+        subjectHeader.textContent = `${subjectData.subjectName} - Avg Score: ${averageScore}`;//yoki check
+        subjectBox.appendChild(subjectHeader);
+
+        const questionsContainer = document.createElement('div');
+        questionsContainer.className = 'questions-container';
+        questionsContainer.style.marginBottom = '10px';  
+
+        subjectData.questions.forEach(question => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question-score-container';
+
+            const questionTextDiv = document.createElement('div');
+            questionTextDiv.className = 'question-text';
+            questionTextDiv.textContent = question.questionText;
+            questionTextDiv.style.marginLeft = '10px'
+
+            const progressBarContainer = document.createElement('div');
+            progressBarContainer.className = 'progress-bar-container';
+            progressBarContainer.style.marginLeft = '10px'
+
+            const progressBar = document.createElement('div');
+            progressBar.className = 'progress-bar';
+            const questionScore = question.score;
+            const maxScore = question.maxScore;
+            const scoreRatio = maxScore > 0 ? (questionScore / maxScore) : 0;
+            progressBar.style.width = `${scoreRatio * 100}%`;
+
+            const scoreText = document.createElement('div');
+            scoreText.className = 'score-text';
+            scoreText.textContent = questionScore.toFixed(2);
+
+            progressBarContainer.appendChild(progressBar);
+            progressBar.appendChild(scoreText);
+            questionDiv.appendChild(questionTextDiv);
+            questionDiv.appendChild(progressBarContainer);
+            questionsContainer.appendChild(questionDiv);
+        });
+
+        subjectBox.appendChild(questionsContainer);
+        return subjectBox;
+    }
+
+    // Iterate over user data and add each subject box to either column
+    let columnSwitch = true; // Switch columns after adding each subject box
+    Object.entries(userData).forEach(([subjectName, subjectData]) => {        
+        const subjectBox = createSubjectBox(subjectName, subjectData);
+        if (columnSwitch) {
+            leftColumn.appendChild(subjectBox);
+        } else {
+            rightColumn.appendChild(subjectBox);
+        }
+        columnSwitch = !columnSwitch; // Toggle the switch for the next iteration
+    });
+
+    userDetailsContainer.appendChild(twoColumnContainer);
+}
+
+function processDataAndDownloadCSV(reportData) {
+    const usersScores = {};
+    const userTotals = {};
+    const subjectTotals = {};
+    const subjectQuestionCounts = {};
+
+    // Step 1: Aggregate all scores by user and question, and calculate subject totals
+    reportData.forEach(entry => {
+        const userName = entry.userName;
+        if (!userTotals[userName]) {
+            userTotals[userName] = 0;
+        }
+        entry.subjects.forEach(subject => {
+            if (!subjectTotals[subject.subjectName]) {
+                subjectTotals[subject.subjectName] = 0;
+                subjectQuestionCounts[subject.subjectName] = 0;
+            }
+            subject.questions.forEach(question => {
+                const questionKey = `${subject.subjectName}::${question.questionText.trim()}`;
+                if (!usersScores[questionKey]) {
+                    usersScores[questionKey] = {};
+                }
+                if (!usersScores[questionKey][userName]) {
+                    usersScores[questionKey][userName] = 0;
+                }
+                usersScores[questionKey][userName] += question.score;
+                userTotals[userName] += question.score;
+                subjectTotals[subject.subjectName] += question.score;
+                subjectQuestionCounts[subject.subjectName]++;
+            });
+        });
+    });
+
+    // Step 2: Prepare CSV Data for user scores
+    const users = Array.from(new Set(Object.keys(usersScores).flatMap(q => Object.keys(usersScores[q]))));
+    const headers = ['"Question"', ...users.map(user => `"${user}"`), '"Subject"'];
+    let csvContent = headers.join(',') + '\n';
+
+    const groupedQuestions = new Map();
+    Object.keys(usersScores).forEach(questionKey => {
+        const [subjectName, questionText] = questionKey.split('::');
+        if (!groupedQuestions.has(subjectName)) {
+            groupedQuestions.set(subjectName, []);
+        }
+        groupedQuestions.get(subjectName).push(questionText);
+    });
+
+    groupedQuestions.forEach((questions, subjectName) => {
+        questions.forEach(questionText => {
+            const questionKey = `${subjectName}::${questionText}`;
+            const row = [`"${questionText.replace(/"/g, '""')}"`];
+            users.forEach(user => {
+                row.push(`"${usersScores[questionKey][user] || '0'}"`);
+            });
+            row.push(`"${subjectName.replace(/"/g, '""')}"`);
+            csvContent += row.join(',') + '\n';
+        });
+        csvContent += '\n'; // Add empty line after each subject group
+    });
+
+    // Add total scores row
+    const totalScoresRow = ['"Total Score"'];
+    users.forEach(user => {
+        totalScoresRow.push(`"${userTotals[user] || 0}"`);
+    });
+    totalScoresRow.push('""');
+    csvContent += totalScoresRow.join(',') + '\n';
+
+    // Step 3: Prepare CSV Data for average scores per subject
+    csvContent += '\n"Subject","Average Score"\n';  // New table header
+    Object.keys(subjectTotals).forEach(subjectName => {
+        const averageScore = subjectTotals[subjectName] / subjectQuestionCounts[subjectName];
+        csvContent += `"${subjectName}","${averageScore.toFixed(2)}"\n`;
+    });
+
+    // Step 4: Trigger download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+
+    const reportName = reportData.length > 0 ? reportData[0].assessmentName : "report";
+    link.setAttribute('download', `${reportName}.csv`);
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+loadData()
+
+
+const filteredCharts = response.Charts.value.filter(chart => chart.surveyId == assessmentId).map(chart => chart.ChartsId);
+
+// console.log("charts",response.Charts.value);
+
+console.log( "filter chart value" , filteredCharts);
+
+
+
+const loadScript = (FILE_URL, async = true, type = "text/javascript", integrity = "", crossorigin = "") => {
+    return new Promise((resolve, reject) => {
+        try {
+            const scriptEle = document.createElement("script");
+            scriptEle.type = type;
+            scriptEle.async = async;
+            scriptEle.src = FILE_URL;
+
+            if (integrity) {
+                scriptEle.integrity = integrity;
+            }
+
+            if (crossorigin) {
+                scriptEle.crossOrigin = crossorigin;
+            }
+
+            scriptEle.addEventListener("load", () => {
+                resolve({ status: true });
+            });
+
+            scriptEle.addEventListener("error", () => {
+                reject({
+                    status: false,
+                    message: `Failed to load the script ${FILE_URL}`
+                });
+            });
+
+            document.body.appendChild(scriptEle);
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
+loadScript("https://cdn.amcharts.com/lib/5/index.js")
+    .then(() => loadScript("https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.49.1/apexcharts.min.js"))
+    .then(() => loadScript("https://cdn.jsdelivr.net/npm/chart.js"))
+    .then(() => loadScript("https://cdn.jsdelivr.net/npm/apexcharts"))
+    .then(() => {
+        loadChart();
+    });
+
+
+function loadChart() {
+    fetch(window.__PATH__.appUrls.businessIntelligence + "api/process-api/sma/organizationreport", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            "X-API-Endpoint": "U2FsdGVkX18MEmnMwzoLS4iKHOwi957c4pAFup3Z8Ga3VDdEst0B3eZAKiz2mmFeyeyNb6515i+WoMOWcHMHCE37dPYEkWA4TMJrCbLj/kMlzia3IQGCR917Ze3gCfqrstQV5cTWHBiU08ljjEZqHXzj1xHlCqxvcvEWHXzp2aHF4PB3NeW9DlmFOWVQgDe/SvTmQRXDb8ADlAswh7rHoL0i1sEox6H4fM6zOnSU+/weCBx9Z9tAULNiEUkAC0Gp"
+        },
+        body: JSON.stringify({
+            "organizationId": organisationId,
+            "assessmentId": assessmentId
+        })
+    }).then(async (res) => {
+        let data = await res.json();
+
+          console.log("Assessment Report 1", data.reportData);
+let category_length = data.reportData[0].subjects.length;
+// const labels = data.reportData[0].subjects.map(subject => subject.subjectName);
+
+const usersCount = data.reportData.length;
+    const categoryScores = {};
+
+    data.reportData.forEach(report => {
+        report.subjects.forEach(subject => {
+            if (!categoryScores[subject.subjectName]) {
+                categoryScores[subject.subjectName] = { totalScore: 0, count: 0 };
+            }
+
+            const totalScore = subject.questions.reduce((acc, question) => acc + question.score, 0);
+            categoryScores[subject.subjectName].totalScore += totalScore;
+            categoryScores[subject.subjectName].count += 1;
+        });
+    });
+
+    const labels = Object.keys(categoryScores);
+    const scores = labels.map(label => {
+        const { totalScore, count } = categoryScores[label];
+        return Math.round(totalScore / usersCount);
+    });
+
+    // Calculate the maximum possible score for each subject
+    const maxScores = data.reportData[0].subjects.map(subject => {
+        const totalMaxScore = subject.questions.reduce((acc, question) => acc + question.maxScore, 0);
+        return Math.round(totalMaxScore);
+    });
+
+// const scorepercenatge = (scores/maxScores)*100;
+
+
+const scorepercentage = scores.map((score, index) => {
+    const maxScore = maxScores[index];
+    return Math.round((score / maxScore) * 100);
+});
+
+
+// Find the maximum maxScore across all subjects
+const maxMaxScore = Math.max(...maxScores);
+
+
+        console.log("labels", labels);
+        console.log("scores", scores);
+         console.log("maxscores", maxScores);
+
+        const assessmentname = data.reportData[0].assessmentName;
+
+        const donutChartBox = document.getElementById('donutChartBox');
+        const barChartBox = document.getElementById('barChartBox');
+        const radarChartBox = document.getElementById('radarChartBox');
+
+        // Donut Chart
+        if (filteredCharts.includes('2')) {
+            for (let i = 0; i < category_length; i++) {
+                const canvas = document.createElement("canvas");
+                canvas.setAttribute("id", "donutChart" + i);
+                canvas.classList.add("chart-container");
+                canvas.style.cssText = "width: 800px; height: 600px;";
+                document.querySelector("#donutChart").appendChild(canvas);
+
+                const percentage = scorepercentage[i];
+                const maxscores = maxScores[i]
+
+                const data = {
+                    labels,
+                    datasets: [{
+                        data: [percentage, 100 - percentage],
+                        backgroundColor: ['#4db6ac', '#e0e0e0'],
+                        hoverBackgroundColor: ['#4db6ac', '#e0e0e0'],
+                        borderWidth: 0,
+                    }]
+                };
+
+                const options = {
+                    cutout: '70%',
+                    plugins: {
+                        tooltip: {
+                            enabled: false
+                        },
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: `${labels[i]}: ${scorepercentage[i]} %`, // Dynamic title based on category
+                            font: {
+                                size: 16
+                            },
+                            padding: {
+                                top: 20,
+                                bottom: 30
+                            }
+                        }
+                    }
+                };
+
+                const ctx = document.querySelector("#donutChart" + i);
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data,
+                    options
+                });
+            }
+        } else {
+            donutChartBox.style.display = 'none';
+        }
+        
+        // Radar Chart
+        if (filteredCharts.includes('1')) {
+    // Select the canvas element and set its width
+    const radarChartCanvas = document.querySelector("#chartContainer1");
+    radarChartCanvas.width = 700; // Set the desired width
+
+    const dataradar = {
+        labels: labels,
+        datasets: [{
+            label: 'Score ',
+            data: scorepercentage,
+            fill: true,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgb(54, 162, 235)',
+            pointBackgroundColor: 'rgb(54, 162, 235)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(54, 162, 235)'
+        }]
+    };
+
+    new Chart(radarChartCanvas, {
+        type: 'radar',
+        data: dataradar,
+        options: {
+            elements: {
+                line: {
+                    borderWidth: 3
+                }
+            },
+            scales: {
+                r: {
+                    angleLines: {
+                        display: true
+                    },
+                    suggestedMin: 0,
+                    suggestedMax: 100 
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                },
+                title: {
+                    display: true,
+                    text: assessmentname
+                }
+            }
+        }
+    });
+} else {
+    radarChartBox.style.display = 'none';
+}
+
+        // Bar Chart
+        if (filteredCharts.includes('3')) {
+    new Chart(document.querySelector("#barchart").getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Score",
+                data: scorepercentage,
+                backgroundColor: function (context) {
+                    const baseHue = 185; // Base hue for #8ed1ca
+                    const hueRange = 30; // Define the range for hue variation
+                    const numBars = scores.length; // Get the number of bars
+                    const colorHue = (baseHue - hueRange / 2 + (context.dataIndex * (hueRange / numBars))) % 360; // Calculate hue based on index and number of bars within the range
+                    return `hsla(${colorHue}, 50%, 50%, 0.8)`; // Generate color string in HSLA format, keeping saturation and lightness consistent
+                },
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        maxRotation: 0, // Reduce rotation to make labels more compact
+                        minRotation: 0, // Ensure no rotation
+                        width: 30,
+                        padding: 5 // Adjust padding around labels if needed
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    max: 100, // Set the maximum y-axis value to the maximum maxScore
+                    ticks: {
+                        callback: function (value) {
+                            return value; // Remove the percentage sign
+                        }
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: assessmentname
+                }
+            }
+        }
+    });
+} else {
+    barChartBox.style.display = 'none';
+}
+    });
+}

@@ -1,0 +1,204 @@
+var searchParams = new URLSearchParams(window.location.search);
+
+let assessmentname;
+
+var userId = parseInt(searchParams.get("userId") || "0");
+var assessmentId = parseInt(searchParams.get("surveyId") || "0");
+
+let globalUserTotalScore;
+let globalFilteredRecommendation;
+
+
+function loadData() {
+    fetch(window.__PATH__.appUrls.businessIntelligence + "api/process-api/sma/externaluserreport", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            "X-API-Endpoint": "U2FsdGVkX18LfRdV8Qu68Pd2hgFUlGaGeoILfBxpSvgXqdjlnq6wPsABDfSD5tiarMn7nczPfWuwkJn2CmhK/4gWEn6h3aeVH0Yh9RPB1BMcziJg4F5E3EtKVF0e3gI23MOX+fZi96YlfdgBTAhPiwivp6f3VSIq4BfjQ35LXAhcisCJH4I2hBIzYLiOOXfDq4x0JXy1PaxRaC7eBAWw9ayurD3iAve9VIFeRPlZqd8lVPCWX69R6fQwT9M34Tvw"
+        },
+        body: JSON.stringify({
+            "userId": userId,
+            "assessmentId": assessmentId
+        })
+    }).then(async (res) => {
+        let data = await res.json();
+        setupScreen(data);
+    });
+}
+
+function setupScreen(responseData) {
+    const reportData = responseData.reportData;
+    const container = document.getElementById('surveyContainer');
+    if (!container) {
+        console.error("Container element not found.");
+        return;
+    }
+
+    if (!Array.isArray(reportData) || reportData.length === 0) {
+        console.error("No report data available.");
+        const noDataMsg = document.createElement('h2');
+        noDataMsg.textContent = 'No report data available.';
+        noDataMsg.style.textAlign = 'center';
+        container.appendChild(noDataMsg);
+        return;
+    }
+
+    container.className = 'surveyContainer';
+    container.innerHTML = '';
+
+    const flexContainer = document.createElement('div');
+    flexContainer.style.display = 'flex';
+    flexContainer.style.justifyContent = 'space-between';
+    flexContainer.style.alignItems = 'center';
+
+    const tabs = document.createElement('div');
+    tabs.className = 'tabs';
+    const tabUsers = document.createElement('button');
+    tabUsers.textContent = 'Recommendations';
+    tabUsers.className = 'tablinks';
+    tabs.appendChild(tabUsers);
+    flexContainer.appendChild(tabs);
+
+    const downloadIcon = document.createElement('button');
+    downloadIcon.className = 'download-btn';
+    downloadIcon.innerHTML = '<i class="fas fa-download"></i>';
+    downloadIcon.onclick = downloadCSVReport;
+    flexContainer.appendChild(downloadIcon);
+
+    container.appendChild(flexContainer);
+
+    const usersContent = document.createElement('div');
+    usersContent.id = 'Users';
+    usersContent.className = 'tabcontent';
+    container.appendChild(usersContent);
+
+    usersContent.style.display = 'block';
+    tabUsers.className += ' active';
+
+    tabUsers.onclick = function () {
+        openTab('Users');
+        const allTabs = document.querySelectorAll('.tablinks');
+        allTabs.forEach(tab => tab.classList.remove('active'));
+        tabUsers.classList.add('active');
+    };
+
+    function openTab(tabName) {
+        let tabcontent = document.getElementsByClassName("tabcontent");
+        for (let i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        document.getElementById(tabName).style.display = "block";
+        event.currentTarget.className += " active";
+    }
+
+    function downloadCSVReport() {
+        processDataAndDownloadCSV(reportData);
+    }
+
+    populateUsersReport(usersContent, reportData);
+
+    const rangeRecommendation = response.rangeRecommendation.value;
+
+    globalFilteredRecommendation = rangeRecommendation.filter(data => (
+        parseInt(data.Survey_Id, 10) === parseInt(assessmentId, 10) &&
+        parseInt(data.Score_Range_From, 10) <= parseInt(globalUserTotalScore, 10) &&
+        parseInt(data.Score_Range_To, 10) >= parseInt(globalUserTotalScore, 10)
+    ));
+
+}
+
+function populateUsersReport(usersContent, data) {
+    const userHeaderRow = document.createElement('div');
+    userHeaderRow.className = 'header-row';
+    usersContent.appendChild(userHeaderRow);
+
+    const userDetailsContainer = document.createElement('div');
+    userDetailsContainer.id = 'userDetailsContainer';
+    userDetailsContainer.className = 'details-container';
+    usersContent.appendChild(userDetailsContainer);
+
+    data.forEach(userReport => {
+        const userName = userReport.userName;
+        globalUserTotalScore = calculateTotalScore(userReport.subjects);
+        const userButton = document.createElement('button');
+        userButton.className = 'tab-button';
+        userButton.textContent = `${userName} - Total Score: ${globalUserTotalScore}`;
+        userButton.onclick = () => {
+            const allButtons = usersContent.parentNode.querySelectorAll('.tab-button');
+            allButtons.forEach(btn => btn.classList.remove('active-button'));
+            userButton.classList.add('active-button');
+            loadUserDetails(userName, userDetailsContainer);
+        };
+        userHeaderRow.appendChild(userButton);
+    });
+}
+
+function calculateTotalScore(subjects) {
+    let totalScore = 0;
+    let totalCount = 0;
+
+    subjects.forEach(subject => {
+        subject.questions.forEach(question => {
+            totalScore += question.score;
+            totalCount++;
+        });
+    });
+
+    return totalCount > 0 ? (totalScore).toFixed(2) : "No Data";
+}
+
+function loadUserDetails(userName, userDetailsContainer) {
+    userDetailsContainer.innerHTML = '';
+
+    const recommendationContainer = document.createElement('div');
+    recommendationContainer.className = 'recommendation-container';
+    recommendationContainer.style.marginTop = '10px';
+
+    const recommendationHeader = document.createElement('div');
+    recommendationHeader.className = 'recommendation-header';
+    recommendationHeader.textContent = "Recommendation Points";
+    recommendationContainer.appendChild(recommendationHeader);
+
+    const recommendationList = document.createElement('ul');
+    recommendationList.className = 'recommendation-list';
+
+    globalFilteredRecommendation.forEach(rec => {
+        const listItem = document.createElement('li');
+        listItem.textContent = rec.Recommendation_Text;
+        recommendationList.appendChild(listItem);
+    });
+
+    recommendationContainer.appendChild(recommendationList);
+    userDetailsContainer.appendChild(recommendationContainer);
+}
+
+function processDataAndDownloadCSV(reportData) {
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "User Name,Subject,Question,Score,Max Score\n";
+
+    reportData.forEach(userReport => {
+        const userName = userReport.userName;
+
+        userReport.subjects.forEach(subject => {
+            const subjectName = subject.subjectName;
+
+            subject.questions.forEach(question => {
+                const questionText = question.questionText;
+                const score = question.score;
+                const maxScore = question.maxScore;
+                csvContent += `${userName},${subjectName},${questionText},${score},${maxScore}\n`;
+            });
+        });
+    });
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "user_report.csv");
+    document.body.appendChild(link);
+
+    link.click();
+    document.body.removeChild(link);
+}
+
+loadData();

@@ -1,0 +1,21 @@
+SIA
+
+1.Component name: 
+SIA_Parts
+SIA_Rules
+SIA_Notification
+SIA_Vendors
+
+Hi vaibhav, i have completed the tasks lited below, im also having some queries.
+
+1. All data from parts table has shown in "All Parts" Section
+2. Data having "Requires Maintenance" status only shown in "Parts Requiring Rotation" Section
+3. Data having "In Maintenance" status only shown in "Parts In Maintainence" Section
+4. Header Changed which looks better
+
+
+Queries:
+1. From Parts Table in which conditions data should be show in "Parts Ordered"
+2. From Which Tables and Conditions Data should come to "Rotation Rules","Notification Rules" and "Upload" Sections
+3. New Parts Creation option only given in "All Parts" Section, do we need to give it in all sections under parts group
+4. Location Picklist doesnt have any matching Columns in tables

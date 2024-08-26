@@ -1,0 +1,50 @@
+if (postData.surveyId && postData.activityId && postData.attemptId) {
+
+    let categoryId = 0;
+
+    // Fetch user's progress to get the categories they have completed
+    let getUserProgress = {
+        compName: 'SMASurveyProgress', recordCount: 0,
+        selectSpecs: [{ fieldName: 'categoryId' }],
+        whereSpecs: [{ fieldName: "surveyId", fieldOperator: "=", fieldValue: postData.surveyId },
+        { fieldName: "userId", fieldOperator: "=", fieldValue: postData.userId },
+        { fieldName: "activityId", fieldOperator: "=", fieldValue: postData.activityId },
+        { fieldName: "status", fieldOperator: "=", fieldValue: "Completed" } 
+        ]
+    };
+    const progress = await selectTableData(getUserProgress);
+    const progressCategoryArray = progress.map(item => item.categoryId);
+
+    // Fetch all categories for the survey
+    let fetchCategories = {
+        compName: 'SMASurveyCategory', recordCount: 0,
+        selectSpecs: [{ fieldName: 'id' }, { fieldName: 'categoryId' }],
+        whereSpecs: [{ fieldName: "surveyId", fieldOperator: "=", fieldValue: postData.surveyId }]
+    };
+    const categoriesList = await selectTableData(fetchCategories);
+
+    // Find the previous category
+    let previousCategory = null;
+    for (let i = 0; i < categoriesList.length; i++) {
+        if (progressCategoryArray.includes(categoriesList[i].categoryId)) {
+            if (i > 0) {
+                previousCategory = categoriesList[i - 1];
+            }
+            break;
+        }
+    }
+
+    // If no previous category found, set it to the first category
+    if (!previousCategory && categoriesList.length > 0) {
+        previousCategory = categoriesList[0];
+    }
+
+    if (previousCategory) {
+        categoryId = previousCategory.categoryId;
+    }
+
+    resolve({ categoryId: categoryId, category: previousCategory, statusCode: 200 });
+
+} else {
+    resolve({ message: "Inputs missing ...", statusCode: 404 });
+}

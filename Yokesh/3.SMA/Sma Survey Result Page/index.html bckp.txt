@@ -1,0 +1,6 @@
+<!-- you can write html here -->
+<!-- json data accessible through "response." then your key -->
+<!-- use < %- response.key.value.content % > for rendering rich text editor content-->
+<div class="body">
+    <div id="survey-result"></div>
+</div>

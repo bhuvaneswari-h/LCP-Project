@@ -1,0 +1,212 @@
+// const queryString = window.location.search;
+
+// const urlParams = new URLSearchParams(queryString);
+
+// const compId = urlParams.get('compId');
+
+
+
+const queryString = window.location.search;
+const queryStringParent = window.parent.location.search;
+
+const urlParams = new URLSearchParams(queryString);
+const urlParamsParent = new URLSearchParams(queryStringParent);
+
+const compId = urlParams.get('compId') || urlParamsParent.get('compId');
+const compName = urlParams.get('compName') || urlParamsParent.get('compName');
+
+console.log("Yoki compId", compId)
+console.log("Yoki compName", compName)
+
+async function fetchComponentList() {
+    try {
+        const response = await fetch(`https://alumni.thejourney36.com/pd/PageDesigner/Api/GetCompById/${compId}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+
+        const fieldJSON = data.Success
+
+        const fieldList = fieldJSON.Fields.map(field => field.Name)
+
+        console.log("yoki fieldList", fieldList)
+
+        loadData(fieldList, compName)
+
+        // createDataImporter(componentList)
+
+
+    } catch (error) {
+        console.error('Error fetching component list:', error);
+    }
+}
+
+function loadData(fieldList, compName) {
+    fetch(window.__PATH__.appUrls.businessIntelligence + "api/process-api/eximexport/getcomponentdata", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            "X-API-Endpoint": "U2FsdGVkX1/iwy01TXxJ3llMiJPQibtAOn4ozUz7XVUlnwT0xkCl7XtjlQVuOgQbRf3WMH6O/mDD/AzBD78ZSgbUy/56HFw2P0U4JUIOBty6FdQc+sXA5I1bMoaSZwwqO+B90T4zT7rNyA5vNbfV8GcrG4w8liZMt8iHydyOZR4dCv1nh5oohjx+ylNhFB4HyX2psjT7usb3tdtVTnkm/zjASRF3UfuVKSmK/MMZx6RSZWaAp5VtHlw4MizzKh1H"
+        },
+        body: JSON.stringify({
+            "fieldList": fieldList,
+            "compName": compName
+        })
+    }).then(async (res) => {
+        let data = await res.json();
+        console.log("Assessment Report", data);
+
+        generateDataImporter(data.componentData);
+    });
+}
+
+
+function generateDataImporter(data) {
+    // Create the main container
+
+    const dataImporter = document.getElementById('dataImporter')
+
+    // Create and append the top band
+    const topBand = document.createElement('div');
+    topBand.className = 'styles_top_band_wrap__PmNNQ';
+    dataImporter.appendChild(topBand);
+
+    const topLeft = document.createElement('div');
+    topLeft.className = 'styles_top_left__kkXDl';
+    topBand.appendChild(topLeft);
+
+    const icon = document.createElement('div');
+    icon.className = 'styles_icon__ZlPaF';
+    const img = document.createElement('img');
+    img.src = 'https://journey36-alumni.s3.eu-west-2.amazonaws.com/attachmentfiles/128164136318794190.png';
+    img.style.height = '20px'
+    icon.appendChild(img);
+    topLeft.appendChild(icon);
+
+    const name = document.createElement('div');
+    name.className = 'styles_name__yOR0M';
+    name.textContent = ' New Export';
+    topLeft.appendChild(name);
+
+    const topRight = document.createElement('div');
+    topRight.className = 'styles_top_right__V1j+r';
+    topBand.appendChild(topRight);
+
+    // Create and append the step band
+    const stepBand = document.createElement('div');
+    stepBand.className = 'styles_step_band__KV-W9';
+    dataImporter.appendChild(stepBand);
+
+    const stepTopLeft = document.createElement('div');
+    stepTopLeft.className = 'styles_step_top_left__RAbvd';
+    stepTopLeft.textContent = ' Field Selection';
+    stepBand.appendChild(stepTopLeft);
+
+    const stepTopRight = document.createElement('div');
+    stepTopRight.className = 'styles_step_top_right__Xx1wx';
+    stepTopRight.textContent = 'Step 2 of 2';
+    stepBand.appendChild(stepTopRight);
+
+    // Create and append the container wrap
+    const containerWrap = document.createElement('div');
+    containerWrap.className = 'Importer_container_wrap__7SRaT';
+    dataImporter.appendChild(containerWrap);
+
+
+
+    // Function to create table rows
+    function generateTable(data) {
+        const tableContainer = document.createElement('div');//('tableContainer');
+        tableContainer.id = 'tableContainer';
+        const table = document.createElement('table');
+        table.className = ('table')
+        const thead = document.createElement('thead');
+        const tbody = document.createElement('tbody');
+
+        console.log("Yoki gen tbl data", data)
+
+        // Generate table headers dynamically
+        const headers = Object.keys(data[0]);
+        const headerRow = document.createElement('tr');
+        headers.forEach(header => {
+            const th = document.createElement('th');
+            th.className = 'headerRow'
+            th.textContent = header;
+            headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+
+        // Generate table rows dynamically
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            headers.forEach(header => {
+                const td = document.createElement('td');
+                td.textContent = item[header];
+                row.appendChild(td);
+            });
+            tbody.appendChild(row);
+        });
+
+        table.appendChild(thead);
+        table.appendChild(tbody);
+        tableContainer.appendChild(table);
+
+        return tableContainer
+    }
+
+
+    // Create and append the table rows
+
+    const tableContainer = generateTable(data)
+
+    containerWrap.appendChild(tableContainer);
+
+    function generateCSV(data) {
+        const headers = Object.keys(data[0]);
+        const csvRows = [];
+
+        // Add the headers row
+        csvRows.push(headers.join(','));
+
+        // Add the data rows
+        data.forEach(row => {
+            const values = headers.map(header => JSON.stringify(row[header], (key, value) => value === null ? '' : value));
+            csvRows.push(values.join(','));
+        });
+
+        return csvRows.join('\n');
+    }
+
+    function downloadCSV(csv, filename) {
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.setAttribute('hidden', '');
+        a.setAttribute('href', url);
+        a.setAttribute('download', filename);
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+
+    // Add buttons
+    const exportButton = document.createElement('button');
+    exportButton.className = 'Importer_custom_field__d2pUG';
+    exportButton.textContent = 'Export';
+    containerWrap.appendChild(exportButton);
+
+    // Add event listener for export
+    exportButton.addEventListener('click', () => {
+        const csv = generateCSV(data);
+        downloadCSV(csv, `${compName}_export.csv`);
+    });
+
+}
+
+// getQueryParams();
+
+// Call the function to generate the structure
+
+
+fetchComponentList()

@@ -1,0 +1,580 @@
+// const queryString = window.location.search;
+
+// const urlParams = new URLSearchParams(queryString);
+
+// const compId = urlParams.get('compId');
+
+
+
+const queryString = window.location.search;
+const queryStringParent = window.parent.location.search;
+
+const urlParams = new URLSearchParams(queryString);
+const urlParamsParent = new URLSearchParams(queryStringParent);
+
+const compId = urlParams.get('compId') || urlParamsParent.get('compId');
+const compName = urlParams.get('compName') || urlParamsParent.get('compName');
+let fieldList = []
+let condition = null
+
+async function fetchComponentList() {
+    try {
+        const response = await fetch(`https://alumni.thejourney36.com/pd/PageDesigner/Api/GetCompById/${compId}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+
+        const fieldJSON = data.Success
+
+        const execeptionData = ['clientId', '_importId', 'actionBy', 'moduleName', 'functionName', 'extra']
+
+        fieldJSON.Fields.forEach(field => {
+            if (!execeptionData.includes(field.Name)) {
+                fieldList.push(field.Name)
+            }
+        })
+
+        // fieldList = fieldJSON.Fields.map(field => field.Name)
+
+        condition = []
+
+        loadData(fieldList, compName, condition)
+
+        // createDataImporter(componentList)
+
+
+    } catch (error) {
+        console.error('Error fetching component list:', error);
+    }
+}
+
+function loadData(fieldList, compName, condition) {
+    fetch(window.__PATH__.appUrls.businessIntelligence + "api/process-api/eximexport/getcomponentdata", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            "X-API-Endpoint": "U2FsdGVkX1/iwy01TXxJ3llMiJPQibtAOn4ozUz7XVUlnwT0xkCl7XtjlQVuOgQbRf3WMH6O/mDD/AzBD78ZSgbUy/56HFw2P0U4JUIOBty6FdQc+sXA5I1bMoaSZwwqO+B90T4zT7rNyA5vNbfV8GcrG4w8liZMt8iHydyOZR4dCv1nh5oohjx+ylNhFB4HyX2psjT7usb3tdtVTnkm/zjASRF3UfuVKSmK/MMZx6RSZWaAp5VtHlw4MizzKh1H"
+        },
+        body: JSON.stringify({
+            "fieldList": fieldList,
+            "compName": compName,
+            "condition": condition
+        })
+    }).then(async (res) => {
+        let data = await res.json();
+        generateDataImporter(data);
+    });
+}
+
+
+
+function deleteData(compName, condition) {
+    fetch(`${window.__PATH__.appUrls.businessIntelligence}api/process-api/eximexport/deletecomponentdata`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-API-Endpoint': "U2FsdGVkX19fkBo9z5QYcbFpUrfeDdZCNFpQ4LBlwNSHmm20w1XaVYEsGK+etDxeN2hNunsTfKtBhzfleZyPeF+Xs32iIWJd9YftzJdkNruc6ZkgAZTzj1D9rLtnbYAJ/i+jo9RGkTQZSuubc8pTgmUiuHyg777hb2cM7HKSA/u7mLs5O9JJ8cjRpOP9SmkW3k7JQMw4A/CnqFjmvwUr4PfEMBSWpzvaZSRdsQSMyTKOr50ZipWAv5ywIKdFW/6+HRxCLDzprdXSue5PIP0Drg=="
+        },
+        body: JSON.stringify({
+            "compName": compName,
+            "condition": condition
+        })
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Delete successful:', data);
+            return data
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+            return error
+        });
+}
+
+
+function generateDataImporter(data) {
+    // Create the main container
+
+    const dataImporter = document.getElementById('dataImporter')
+
+    // Create and append the top band
+    const topBand = document.createElement('div');
+    topBand.className = 'styles_top_band_wrap__PmNNQ';
+    dataImporter.appendChild(topBand);
+
+    const topLeft = document.createElement('div');
+    topLeft.className = 'styles_top_left__kkXDl';
+    topBand.appendChild(topLeft);
+
+    const icon = document.createElement('div');
+    icon.className = 'styles_icon__ZlPaF';
+    const img = document.createElement('img');
+    img.src = 'https://journey36-alumni.s3.eu-west-2.amazonaws.com/attachmentfiles/3227643590332230.svg';
+    img.style.height = '20px'
+    icon.appendChild(img);
+    topLeft.appendChild(icon);
+
+    const name = document.createElement('div');
+    name.className = 'styles_name__yOR0M';
+    name.textContent = ' Delete Data';
+    topLeft.appendChild(name);
+
+    const topRight = document.createElement('div');
+    topRight.className = 'styles_top_right__V1j+r';
+    topBand.appendChild(topRight);
+
+    // Create and append the step band
+    const stepBand = document.createElement('div');
+    stepBand.className = 'styles_step_band__KV-W9';
+    dataImporter.appendChild(stepBand);
+
+    const stepTopLeft = document.createElement('div');
+    stepTopLeft.className = 'styles_step_top_left__RAbvd';
+    stepTopLeft.textContent = ' Data Deletion';
+    stepBand.appendChild(stepTopLeft);
+
+    const stepTopRight = document.createElement('div');
+    stepTopRight.className = 'styles_step_top_right__Xx1wx';
+    stepTopRight.textContent = 'Step 2 of 2';
+    stepBand.appendChild(stepTopRight);
+
+    if (data.statusCode != 200) {
+        const dataImporter = document.getElementById('dataImporter')
+        const h1 = document.createElement('h3')
+        h1.textContent = data.message
+        dataImporter.append(h1)
+        return
+    }
+    // if (data.componentData.length === 0) {
+    //     const dataImporter = document.getElementById('dataImporter')
+    //     const h1 = document.createElement('h3')
+    //     h1.textContent = 'No Records Found'
+    //     dataImporter.append(h1)
+    //     return
+    // }
+
+    // Create and append the container wrap
+    const containerWrap = document.createElement('div');
+    containerWrap.className = 'Importer_container_wrap__7SRaT';
+    dataImporter.appendChild(containerWrap);
+
+
+
+    // Function to create table rows
+    function generateTable(data) {
+
+        
+
+        const tableContainer = document.createElement('div');
+        tableContainer.id = 'tableContainer';
+
+        if (data.length === 0) {
+            // const dataImporter = document.getElementById('dataImporter')
+            const h1 = document.createElement('h3')
+            h1.textContent = 'No Records Found'
+            tableContainer.append(h1)
+            return tableContainer
+        }
+
+        const table = document.createElement('table');
+        table.className = 'table';
+        const thead = document.createElement('thead');
+        const tbody = document.createElement('tbody');
+
+        // Generate table headers dynamically with checkboxes
+        const headers = Object.keys(data[0]);
+        const headerRow = document.createElement('tr');
+
+
+        headers.forEach(header => {
+            const th = document.createElement('th');
+            th.className = 'headerRow';
+            const span = document.createElement('span')
+            // span.appendChild(header)
+            span.textContent = header
+            th.appendChild(span);
+            headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+
+        // Generate table rows dynamically
+        data.forEach(item => {
+            const row = document.createElement('tr');
+
+            headers.forEach(header => {
+                const td = document.createElement('td');
+                td.textContent = item[header];
+                row.appendChild(td);
+            });
+            tbody.appendChild(row);
+        });
+
+        table.appendChild(thead);
+        table.appendChild(tbody);
+        tableContainer.appendChild(table);
+
+        return tableContainer;
+    }
+
+
+    // Create and append the table rows
+
+    const tableContainer = generateTable(data.componentData)
+
+    containerWrap.appendChild(tableContainer);
+
+    function addSearchBar(dropdownData) {
+
+        const searchableSelectWrap = document.createElement('div');
+        searchableSelectWrap.className = 'SearchableSelect_end_wrap__m4Qh8';
+
+        const searchableSelectDropdown = document.createElement('div');
+        searchableSelectDropdown.className = 'SearchableSelect_end_dropdown__v0tCb';//click
+        searchableSelectDropdown.textContent = 'Select';
+        searchableSelectDropdown.onclick = dropdownToggle
+
+        const fieldDropdownIcon = document.createElement('div');
+        fieldDropdownIcon.className = 'SearchableSelect_dropdown_icon__Cyy8f';
+        fieldDropdownIcon.textContent = '▼';
+        searchableSelectDropdown.appendChild(fieldDropdownIcon);
+
+        function dropdownToggle() {
+            dropdownMenu.classList.toggle('dropdownShow')
+        }
+
+
+        // Create the main dropdown menu div
+        const dropdownMenu = document.createElement('div');
+        dropdownMenu.className = 'SearchableSelect_dropdown_menu__ZMMKi';
+
+        // Create the search wrap div
+        const searchWrap = document.createElement('div');
+        searchWrap.className = 'SearchableSelect_search_wrap__gSsKw';
+
+        // Create the search component div
+        const searchComp = document.createElement('div');
+        searchComp.className = 'SearchableSelect_search_comp__OMtnF';
+
+        // Create the input element
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = 'Search';
+        input.className = 'SearchableSelect_input_Search__tpm1A';
+        input.onkeyup = handleDropdownSearch;
+        input.value = '';
+        searchComp.appendChild(input); // Append input to searchComp
+
+        function handleDropdownSearch() {
+            const filter = input.value.toUpperCase();
+            const text = dropdownMenu.getElementsByClassName('SearchableSelect_end_row__RC6oQ');
+            for (let i = 0; i < text.length; i++) {
+                txtValue = text[i].textContent || text[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    text[i].style.display = "";
+                } else {
+                    text[i].style.display = "none";
+                }
+            }
+        }
+
+        searchWrap.appendChild(searchComp); // Append searchComp to searchWrap
+
+        // Create the end row wrap div
+        const endRowWrap = document.createElement('div');
+        endRowWrap.className = 'SearchableSelect_end_row_wrap__CeLVE';
+
+        // Function to create end rows
+        function createEndRow(text) {
+            const endRow = document.createElement('div');
+            endRow.className = 'SearchableSelect_end_row__RC6oQ';
+            endRow.onclick = handleDropdownItemClick;
+            endRow.setAttribute("value", text)//value = text._id;
+
+            const rightDiv = document.createElement('div');
+            rightDiv.className = 'SearchableSelect_right__+3h1v';
+            rightDiv.textContent = text;
+
+            endRow.appendChild(rightDiv); // Append rightDiv to endRow
+            return endRow;
+        }
+
+        function handleDropdownItemClick() {
+            searchableSelectDropdown.textContent = this.textContent
+            const value = this.getAttribute('value')
+            searchableSelectDropdown.setAttribute("value", value)
+
+            dropdownMenu.classList.toggle('dropdownShow')
+            input.value = '';
+            handleDropdownSearch()
+        }
+
+        // Create and append each end row
+        const endRowsText = dropdownData;
+
+        endRowsText.forEach(text => endRowWrap.appendChild(createEndRow(text)));
+
+        // Append searchWrap and endRowWrap to dropdownMenu
+        dropdownMenu.appendChild(searchWrap);
+        dropdownMenu.appendChild(endRowWrap);
+
+        // Finally, append dropdownMenu to the document body or a specific container
+        // searchableSelectDropdown.appendChild(dropdownMenu); // Or use a specific container element
+
+
+        searchableSelectWrap.appendChild(searchableSelectDropdown);
+        searchableSelectWrap.appendChild(dropdownMenu);
+
+        return searchableSelectWrap
+    }
+
+
+
+    function addCustomField() {
+
+        // Create the main row container
+        const row = document.createElement('div')
+        row.className = 'Importer_titlerow__bPA'
+
+        const col01 = document.createElement('div')
+        col01.className = 'Importer_col01__mZAqs'
+
+
+
+        col01.appendChild(addSearchBar(Object.keys(data.componentData[0])))
+
+        // --------------------------------------
+
+        const col02 = document.createElement('div')
+        col02.className = 'Importer_col02__ZpygQ'
+
+        operatorList = ['=', '>', '<', '>=', '<=', '<>', 'LIKE', 'IN', 'NOT IN', /*'IS NULL', 'IS NOT NULL'*/]
+
+        col02.appendChild(addSearchBar(operatorList))
+
+        // --------------------------------------
+
+        const col03 = document.createElement('div')
+        col03.className = 'Importer_col03__zPUyZ'
+
+        const searchWrap = document.createElement('div');
+        searchWrap.className = 'SearchableSelect_end_wrap__m4Qh8';
+
+        const valueInput = document.createElement('input');
+        valueInput.type = 'text';  // Ensuring the input type is text
+        valueInput.value = '';     // Initial value is empty string
+
+        searchWrap.appendChild(valueInput);
+
+        col03.appendChild(searchWrap)
+
+        // --------------------------------------
+
+        // Create the close button column
+        const col04 = document.createElement('div');
+        col04.className = 'Importer_col04__6Xgs2';
+        const closeBtn = document.createElement('span');
+        closeBtn.className = 'close_icon_cursor';
+        closeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-6 -6 24 24"><path fill="currentColor" d="m7.314 5.9l3.535-3.536A1 1 0 1 0 9.435.95L5.899 4.485L2.364.95A1 1 0 1 0 .95 2.364l3.535 3.535L.95 9.435a1 1 0 1 0 1.414 1.414l3.535-3.535l3.536 3.535a1 1 0 1 0 1.414-1.414L7.314 5.899z"></path></svg>`;
+        closeBtn.onclick = function () { removeCustomField(row) };
+        col04.appendChild(closeBtn);
+
+        // Append columns to the row
+        row.appendChild(col01);
+        row.appendChild(col02);
+        row.appendChild(col03);
+        row.appendChild(col04);
+
+        // Append the row to the container
+        document.getElementById('fieldsContainer').appendChild(row);
+    }
+
+    function handleApplyCondition() {
+        const fields = document.querySelectorAll('.Importer_col01__mZAqs .SearchableSelect_end_dropdown__v0tCb');
+        const operators = document.querySelectorAll('.Importer_col02__ZpygQ .SearchableSelect_end_dropdown__v0tCb');
+        const values = document.querySelectorAll('.Importer_col03__zPUyZ input');
+
+        let conditions = [];
+
+        for (let i = 0; i < fields.length; i++) {
+            let fieldName = fields[i].getAttribute("value");
+            let fieldOperator = operators[i].getAttribute("value");
+            let fieldValue = values[i].value;
+
+            if (fieldName && fieldOperator) {
+                conditions.push({
+                    fieldName: fieldName,
+                    fieldOperator: fieldOperator,
+                    fieldValue: fieldValue
+                });
+            }
+        }
+
+        condition = conditions
+
+
+        document.getElementById('dataImporter').innerHTML = ''
+
+        loadData(fieldList, compName, condition)
+
+    }
+
+    function removeCustomField(row) {
+        document.getElementById('fieldsContainer').removeChild(row);
+    }
+
+    const fieldsHeading = document.createElement('div');
+    fieldsHeading.className = 'Importer_static_fields_heading__H02PU';
+
+    const textNode = document.createTextNode('Add Column Filters');
+    fieldsHeading.appendChild(textNode);
+
+    const infoIcon = document.createElement('span');
+    infoIcon.className = 'infoIcon';
+    infoIcon.title = 'In the "Add Column Filters" section, you can define specific filtering conditions by clicking the "Add Condition" button. After setting your desired conditions, click "Apply Condition" to filter the data based on the criteria you have added. Now, Click the "Delete" to remove data from the component'; // tooltip text
+    infoIcon.innerHTML = '<i class="fas fa-info-circle"></i>'; // use a font awesome icon for the "i" tooltip
+    // infoIcon.onclick = displayDetails;
+    //This functions similarly to a WHERE clause in a database query, refining the data display according to your specified conditions.
+
+    fieldsHeading.appendChild(infoIcon);
+
+    containerWrap.appendChild(fieldsHeading);
+
+    const titlerow = document.createElement('div')
+    titlerow.className = 'Importer_titlerow__bPA'
+
+    const col01 = document.createElement('div')
+    col01.className = 'Importer_col01__mZAqs'
+    const field = document.createElement('div')
+    field.className = 'Importer_ttl__567cq'
+    field.textContent = 'Field'
+    col01.appendChild(field)
+    titlerow.appendChild(col01)
+
+
+    const col02 = document.createElement('div')
+    col02.className = 'Importer_col02__ZpygQ'
+    const operator = document.createElement('div')
+    operator.className = 'Importer_ttl__567cq'
+    operator.textContent = 'Operator'
+    col02.appendChild(operator)
+    titlerow.appendChild(col02)
+
+    const col03 = document.createElement('div')
+    col03.className = 'Importer_col03__zPUyZ'
+    const value = document.createElement('div')
+    value.className = 'Importer_ttl__567cq'
+    value.textContent = 'Value'
+    col03.appendChild(value)
+    titlerow.appendChild(col03)
+    containerWrap.appendChild(titlerow)
+
+    const fieldsContainer = document.createElement('div')
+    fieldsContainer.id = 'fieldsContainer'
+    containerWrap.appendChild(fieldsContainer);
+
+    const addCondtionContainer = document.createElement('div')
+    addCondtionContainer.className = 'addCondtionContainer'
+
+    const addCondtion = document.createElement('button')
+    addCondtion.className = 'addCondtionButton'
+    addCondtion.onclick = addCustomField
+    addCondtion.textContent = 'Add condtion'
+
+    addCondtionContainer.appendChild(addCondtion)
+    containerWrap.appendChild(addCondtionContainer);
+
+    const applyCondtionContainer = document.createElement('div')
+    applyCondtionContainer.className = 'addCondtionContainer'
+
+    const applyCondtion = document.createElement('button')
+    applyCondtion.className = 'addCondtionButton'
+    applyCondtion.onclick = handleApplyCondition
+    applyCondtion.textContent = 'Apply condtion'
+    containerWrap.appendChild(applyCondtion);
+
+    applyCondtionContainer.appendChild(applyCondtion)
+    containerWrap.appendChild(applyCondtionContainer);
+
+    // Add buttons
+    const deleteButton = document.createElement('button');
+    deleteButton.className = 'Importer_custom_field__d2pUG';
+    deleteButton.textContent = 'Delete';
+    containerWrap.appendChild(deleteButton);
+
+    // Add event listener for export
+    deleteButton.addEventListener('click', () => {
+
+        const popupContainer = document.getElementById('popup')
+
+        popupContainer.style.display = 'flex';
+
+    });
+
+    function generateDeletePopup() {
+        const popupContainer = document.createElement('div')
+        popupContainer.id = 'popup'
+        popupContainer.className = 'popup'
+
+        const popupContent = document.createElement('div')
+        popupContent.className = 'popup-content'
+
+        const message = document.createElement('p')
+        message.textContent = `${data.componentData.length} Records will be deleted`
+        const okButton = document.createElement('button')
+        okButton.id = 'okBtn'
+        okButton.textContent = 'OK'
+        const cancelButton = document.createElement('button')
+        cancelButton.id = 'cancelBtn'
+        cancelButton.textContent = 'Cancel'
+
+        // Handle the OK button click
+        okButton.addEventListener('click', () => {
+
+            let response = deleteData(compName, condition)
+
+            console.log("yoki delete response", response)
+
+            popup.style.display = 'none';
+
+            const tableContainer = document.getElementById('tableContainer')
+            tableContainer.innerHTML = ''
+            const message = document.createElement('h3')
+            message.textContent = response.message
+            message.className = 'h3'
+            tableContainer.appendChild(message)
+
+
+        });
+
+        // Handle the Cancel button click
+        cancelButton.addEventListener('click', () => {
+            popup.style.display = 'none';
+        });
+
+        popupContent.appendChild(message)
+        popupContent.appendChild(okButton)
+        popupContent.appendChild(cancelButton)
+
+
+
+
+        popupContainer.appendChild(popupContent)
+        containerWrap.appendChild(popupContainer)
+    }
+
+    generateDeletePopup()
+
+}
+
+// getQueryParams();
+
+// Call the function to generate the structure
+
+
+fetchComponentList()
