@@ -1,0 +1,12 @@
+await updateTableData({
+        compName: "Aiemployee_users",    
+        updateSpecs: [
+            { fieldName: "prev_resume_file", fieldValue: postData.resume_file },        
+        ],
+        whereSpecs: [        
+            { fieldName: "id", fieldOperator: "=", fieldValue: postData.aiemployee_user_id }
+        ]
+    });
+  } else {
+    textResponse = userData['Keywords'];
+  }
