@@ -1,0 +1,155 @@
+id,created,createdBy,updated,updatedBy,name,description,status,categoryId
+1,"2024-08-12T09:43:09.000Z",3930,"2024-08-12T09:43:10.000Z",3930,"Data Governance","Data Governance","Active",1
+2,"2024-08-12T09:46:04.000Z",3931,"2024-08-12T09:46:05.000Z",3931,"Organizational value","Organizational value\n","Active",2
+3,"2024-08-12T09:46:17.000Z",3930,"2024-08-12T09:46:18.000Z",3930,"Data Architecture","Data Architecture","Active",6
+4,"2024-08-12T09:46:24.000Z",3931,"2024-08-12T09:46:25.000Z",3931,"Talent Management","Talent Management","Active",2
+5,"2024-08-12T09:46:41.000Z",3931,"2024-08-12T09:46:41.000Z",3931,"Workplace Enablement","Workplace Enablement","Active",2
+6,"2024-08-12T09:47:01.000Z",3929,"2024-08-12T09:47:01.000Z",3929,"Change Management ","Change Management ","Active",7
+7,"2024-08-12T09:47:09.000Z",3930,"2024-08-12T09:47:09.000Z",3930,"Data Modeling and Design","Data Modeling and Design","Active",8
+8,"2024-08-12T09:47:23.000Z",3931,"2024-08-12T09:47:25.000Z",3931,"Data Governance","Data Governance","Active",4
+9,"2024-08-12T09:47:39.000Z",3931,"2024-08-12T09:47:40.000Z",3931,"Data Engineering","Data Engineering","Active",4
+10,"2024-08-12T09:47:54.000Z",3929,"2024-08-12T09:47:55.000Z",3929,"Devices","Devices","Active",10
+11,"2024-08-12T09:47:57.000Z",3930,"2024-08-12T09:47:58.000Z",3930,"Data Storage and Operations","Data Storage and Operations","Active",9
+12,"2024-08-12T09:48:00.000Z",3931,"2024-08-12T09:48:01.000Z",3931,"Data value realization","Data value realization","Active",4
+13,"2024-08-12T09:48:34.000Z",3931,"2024-08-12T09:48:35.000Z",3931,"Operations governance","Operations governance","Active",3
+14,"2024-08-12T09:48:46.000Z",3929,"2024-08-12T09:48:46.000Z",3929,"Application","Application","Active",11
+15,"2024-08-12T09:48:47.000Z",3931,"2024-08-12T09:48:49.000Z",3931,"Service Design & innovation","Service Design & innovation\n","Active",3
+16,"2024-08-12T09:49:00.000Z",3931,"2024-08-12T09:49:01.000Z",3931,"Service Transition / deployment","Service Transition / deployment","Active",3
+17,"2024-08-12T09:49:07.000Z",3930,"2024-08-12T09:49:08.000Z",3930,"Data Security","Data Security","Active",12
+18,"2024-08-12T09:49:13.000Z",3931,"2024-08-12T09:49:15.000Z",3931,"Service Ops","Service Ops","Active",3
+19,"2024-08-12T09:49:27.000Z",3929,"2024-08-12T09:49:28.000Z",3929,"Networks","Networks","Active",13
+20,"2024-08-12T09:49:51.000Z",3930,"2024-08-12T09:49:51.000Z",3930,"Data Integration and Interoperability","Data Integration and Interoperability","Active",14
+21,"2024-08-12T09:50:00.000Z",3931,"2024-08-12T09:50:01.000Z",3931,"Tech governance","Tech governance","Active",5
+22,"2024-08-12T09:50:13.000Z",3931,"2024-08-12T09:50:15.000Z",3931,"Tech & application architecture","Tech & application architecture","Active",5
+23,"2024-08-12T09:50:25.000Z",3929,"2024-08-12T09:50:26.000Z",3929,"Data","Data","Active",15
+24,"2024-08-12T09:50:29.000Z",3931,"2024-08-12T09:50:31.000Z",3931,"Security","Security\n","Active",5
+25,"2024-08-12T09:50:46.000Z",3930,"2024-08-12T09:50:47.000Z",3930,"Document & Content Management","Document & Content Management","Active",16
+26,"2024-08-12T09:50:52.000Z",3931,"2024-08-12T09:50:53.000Z",3931,"Application & performance","Application & performance","Active",5
+27,"2024-08-12T09:51:05.000Z",3931,"2024-08-12T09:51:06.000Z",3931,"Connectivity & Compute","Connectivity & Compute","Active",5
+28,"2024-08-12T09:51:13.000Z",3929,"2024-08-12T09:51:14.000Z",3929,"Users","Users","Active",17
+29,"2024-08-12T09:51:55.000Z",3930,"2024-08-12T09:51:56.000Z",3930,"Reference & Master Data Management","Reference & Master Data Management","Active",18
+30,"2024-08-12T09:52:10.000Z",3929,"2024-08-12T09:52:10.000Z",3929,"Portfolio Planning","Portfolio Planning","Active",19
+31,"2024-08-12T09:52:44.000Z",3930,"2024-08-12T09:52:45.000Z",3930,"Data Warehousing & Business Intelligence","Data Warehousing & Business Intelligence","Active",20
+32,"2024-08-12T09:53:09.000Z",3929,"2024-08-12T09:53:10.000Z",3929,"RAID Management","RAID Management","Active",21
+33,"2024-08-12T09:53:44.000Z",3930,"2024-08-12T09:53:45.000Z",3930,"Metadata Management","Metadata Management","Active",22
+34,"2024-08-12T09:53:56.000Z",3929,"2024-08-12T09:53:57.000Z",3929,"Finance Management","Finance Management","Active",23
+35,"2024-08-12T09:54:31.000Z",3930,"2024-08-12T09:54:32.000Z",3930,"Data Quality","Data Quality","Active",24
+36,"2024-08-12T09:55:21.000Z",3930,"2024-08-12T09:55:21.000Z",3930,"Strategic intent","Strategic intent","Active",25
+37,"2024-08-12T09:55:45.000Z",3930,"2024-08-12T09:55:46.000Z",3930,"Technology","Technology","Active",25
+38,"2024-08-12T09:56:04.000Z",3930,"2024-08-12T09:56:05.000Z",3930,"Human","Human","Active",25
+39,"2024-08-12T09:56:29.000Z",3929,"2024-08-12T09:56:30.000Z",3929,"Benefit Management\t","Benefit Management\t","Active",26
+40,"2024-08-12T09:56:54.000Z",3930,"2024-08-12T09:56:54.000Z",3930,"Customer intimacy","Customer intimacy","Active",27
+41,"2024-08-12T09:57:14.000Z",3930,"2024-08-12T09:57:15.000Z",3930,"Operational and informational excellence","Operational and informational excellence","Active",27
+42,"2024-08-12T09:57:20.000Z",3929,"2024-08-12T09:57:21.000Z",3929,"Resource Management","Resource Management","Active",28
+43,"2024-08-12T09:57:37.000Z",3930,"2024-08-12T09:57:38.000Z",3930,"Product and solution leadership","Product and solution leadership","Active",27
+44,"2024-08-12T09:58:02.000Z",3929,"2024-08-12T09:58:03.000Z",3929,"Governance & Change Control","Governance & Change Control","Active",29
+45,"2024-08-12T09:58:41.000Z",3930,"2024-08-12T09:58:41.000Z",3930,"Success","Success","Active",30
+46,"2024-08-12T09:59:07.000Z",3929,"2024-08-12T09:59:08.000Z",3929,"Stakeholder Engagement & Change Management","Stakeholder Engagement & Change Management","Active",31
+47,"2024-08-12T09:59:42.000Z",3930,"2024-08-12T09:59:42.000Z",3930,"Leadership/Sponsorship","Leadership/Sponsorship","Active",32
+48,"2024-08-12T10:00:30.000Z",3930,"2024-08-12T10:00:31.000Z",3930,"Project Management","Project Management","Active",33
+49,"2024-08-12T10:03:00.000Z",3929,"2024-08-12T10:03:01.000Z",3929,"Framework & Tools","Framework & Tools","Active",34
+50,"2024-08-12T10:04:33.000Z",3929,"2024-08-12T10:04:34.000Z",3929,"Training & Development","Training & Development","Active",35
+51,"2024-08-12T10:05:47.000Z",3929,"2024-08-12T10:06:15.000Z",3929,"Customer Experience Management ","Customer Experience Management ","Active",36
+52,"2024-08-12T10:06:47.000Z",3929,"2024-08-12T10:06:48.000Z",3929,"Customer Outside-in-view","Customer Outside-in-view","Active",36
+53,"2024-08-12T10:07:08.000Z",3929,"2024-08-12T10:07:09.000Z",3929,"Customer Insight","Customer Insight","Active",36
+54,"2024-08-12T10:07:33.000Z",3929,"2024-08-12T10:07:34.000Z",3929,"Customer trust","Customer trust","Active",36
+55,"2024-08-12T10:08:27.000Z",3929,"2024-08-12T10:08:28.000Z",3929,"Strategy Management","Strategy Management","Active",37
+56,"2024-08-12T10:10:52.000Z",3931,"2024-08-12T10:10:54.000Z",3931,"Marketing & Brand Mgmt","Marketing & Brand Mgmt","Active",37
+57,"2024-08-12T10:11:04.000Z",3931,"2024-08-12T10:11:06.000Z",3931,"Ecosystem Management","Ecosystem Management","Active",37
+58,"2024-08-12T10:11:17.000Z",3931,"2024-08-12T10:11:18.000Z",3931,"Financial Sponsorship","Financial Sponsorship","Active",37
+59,"2024-08-12T10:11:29.000Z",3931,"2024-08-12T10:11:30.000Z",3931,"Market Intelligence","Market Intelligence","Active",37
+60,"2024-08-12T10:11:42.000Z",3931,"2024-08-12T10:11:43.000Z",3931,"Portfolio Management","Portfolio Management","Active",37
+61,"2024-08-12T12:32:39.000Z",3931,"2024-08-12T12:32:40.000Z",3931,"Data Governance","Data Governance","Active",38
+62,"2024-08-12T12:33:23.000Z",3931,"2024-08-12T12:33:25.000Z",3931,"Data Architecture","Data Architecture","Active",39
+63,"2024-08-12T12:33:56.000Z",3931,"2024-08-12T12:33:58.000Z",3931,"Data Modeling and Design","Data Modeling and Design","Active",40
+64,"2024-08-12T12:34:33.000Z",3931,"2024-08-12T12:34:35.000Z",3931,"Data Storage and Operations","Data Storage and Operations","Active",41
+65,"2024-08-12T12:35:08.000Z",3931,"2024-08-12T12:35:09.000Z",3931,"Data Security","Data Security","Active",42
+66,"2024-08-12T12:35:50.000Z",3931,"2024-08-12T12:35:51.000Z",3931,"Data Integration and Interoperability","Data Integration and Interoperability","Active",43
+67,"2024-08-12T12:37:18.000Z",3931,"2024-08-12T12:37:19.000Z",3931,"Document & Content Management","Document & Content Management","Active",44
+68,"2024-08-12T12:37:56.000Z",3931,"2024-08-12T12:37:57.000Z",3931,"Reference & Master Data Management","Reference & Master Data Management","Active",45
+69,"2024-08-12T12:38:37.000Z",3931,"2024-08-12T12:38:39.000Z",3931,"Data Warehousing & Business Intelligence","Data Warehousing & Business Intelligence","Active",46
+70,"2024-08-12T12:39:23.000Z",3931,"2024-08-12T12:39:24.000Z",3931,"Metadata Management","Metadata Management","Active",47
+71,"2024-08-12T12:40:43.000Z",3931,"2024-08-12T12:40:44.000Z",3931,"Data Quality","Data Quality","Active",48
+72,"2024-08-16T10:16:18.000Z",3888,"2024-08-16T10:16:19.000Z",3888,"test level 2","test level 2","Active",49
+73,"2024-08-19T05:25:41.000Z",3930,"2024-08-19T05:25:42.000Z",3930,"Vision & Strategy","Vision & Strategy","Active",50
+74,"2024-08-19T05:26:09.000Z",3930,"2024-08-19T05:26:09.000Z",3930,"Executive Sponsorship","Executive Sponsorship","Active",50
+75,"2024-08-19T05:26:33.000Z",3930,"2024-08-19T05:26:34.000Z",3930,"Investment","Investment","Active",50
+76,"2024-08-19T05:27:49.000Z",3930,"2024-08-19T05:27:50.000Z",3930,"Data Availability","Data Availability","Active",53
+77,"2024-08-19T05:28:15.000Z",3930,"2024-08-19T05:28:16.000Z",3930,"Data Quality","Data Quality","Active",53
+78,"2024-08-19T05:28:29.000Z",3931,"2024-08-19T05:28:31.000Z",3931,"Ethical Standards","Ethical Standards","Active",51
+79,"2024-08-19T05:28:37.000Z",3930,"2024-08-19T05:28:39.000Z",3930,"Infrastructure","Infrastructure","Active",53
+80,"2024-08-19T05:28:45.000Z",3931,"2024-08-19T05:28:46.000Z",3931,"Compliance","Compliance","Active",51
+81,"2024-08-19T05:28:59.000Z",3931,"2024-08-19T05:29:00.000Z",3931,"Risk Management","Risk Management","Active",51
+82,"2024-08-19T05:29:46.000Z",3931,"2024-08-19T05:29:46.000Z",3931,"AI Adoption","AI Adoption","Active",52
+83,"2024-08-19T05:30:05.000Z",3931,"2024-08-19T05:30:07.000Z",3931,"Change Management","Change Management","Active",52
+84,"2024-08-19T05:30:19.000Z",3931,"2024-08-19T05:30:20.000Z",3931,"Employee Buy-In","Employee Buy-In","Active",52
+85,"2024-08-19T05:33:07.000Z",3929,"2024-08-19T05:33:07.000Z",3929,"AI Expertise","AI Expertise","Active",54
+86,"2024-08-19T05:33:25.000Z",3929,"2024-08-19T05:33:26.000Z",3929,"Training Programs","Training Programs","Active",54
+87,"2024-08-19T05:33:45.000Z",3929,"2024-08-19T05:33:45.000Z",3929,"Hiring Strategy","Hiring Strategy","Active",54
+88,"2024-08-19T05:36:23.000Z",3929,"2024-08-19T05:36:23.000Z",3929,"AI Tools & Platforms","AI Tools & Platforms","Active",55
+89,"2024-08-19T05:36:53.000Z",3929,"2024-08-19T05:36:54.000Z",3929,"Integration","Integration","Active",55
+90,"2024-08-19T05:37:14.000Z",3929,"2024-08-19T05:37:15.000Z",3929,"Innovation","Innovation","Active",55
+91,"2024-08-19T09:45:51.000Z",3931,"2024-08-19T09:45:52.000Z",3931,"Strategy and Vision","Strategy and Vision","Active",56
+92,"2024-08-19T09:46:13.000Z",3931,"2024-08-19T09:46:15.000Z",3931,"Governance and Compliance","Governance and Compliance","Active",57
+93,"2024-08-19T09:46:39.000Z",3931,"2024-08-19T09:46:40.000Z",3931,"Skills and Training","Skills and Training","Active",58
+94,"2024-08-19T09:47:03.000Z",3931,"2024-08-19T09:47:04.000Z",3931,"Integration and Interoperability","Integration and Interoperability","Active",59
+95,"2024-08-19T09:47:27.000Z",3931,"2024-08-19T09:47:28.000Z",3931,"Innovation and Agility","Innovation and Agility","Active",60
+96,"2024-08-19T09:47:51.000Z",3931,"2024-08-19T09:47:52.000Z",3931,"User Adoption and Engagement","User Adoption and Engagement","Active",61
+97,"2024-08-22T11:35:10.000Z",0,"2024-08-22T11:35:11.000Z",0,"Consumer Behavior","Consumer Behavior","Active",62
+98,"2024-08-22T11:35:31.000Z",0,"2024-08-22T11:35:32.000Z",0,"Entertainment","Entertainment","Active",63
+99,"2024-08-22T11:35:51.000Z",0,"2024-08-22T11:35:52.000Z",0,"Health and Wellness","Health and Wellness","Active",64
+100,"2024-08-22T11:36:13.000Z",0,"2024-08-22T11:36:14.000Z",0,"Lifestyle Preferences","Lifestyle Preferences","Active",65
+101,"2024-08-22T11:36:34.000Z",0,"2024-08-22T11:36:35.000Z",0,"Daily Technology","Daily Technology","Active",66
+102,"2024-08-23T10:26:29.000Z",3931,"2024-08-23T10:26:30.000Z",3931,"Technology Usage","Technology Usage","Active",67
+103,"2024-08-23T10:26:57.000Z",3931,"2024-08-23T10:26:58.000Z",3931,"Health and Fitness","Health and Fitness","Active",68
+104,"2024-08-23T10:27:27.000Z",3931,"2024-08-23T10:27:28.000Z",3931,"Entertainment Preferences","Entertainment Preferences","Active",69
+105,"2024-08-23T10:27:52.000Z",3931,"2024-08-23T10:27:53.000Z",3931,"Shopping Habits","Shopping Habits","Active",70
+106,"2024-08-26T09:53:18.000Z",3931,"2024-08-26T09:53:18.000Z",3931,"test level 1","test level 1","Active",71
+107,"2024-08-26T09:53:38.000Z",3931,"2024-08-26T09:53:39.000Z",3931,"test level 2","test level 2","Active",72
+108,"2024-08-26T09:53:59.000Z",3931,"2024-08-26T09:53:59.000Z",3931,"test level 3","test level 3","Active",73
+109,"2024-08-26T09:54:20.000Z",3931,"2024-08-26T09:54:21.000Z",3931,"test level 4","test level 4","Active",74
+110,"2024-08-26T09:54:45.000Z",3931,"2024-08-26T09:54:46.000Z",3931,"test level 5","test level 5","Active",75
+111,"2024-08-26T09:58:49.000Z",3930,"2024-08-26T09:58:49.000Z",3930,"trycategory1","trycategory1","Active",76
+112,"2024-08-26T10:02:04.000Z",3930,"2024-08-26T10:02:05.000Z",3930,"trycategoryone2","trycategoryone2\n","Active",77
+113,"2024-08-26T10:02:31.000Z",3930,"2024-08-26T10:02:32.000Z",3930,"trycategorytwo2","trycategorytwo2","Active",77
+114,"2024-08-26T11:53:20.000Z",3930,"2024-08-26T11:53:21.000Z",3930,"trysubcat1","trysubcat1","Active",78
+115,"2024-08-26T11:54:28.000Z",3930,"2024-08-26T11:54:28.000Z",3930,"trysubcat two1","trysubcat two1","Active",78
+116,"2024-08-26T11:56:47.000Z",3930,"2024-08-26T11:56:48.000Z",3930,"trysubcat 2","trysubcat 2","Active",79
+117,"2024-08-26T12:09:26.000Z",3931,"2024-08-26T12:09:26.000Z",3931,"trylev1","trylev1","Active",80
+118,"2024-08-26T12:09:39.000Z",3931,"2024-08-26T12:09:40.000Z",3931,"trylev2","trylev2","Active",80
+119,"2024-08-26T12:11:20.000Z",3931,"2024-08-26T12:11:21.000Z",3931,"trylev3","trylev3","Active",81
+120,"2024-08-27T05:44:20.000Z",3931,"2024-08-27T05:44:20.000Z",3931,"new1","new1","Active",82
+121,"2024-08-27T05:44:41.000Z",3931,"2024-08-27T05:44:41.000Z",3931,"new2","new2","Active",83
+122,"2024-08-27T05:45:01.000Z",3931,"2024-08-27T05:45:01.000Z",3931,"new3","new3","Active",84
+123,"2024-08-29T05:45:29.000Z",0,"2024-08-29T05:45:29.000Z",0,"D3","D3","Active",85
+124,"2024-08-29T05:45:46.000Z",0,"2024-08-29T05:45:47.000Z",0,"D2","D2","Active",85
+125,"2024-08-29T05:46:06.000Z",0,"2024-08-29T05:46:07.000Z",0,"D1","D1","Active",86
+126,"2024-08-29T05:48:18.000Z",3930,"2024-08-29T05:48:19.000Z",3930,"csvtryone ","csvtryone ","Active",88
+127,"2024-08-29T05:48:50.000Z",3930,"2024-08-29T05:48:51.000Z",3930,"csvtrytwo","csvtrytwo","Active",88
+128,"2024-08-29T05:51:14.000Z",3930,"2024-08-29T05:51:15.000Z",3930,"csvtry2","csvtry2","Active",89
+129,"2024-08-29T06:19:24.000Z",3931,"2024-08-29T06:19:25.000Z",3931,"D4","D4","Active",87
+130,"2024-08-29T06:20:17.000Z",3931,"2024-08-29T06:20:17.000Z",3931,"D5","D5","Active",90
+131,"2024-08-29T06:20:32.000Z",3931,"2024-08-29T06:20:33.000Z",3931,"D6","D6","Active",90
+132,"2024-08-29T06:26:21.000Z",3931,"2024-08-29T06:26:22.000Z",3931,"A1","A1","Active",91
+133,"2024-08-29T06:27:55.000Z",3931,"2024-08-29T06:27:56.000Z",3931,"A2","A2","Active",92
+134,"2024-08-29T06:28:08.000Z",3931,"2024-08-29T06:28:09.000Z",3931,"A3","A3","Active",92
+135,"2024-08-29T10:09:33.000Z",3931,"2024-08-29T10:09:34.000Z",3931,"A1","A1","Active",93
+136,"2024-08-29T10:10:34.000Z",3931,"2024-08-29T10:10:34.000Z",3931,"A2","A2","Active",94
+137,"2024-08-29T10:10:54.000Z",3931,"2024-08-29T10:10:55.000Z",3931,"A3","A3","Active",94
+138,"2024-08-30T04:27:36.000Z",3931,"2024-08-30T04:27:36.000Z",3931,"S1","S1","Active",95
+139,"2024-08-30T04:28:13.000Z",3931,"2024-08-30T04:28:13.000Z",3931,"S5","S5","Active",96
+140,"2024-08-30T04:28:23.000Z",3930,"2024-08-30T04:28:24.000Z",3930,"newcsvsubcategory1","newcsvsubcategory1","Active",97
+141,"2024-08-30T04:28:27.000Z",3931,"2024-08-30T04:28:28.000Z",3931,"S6","S6","Active",96
+142,"2024-08-30T04:28:56.000Z",3930,"2024-08-30T04:28:57.000Z",3930,"newcsvsubcategory2","newcsvsubcategory2","Active",97
+143,"2024-08-30T04:30:26.000Z",3930,"2024-08-30T04:30:27.000Z",3930,"newcsvsubcategory3","newcsvsubcategory3","Active",98
+144,"2024-08-30T05:48:54.000Z",0,"2024-08-30T05:48:55.000Z",0,"SL1","SL1","Active",99
+145,"2024-08-30T05:49:13.000Z",0,"2024-08-30T05:49:14.000Z",0,"SL2","SL2","Active",99
+146,"2024-08-30T05:49:56.000Z",0,"2024-08-30T05:49:57.000Z",0,"SL3","SL3","Active",100
+147,"2024-08-30T06:09:57.000Z",3931,"2024-08-30T06:09:57.000Z",3931,"SL4","SL4","Active",101
+148,"2024-08-30T06:10:56.000Z",3931,"2024-08-30T06:10:57.000Z",3931,"SL5","SL5","Active",102
+149,"2024-08-30T06:11:09.000Z",3931,"2024-08-30T06:11:10.000Z",3931,"SL6","SL6","Active",102
+150,"2024-08-30T12:17:14.000Z",3931,"2024-08-30T12:17:15.000Z",3931,"SC1","SC1","Active",103
+151,"2024-08-30T12:17:28.000Z",3931,"2024-08-30T12:17:29.000Z",3931,"SC2","SC2","Active",103
+152,"2024-08-30T12:18:08.000Z",3931,"2024-08-30T12:18:09.000Z",3931,"SC3","SC3","Active",104
+153,"2024-08-30T12:18:22.000Z",3931,"2024-08-30T12:18:23.000Z",3931,"SC4","SC4","Active",104
+154,"2024-08-30T12:18:36.000Z",3931,"2024-08-30T12:18:37.000Z",3931,"SC5","SC5","Active",104
