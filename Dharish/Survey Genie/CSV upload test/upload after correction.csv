@@ -1,0 +1,11 @@
+category,subcategory,question,required,answer-1,score-1,answer-2,score-2,answer-3,score-3,answer-4,score-4
+101,147,What is your primary mobile device?,1,iPhone,1,Android,2,Other,3,,
+101,147,How often do you use your mobile device for social media?,0,Daily,1,Several times a week,2,Rarely,3,Never,4
+101,147,What is the primary purpose of your mobile device?,0,Communication,1,Entertainment,2,Work,3,Education,4
+102,148,What type of computer do you primarily use?,0,Desktop,1,Laptop,2,Tablet,3,,
+102,148,How often do you use your computer for work or school?,1,Daily,1,Several times a week,2,Rarely,3,Never,4
+102,148,What is the primary operating system on your computer?,1,Windows,1,macOS,2,Linux,3,Other,4
+102,149,Which online streaming service do you use most frequently?,0,Netflix,1,YouTube,2,Amazon Prime Video,3,Other,4
+102,149,How often do you use online shopping platforms?,0,Daily,1,Several times a week,2,Rarely,3,Never,4
+102,149,What is your preferred method of online communication?,0,Email,1,"Messaging apps (WhatsApp, Messenger, etc.)",2,Social media,3,Video calls,4
+102,149,How important is privacy to you when using technology?,0,Very important,1,Somewhat important,2,Not very important,3,Not important at all,4

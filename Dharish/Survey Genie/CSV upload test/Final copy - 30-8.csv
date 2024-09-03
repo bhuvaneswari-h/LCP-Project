@@ -1,0 +1,11 @@
+category,subcategory,question,required,answer-1,score-1,answer-2,score-2,answer-3,score-3,answer-4,score-4,answer-5,score-5
+103,150,How satisfied are you with your current work environment?,1,Very Dissatisfied,1,Dissatisfied,2,Neutral,3,Satisfied,4,Very Satisfied,5
+103,150,Do you feel your workplace promotes a healthy work-life balance?,0,Strongly Disagree,1,Disagree,2,Neutral,3,Agree,4,Strongly Agree,5
+103,151,How well does your manager support your professional growth?,1,Very Poor,1,Poor,2,Average,3,Good,4,Excellent,5
+103,151,How comfortable are you approaching your manager with concerns?,0,Very Uncomfortable,1,Uncomfortable,2,Neutral,3,Comfortable,4,Very Comfortable,5
+103,151,Does your manager provide regular and constructive feedback?,1,Never,1,Rarely,2,Sometimes,3,Often,4,Always,5
+104,152,How would you rate your overall job performance?,1,Poor,1,Below Average,2,Average,3,Good,4,Excellent,5
+104,152,How often do you meet your performance goals?,0,Never,1,Rarely,2,Sometimes,3,Often,4,Always,5
+104,153,Do you feel you have opportunities for skill development in your role?,0,Strongly Disagree,1,Disagree,2,Neutral,3,Agree,4,Strongly Agree,5
+104,153,How satisfied are you with the training and development programs offered by the company?,1,Very Dissatisfied,1,Dissatisfied,2,Neutral,3,Satisfied,4,Very Satisfied,5
+104,154,How effectively do you collaborate with your team members?,0, Very Ineffectively,1, Ineffectively,2, Neutral,3, Effectively,4, Very Effectively,5

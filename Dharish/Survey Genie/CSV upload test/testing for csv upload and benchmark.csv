@@ -1,0 +1,26 @@
+category,subcategory,question,required,answer-1,score-1,answer-2,score-2,answer-3,score-3,answer-4,score-4,answer-5,score-5
+71,106,What is your biggest purchase in the past year?,0,Electronics,1,Furniture,1,Car,1,Vacation,1,Other,1
+71,106,How do you research products before buying?,0,Online reviews,2,Recommendations,2,Store visits,2,Comparing prices,2,Other,2
+71,106,How important is brand reputation to you?,0,Very important,1,Somewhat important,1,Not very important,1,Not important at all,1,,
+71,106,How often do you impulse buy?,0,Rarely,2,Sometimes,2,Often,2,Very often,2,,
+71,106,What factors influence your purchasing decisions?,0,Price,1,Quality,1,Brand,1,Recommendations,1,Other,1
+72,107,How much sleep do you get per night?,0,Less than 6 hours,2,6-7 hours,2,7-8 hours,2,8-9 hours,2,More than 9 hours,2
+72,107,How often do you eat fruits and vegetables?,0,Daily,1,Every other day,1,A few times a week,1,Rarely,1,Never,1
+72,107,Do you smoke cigarettes?,0,Yes,2,No,2,,,,,,
+72,107,How often do you drink alcohol?,0,Never,1,Rarely,1,Sometimes,1,Often,1,Regularly,1
+72,107,How important is stress management to you?,0,Very important,2,Somewhat important,2,Not very important,2,Not important at all,2,,
+73,108,What is your favorite TV show genre?,0,Drama,1,Comedy,1,Reality TV,1,Crime,1,Other,1
+73,108,How much time do you spend watching TV per day?,0,Less than 1 hour,2,1-2 hours,2,2-3 hours,2,3-4 hours,2,More than 4 hours,2
+73,108,Do you prefer reading physical books or ebooks?,0,Physical books,1,Ebooks,1,Both,1,,,,
+73,108,How often do you attend concerts or live events?,0,Rarely,2,Sometimes,2,Often,2,Very often,2,,
+73,108,What is your favorite music genre?,0,Pop,1,Rock,1,Hip-hop,1,Classical,1,Other,1
+74,109,How satisfied are you with your current job?,1,Very satisfied,2,Satisfied,2,Neutral,2,Dissatisfied,2,Very dissatisfied,2
+74,109,What is your desired career path?,1,Management,1,Specialization,1,Entrepreneurship,1,Stay in current role,1,Other,1
+74,109,How many hours do you work per week?,1,Less than 30,2,30-40,2,40-50,2,50-60,2,More than 60,2
+74,109,How important is work-life balance to you?,1,Very important,1,Somewhat important,1,Not very important,1,Not important at all,1,,
+74,109,What is your biggest work-related stressor?,1,Workload,2,Job security,2,Relationships with colleagues,2,Lack of growth opportunities,2,Other,2
+75,110,What is your current income level?,1,"Less than $30,000",1,"$30,000-$50,000",1,"$50,000-$70,000",1,"$70,000-$90,000",1,"More than $90,000",1
+75,110,How much do you save each month?,1,Less than $100,2,$100-$300,2,$300-$500,2,$500-$700,2,More than $700,2
+75,110,Do you have any debt?,1,Yes,1,No,1,,,,,,
+75,110,What are your financial goals?,1,Save for retirement,2,Buy a house,2,Pay off debt,2,Start a business,2,Other,2
+75,110,How confident are you in your financial future?,1,Very confident,2,Somewhat confident,2,Not very confident,2,Not confident at all,2,,

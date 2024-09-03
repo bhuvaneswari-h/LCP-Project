@@ -1,0 +1,16 @@
+category,subcategory,question,required,answer-1,score-1,answer-2,score-2,answer-3,score-3,answer-4,score-4,answer-5,score-5
+95,138,C01,0,Electronics,1,Furniture,2,Car,3,Vacation,4,Other,5
+95,138,C02,1,Online reviews,1,Recommendations,2,Store visits,3,Comparing prices,4,Other,5
+95,138,C03,0,Very important,1,Somewhat important,2,Not very important,3,Not important at all,4,,
+95,138,C04,0,Rarely,1,Sometimes,2,Often,3,Very often,4,,
+95,138,C05,1,Price,1,Quality,2,Brand,3,Recommendations,4,Other,5
+96,139,C06,0,Less than 6 hours,1,6-7 hours,2,7-8 hours,3,8-9 hours,4,More than 9 hours,5
+96,139,C07,0,Daily,1,Every other day,2,A few times a week,3,Rarely,4,Never,5
+96,139,C08,1,Yes,1,No,2,,,,,,
+96,139,C09,0,Never,1,Rarely,2,Sometimes,3,Often,4,Regularly,5
+96,139,C10,0,Very important,1,Somewhat important,2,Not very important,3,Not important at all,4,,
+96,141,C11,0,Drama,1,Comedy,2,Reality TV,3,Crime,4,Other,5
+96,141,C12,1,Less than 1 hour,1,1-2 hours,2,2-3 hours,3,3-4 hours,4,More than 4 hours,5
+96,141,C13,0,Physical books,1,Ebooks,2,Both,3,,,,
+96,141,C14,0,Rarely,1,Sometimes,2,Often,3,Very often,4,,
+96,141,C15,0,Pop,1,Rock,2,Hip-hop,3,Classical,4,Other,5
